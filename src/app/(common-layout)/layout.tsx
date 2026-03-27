@@ -1,4 +1,4 @@
-// import { Navbar } from "@/components/layouts/Navbar";
+import { Navbar } from "@/components/layouts/Navbar";
 import React from "react";
 
 export default function CommonLayout({
@@ -8,7 +8,7 @@ export default function CommonLayout({
 }>) {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <div className="container mx-auto">{children}</div>
     </>
