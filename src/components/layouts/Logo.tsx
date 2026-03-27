@@ -6,7 +6,7 @@ export default function Logo() {
     url: "/",
     src: "/logo.png",
     alt: "logo",
-    title: "ECO-SPARK-HUB",
+    title: "ECO-HUB",
   };
 
   return (
@@ -19,7 +19,7 @@ export default function Logo() {
         width={32}
         height={40}
         alt={logo.alt}
-        className="dark:invert h-auto w-auto"
+        className="h-auto w-auto"
       />
       <span className="text-lg font-black tracking-tighter bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
         {logo.title}
