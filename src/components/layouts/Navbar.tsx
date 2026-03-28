@@ -1,20 +1,12 @@
 "use client";
 
-import { Book, ChevronRight, Menu, Sunset, Trees, Zap } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ChevronRight, Menu } from "lucide-react";
+import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   Sheet,
@@ -63,8 +55,8 @@ const Navbar = ({
     signup: { title: "Register", url: "/register" },
   },
 }: NavbarProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
 
   const isActive = (url: string) => {
     if (url === "/") return pathname === "/";
@@ -85,17 +77,17 @@ const Navbar = ({
                 <NavigationMenuList>
                   {menu.map((item) => (
                     <NavigationMenuItem key={item.title}>
-                      <NavigationMenuLink
-                        asChild
+                      <Link
+                        href={item.url}
                         className={cn(
-                          "group inline-flex h-9 w-max items-center justify-center rounded-full px-4 py-2 text-sm font-bold transition-colors",
+                          "group inline-flex h-9 w-max items-center justify-center rounded-full px-4 py-2 text-sm font-bold transition-all duration-200",
                           isActive(item.url)
-                            ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
-                            : "text-slate-600 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-400",
+                            ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/20"
+                            : "text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 dark:text-slate-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400",
                         )}
                       >
-                        <Link href={item.url}>{item.title}</Link>
-                      </NavigationMenuLink>
+                        {item.title}
+                      </Link>
                     </NavigationMenuItem>
                   ))}
                 </NavigationMenuList>
@@ -103,13 +95,29 @@ const Navbar = ({
             </div>
           </div>
 
-          <div className="flex gap-2">
-            <ModeToggle />
+          <div className="flex items-center gap-3">
+            <div className="mr-2">
+              <ModeToggle />
+            </div>
 
-            <Button asChild variant="outline" size="sm">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="hidden sm:flex border-slate-200 dark:border-slate-800 font-semibold hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/30 dark:hover:text-emerald-400 transition-colors"
+            >
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
-            <Button asChild size="sm">
+
+            <Button
+              asChild
+              size="lg"
+              className={cn(
+                "bg-emerald-600 text-white font-bold px-8 shadow-lg shadow-emerald-600/20",
+                "hover:bg-white hover:text-emerald-600 hover:border-emerald-600 border border-transparent",
+                "transition-all duration-300 active:scale-95",
+              )}
+            >
               <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
           </div>
@@ -121,7 +129,7 @@ const Navbar = ({
             {/* Logo */}
             <Logo />
 
-            <Sheet>
+            <Sheet open={isOpen} onOpenChange={(value) => setIsOpen(!!value)}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Menu className="size-4" />
@@ -144,19 +152,33 @@ const Navbar = ({
                         key={item.title}
                         href={item.url}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center justify-between p-3 rounded-xl font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+                        className={cn(
+                          "flex items-center justify-between p-3 rounded-xl font-bold transition-colors",
+                          isActive(item.url)
+                            ? "bg-emerald-600 text-white"
+                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900",
+                        )}
                       >
                         {item.title}
-                        <ChevronRight className="h-4 w-4 opacity-20" />
+                        <ChevronRight
+                          className={cn(
+                            "h-4 w-4",
+                            isActive(item.url) ? "opacity-100" : "opacity-20",
+                          )}
+                        />
                       </Link>
                     ))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
+                    <Button
+                      asChild
+                      variant="outline"
+                      onClick={() => setIsOpen(false)}
+                    >
                       <Link href={auth.login.url}>{auth.login.title}</Link>
                     </Button>
-                    <Button asChild>
+                    <Button asChild onClick={() => setIsOpen(false)}>
                       <Link href={auth.signup.url}>{auth.signup.title}</Link>
                     </Button>
                   </div>

@@ -21,7 +21,7 @@ export default function Logo() {
         alt={logo.alt}
         className="h-auto w-auto"
       />
-      <span className="text-lg font-black tracking-tighter bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+      <span className="text-lg font-black tracking-tighter bg-linear-to-r text-emerald-300 to-emerald-800 bg-clip-text">
         {logo.title}
       </span>
     </Link>
