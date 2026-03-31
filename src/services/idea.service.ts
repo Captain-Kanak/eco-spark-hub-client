@@ -4,7 +4,7 @@ import { ApiResponse, Idea } from "@/types";
 const API_URL = env.API_URL;
 
 export const ideaServices = {
-  getIdeas: async (): Promise<ApiResponse<Idea>> => {
+  getIdeas: async (): Promise<ApiResponse<Idea[]>> => {
     try {
       const url = `${API_URL}/api/v1/ideas`;
 
@@ -12,8 +12,9 @@ export const ideaServices = {
 
       if (!res.ok) {
         return {
+          success: false,
+          message: "Error fetching ideas",
           data: null,
-          error: { message: "Error fetching ideas" },
         };
       }
 
@@ -21,19 +22,60 @@ export const ideaServices = {
 
       if (!result.success) {
         return {
+          success: false,
+          message: result.message || "Error fetching ideas",
           data: null,
-          error: { message: "Error fetching ideas" },
         };
       }
 
       return {
+        success: true,
+        message: result.message || "Ideas fetched successfully",
         data: result.data,
-        error: null,
+        meta: result.meta,
       };
     } catch (error) {
       return {
+        success: false,
+        message: "Error fetching ideas",
         data: null,
-        error: { message: "Error fetching ideas" },
+      };
+    }
+  },
+  getIdeaById: async (id: string): Promise<ApiResponse<Idea>> => {
+    try {
+      const url = `${API_URL}/api/v1/ideas/${id}`;
+
+      const res = await fetch(url.toString());
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error fetching idea",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error fetching idea",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Error fetching idea",
+        data: null,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error fetching idea",
+        data: null,
       };
     }
   },

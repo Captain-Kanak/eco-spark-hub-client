@@ -1,4 +1,5 @@
-import { AppSidebar } from "@/components/app-sidebar";
+import React from "react";
+import { AppSidebar } from "@/components/layouts/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,12 +14,13 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import React from "react";
 
 export default function DashboardLayout({
-  children,
+  admin,
+  member,
 }: Readonly<{
-  children: React.ReactNode;
+  admin: React.ReactNode;
+  member: React.ReactNode;
 }>) {
   return (
     <SidebarProvider>

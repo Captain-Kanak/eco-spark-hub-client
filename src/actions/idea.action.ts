@@ -1,3 +1,5 @@
+"use server";
+
 import { ideaServices } from "@/services/idea.service";
 import { ApiResponse, Idea } from "@/types";
 
