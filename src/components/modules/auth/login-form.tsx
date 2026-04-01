@@ -23,7 +23,8 @@ import { useForm } from "@tanstack/react-form";
 import { authValidations } from "@/validations/auth.validation";
 import { toast } from "sonner";
 import { login } from "@/actions/auth.action";
-import { Eye, EyeOff, Key, Loader2, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
@@ -31,6 +32,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -45,15 +47,19 @@ export function LoginForm({
       try {
         const result = await login(value);
 
-        if (!result) {
+        if (!result.success) {
           toast.error("An unexpected error occurred", { id: toastId });
           setIsUploading(false);
           return;
         }
 
-        toast.success("Verification email sent!", { id: toastId });
+        toast.success(`Welcome Back Mr. ${result.data?.name}!`, {
+          id: toastId,
+        });
         setIsUploading(false);
+        router.push("/");
       } catch (error) {
+        console.log(error);
         toast.error("An unexpected error occurred", { id: toastId });
         setIsUploading(false);
       }
@@ -71,6 +77,7 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           <form
+            id="login-form"
             onSubmit={(e) => {
               e.preventDefault();
               form.handleSubmit(e);
@@ -105,9 +112,9 @@ export function LoginForm({
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
+                        type={showPassword ? "text" : "password"}
                         className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
                         placeholder="••••••••"
-                        type="password"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
@@ -136,14 +143,18 @@ export function LoginForm({
 
         <CardFooter className="flex flex-col px-8 pb-10 space-y-4">
           <Button
-            form="register-form"
+            form="login-form"
             type="submit"
             disabled={isUploading}
             className="w-full h-12 bg-slate-900 dark:bg-blue-600 hover:scale-[1.02] active:scale-[0.98] transition-all font-bold text-white rounded-xl cursor-pointer"
           >
             {isUploading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Logging...
+                <Loader2
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />{" "}
+                Logging...
               </>
             ) : (
               "Login"

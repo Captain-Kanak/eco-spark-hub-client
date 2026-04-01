@@ -3,6 +3,11 @@ export enum UserRole {
   MEMBER,
 }
 
+export enum UserStatus {
+  ACTIVE,
+  DEACTIVE,
+}
+
 export enum IdeaStatus {
   PENDING,
   APPROVED,

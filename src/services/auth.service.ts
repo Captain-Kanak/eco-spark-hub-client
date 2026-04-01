@@ -1,17 +1,20 @@
 import { env } from "@/env";
-import { setTokenInCookie } from "@/lib/token";
-import { LoginPayload, RegisterPayload } from "@/types";
-import { redirect } from "next/navigation";
+import {
+  setAccessTokenInCookie,
+  setBetterAuthTokenInCookie,
+  setRefreshTokenInCookie,
+} from "@/lib/token";
+import { LoginPayload, RegisterPayload, User } from "@/types";
 
 const API_URL = env.API_URL;
 
 export const authServices = {
-  register: async (payload: RegisterPayload) => {
+  register: async (
+    payload: RegisterPayload,
+  ): Promise<{ success: boolean; data: User | null }> => {
     try {
       const url = `${API_URL}/api/v1/auth/register`;
 
-      console.log("Register payload:", payload);
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
@@ -21,24 +24,26 @@ export const authServices = {
       });
 
       if (!res.ok) {
-        return false;
+        return { success: false, data: null };
       }
 
       const result = await res.json();
 
-      console.log("Register result:", result);
+      if (!result.success) {
+        return { success: false, data: null };
+      }
 
-      return true;
+      return { success: true, data: result.data.user };
     } catch (error) {
-      return false;
+      return { success: false, data: null };
     }
   },
-  login: async (payload: LoginPayload) => {
+  login: async (
+    payload: LoginPayload,
+  ): Promise<{ success: boolean; data: User | null }> => {
     try {
       const url = `${API_URL}/api/v1/auth/login`;
 
-      console.log("Login payload:", payload);
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
@@ -48,21 +53,26 @@ export const authServices = {
       });
 
       if (!res.ok) {
-        return false;
+        return { success: false, data: null };
       }
 
       const result = await res.json();
-      const { token, accessToken, refreshToken, user } = result;
 
-      await setTokenInCookie("accessToken", accessToken);
+      if (!result.success) {
+        return { success: false, data: null };
+      }
 
-      console.log("Login result:", result);
+      const { token, accessToken, refreshToken } = result.data;
 
-      redirect("/");
+      await setBetterAuthTokenInCookie(token);
+      await setAccessTokenInCookie(accessToken);
+      await setRefreshTokenInCookie(refreshToken);
 
-      return true;
+      console.log({ success: true, data: result.data.user });
+
+      return { success: true, data: result.data.user };
     } catch (error) {
-      return false;
+      return { success: false, data: null };
     }
   },
 };

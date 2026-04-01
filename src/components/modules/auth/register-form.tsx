@@ -25,8 +25,8 @@ import {
   CheckCircle2,
   Eye,
   EyeOff,
-  Key,
   Loader2,
+  Lock,
   Mail,
   User,
 } from "lucide-react";
@@ -44,21 +44,21 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
     },
     validators: { onSubmit: authValidations.registerFormSchema },
     onSubmit: async ({ value }) => {
-      console.log("Submitting form with values:", value);
-
       setIsUploading(true);
       const toastId = toast.loading("Creating your account...");
 
       try {
         const result = await register(value);
 
-        if (!result) {
+        if (!result.success) {
           toast.error("An unexpected error occurred", { id: toastId });
           setIsUploading(false);
           return;
         }
 
-        toast.success("Verification email sent!", { id: toastId });
+        toast.success(`Verification email sent to ${result.data?.email}`, {
+          id: toastId,
+        });
         setIsUploading(false);
       } catch (error) {
         toast.error("An unexpected error occurred", { id: toastId });
@@ -85,6 +85,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
 
       <CardContent>
         <form
+          id="register-form"
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit(e);
@@ -136,11 +137,11 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                 <Field>
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
+                      type={showPassword ? "text" : "password"}
                       className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
                       placeholder="••••••••"
-                      type="password"
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
@@ -176,7 +177,11 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         >
           {isUploading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creating...
+              <Loader2
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />{" "}
+              Registering...
             </>
           ) : (
             "Register"

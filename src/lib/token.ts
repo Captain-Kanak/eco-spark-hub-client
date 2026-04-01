@@ -1,46 +1,44 @@
 "use server";
 
-import { env } from "@/env";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { setCookie } from "./cookie";
 
-const secret = env.ACCESS_TOKEN_SECRET;
+const oneDayInSeconds = 24 * 60 * 60;
+const sevenDaysInSeconds = 7 * oneDayInSeconds;
 
-const getTokenRemainingTime = (token: string): number => {
-  if (!token) return 0;
-
-  try {
-    const tokenPayload = secret
-      ? (jwt.verify(token, secret) as JwtPayload)
-      : (jwt.decode(token) as JwtPayload);
-
-    if (tokenPayload && !tokenPayload.exp) {
-      return 0;
-    }
-
-    const remainingTime =
-      tokenPayload && tokenPayload.exp
-        ? tokenPayload.exp * 1000 - Math.floor(Date.now())
-        : 0;
-
-    return remainingTime > 0 ? remainingTime : 0;
-  } catch (error) {
-    console.error(error);
-    return 0;
-  }
-};
-
-export const setTokenInCookie = async (
-  name: string,
+export const setBetterAuthTokenInCookie = async (
   token: string,
 ): Promise<void> => {
-  const maxAge = getTokenRemainingTime(token);
+  const name = "better-auth.session_token";
 
   await setCookie(name, token, {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
     path: "/",
-    maxAge,
+    maxAge: oneDayInSeconds,
+  });
+};
+
+export const setAccessTokenInCookie = async (token: string): Promise<void> => {
+  const name = "accessToken";
+
+  await setCookie(name, token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    path: "/",
+    maxAge: oneDayInSeconds,
+  });
+};
+
+export const setRefreshTokenInCookie = async (token: string): Promise<void> => {
+  const name = "refreshToken";
+
+  await setCookie(name, token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    path: "/",
+    maxAge: sevenDaysInSeconds,
   });
 };
