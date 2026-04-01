@@ -68,8 +68,6 @@ export const authServices = {
       await setAccessTokenInCookie(accessToken);
       await setRefreshTokenInCookie(refreshToken);
 
-      console.log({ success: true, data: result.data.user });
-
       return { success: true, data: result.data.user };
     } catch (error) {
       return { success: false, data: null };

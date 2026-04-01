@@ -49,6 +49,7 @@ const Navbar = ({
     { title: "IDEAS", url: "/ideas" },
     { title: "ABOUT US", url: "/about" },
     { title: "CONTACT", url: "/contact" },
+    { title: "Category", url: "/category" },
   ],
   auth = {
     login: { title: "Login", url: "/login" },
@@ -86,7 +87,7 @@ const Navbar = ({
                             : "text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 dark:text-slate-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400",
                         )}
                       >
-                        {item.title}
+                        {item.title.toUpperCase()}
                       </Link>
                     </NavigationMenuItem>
                   ))}

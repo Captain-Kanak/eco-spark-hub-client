@@ -1,0 +1,56 @@
+import { env } from "@/env";
+import { ApiResponse, Category, Idea } from "@/types";
+import { cookies } from "next/headers";
+
+const API_URL = env.API_URL;
+
+export const categoryServices = {
+  createCategory: async (
+    payload: Partial<Category>,
+  ): Promise<ApiResponse<Category>> => {
+    try {
+      const url = `${API_URL}/api/v1/categories`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error creating category",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error creating category",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Category created successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error creating category",
+        data: null,
+      };
+    }
+  },
+};
