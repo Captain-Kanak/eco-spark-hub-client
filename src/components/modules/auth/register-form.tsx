@@ -21,10 +21,19 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { authValidations } from "@/validations/auth.validation";
-import { CheckCircle2, Key, Loader2, Mail, User } from "lucide-react";
+import {
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  Key,
+  Loader2,
+  Mail,
+  User,
+} from "lucide-react";
 import { register } from "@/actions/auth.action";
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
   const form = useForm({
@@ -35,6 +44,8 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
     },
     validators: { onSubmit: authValidations.registerFormSchema },
     onSubmit: async ({ value }) => {
+      console.log("Submitting form with values:", value);
+
       setIsUploading(true);
       const toastId = toast.loading("Creating your account...");
 
@@ -133,6 +144,20 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
+
+                    {/* Eye Button */}
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer outline-none"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
                   </div>
                   <FieldError errors={field.state.meta.errors} />
                 </Field>
