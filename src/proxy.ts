@@ -23,11 +23,11 @@ export async function proxy(request: NextRequest) {
   }
 
   if (verifiedToken && verifiedToken.role === UserRole.ADMIN && !adminRoute) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   if (verifiedToken && verifiedToken.role === UserRole.MEMBER && !memberRoute) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
+    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
   }
 
   return NextResponse.next();

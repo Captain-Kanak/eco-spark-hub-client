@@ -24,8 +24,8 @@ export function NavUser({ user }: { user: any }) {
 
   const handleLogout = async () => {
     try {
-      await deleteCookie("better-auth.session_token");
       await deleteCookie("accessToken");
+      await deleteCookie("better-auth.session_token");
       await deleteCookie("refreshToken");
 
       toast.success("Logged out successfully.");

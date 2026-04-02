@@ -1,25 +1,25 @@
 export enum UserRole {
-  ADMIN,
-  MEMBER,
+  ADMIN = "ADMIN",
+  MEMBER = "MEMBER",
 }
 
 export enum UserStatus {
-  ACTIVE,
-  DEACTIVE,
+  ACTIVE = "ACTIVE",
+  DEACTIVE = "DEACTIVE",
 }
 
 export enum IdeaStatus {
-  PENDING,
-  APPROVED,
-  REJECTED,
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
 }
 
 export enum VoteType {
-  UP,
-  DOWN,
+  UP = "UP",
+  DOWN = "DOWN",
 }
 
 export enum PaymentStatus {
-  PAID,
-  UNPAID,
+  PAID = "PAID",
+  UNPAID = "UNPAID",
 }

@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/sidebar";
 import { getUserFromToken } from "@/lib/jwt";
 import { UserRole } from "@/types/enums";
-import { Badge } from "lucide-react";
 import { ModeToggle } from "@/components/layouts/ThemeToggle";
 
 export default async function DashboardLayout({
@@ -27,27 +26,17 @@ export default async function DashboardLayout({
   member: React.ReactNode;
 }>) {
   const user = await getUserFromToken();
-  let dashboardLink = "/dashboard";
+  let dashboardLink = "";
 
   switch (user?.role) {
-    case UserRole.ADMIN:
-      dashboardLink = "/admin-dashboard";
-      break;
-
     case UserRole.MEMBER:
       dashboardLink = "/dashboard";
       break;
 
-    default:
-      dashboardLink = "/dashboard";
+    case UserRole.ADMIN:
+      dashboardLink = "/admin-dashboard";
+      break;
   }
-
-  const roleColors: Record<string, string> = {
-    [UserRole.ADMIN]:
-      "bg-rose-500/10 text-rose-600 border-rose-200 dark:border-rose-900",
-    [UserRole.MEMBER]:
-      "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-900",
-  };
 
   return (
     <SidebarProvider>
@@ -70,30 +59,21 @@ export default async function DashboardLayout({
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage className="font-bold text-slate-900 dark:text-white capitalize">
-                    {user.role} Panel
+                    {user?.role} PANEL
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
 
-          <div className="flex flex-1 items-center justify-end gap-4">
-            {/* Role Indicator Badge */}
-            <Badge
-              className={`hidden sm:flex px-3 py-1 rounded-full font-bold tracking-tight ${roleColors[user.role]}`}
-            >
-              {user.role}
-            </Badge>
-
-            <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1 hidden sm:block" />
-
+          <div className="flex flex-1 items-center justify-end">
             <ModeToggle />
           </div>
         </header>
 
         <main className="flex flex-1 flex-col p-6 animate-in fade-in duration-500">
           <div className="mx-auto w-full max-w-7xl">
-            {user.role === UserRole.ADMIN ? admin : member}
+            {user?.role === UserRole.ADMIN ? admin : member}
           </div>
         </main>
       </SidebarInset>
