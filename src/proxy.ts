@@ -8,7 +8,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const accessToken = request.cookies.get("accessToken")?.value;
   const verifiedToken =
-    accessToken && (verifyToken(accessToken) as DecodedToken);
+    accessToken && ((await verifyToken(accessToken)) as DecodedToken);
 
   const authRoute = isAuthRoute(pathname);
   const adminRoute = isAdminRoute(pathname);

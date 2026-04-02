@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 
-import { SearchForm } from "@/components/layouts/search-form"
-import { VersionSwitcher } from "@/components/layouts/version-switcher"
+import { SearchForm } from "@/components/layouts/search-form";
+import { VersionSwitcher } from "@/components/layouts/version-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { DecodedToken, Route } from "@/types";
+import { usePathname } from "next/navigation";
+import { UserRole } from "@/types/enums";
+import { AdminRoutes } from "@/routes/AdminRoutes";
+import { MemberRoutes } from "@/routes/MemberRoutes";
 
 // This is sample data.
 const data = {
@@ -145,9 +150,29 @@ const data = {
       ],
     },
   ],
-}
+};
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: { user: DecodedToken } & React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+
+  let routes: Route[] = [];
+
+  switch (user.role) {
+    case UserRole.ADMIN:
+      routes = AdminRoutes;
+      break;
+
+    case UserRole.MEMBER:
+      routes = MemberRoutes;
+      break;
+
+    default:
+      routes = [];
+  }
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -178,5 +203,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

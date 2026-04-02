@@ -13,7 +13,9 @@ export const setCookie = async (
   cookieStore.set(name, value, options);
 };
 
-export const getCookie = async (name: string): Promise<string | undefined> => {
+export const getCookieToken = async (
+  name: string,
+): Promise<string | undefined> => {
   const cookieStore = await cookies();
 
   return cookieStore.get(name)?.value;

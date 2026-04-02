@@ -25,13 +25,13 @@ const memberRoutes: string[] = [
 ];
 
 export const isAuthRoute = (pathname: string): boolean => {
-  return authRoutes.some((route: string) => pathname.startsWith(route));
+  return authRoutes.some((route: string) => route === pathname);
 };
 
 export const isAdminRoute = (pathname: string): boolean => {
-  return adminRoutes.some((route: string) => pathname.startsWith(route));
+  return adminRoutes.some((route: string) => route === pathname);
 };
 
 export const isMemberRoute = (pathname: string): boolean => {
-  return memberRoutes.some((route: string) => pathname.startsWith(route));
+  return memberRoutes.some((route: string) => route === pathname);
 };
