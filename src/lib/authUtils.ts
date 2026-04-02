@@ -1,4 +1,4 @@
-const authRoutes = [
+const authRoutes: string[] = [
   "/register",
   "/login",
   "/verify-email",
@@ -6,7 +6,7 @@ const authRoutes = [
   "/reset-password",
 ];
 
-const adminRoutes = [
+const adminRoutes: string[] = [
   "/admin-dashboard",
   "/admin-dashboard/profile",
   "/admin-dashboard/create-category",
@@ -16,7 +16,7 @@ const adminRoutes = [
   "/admin-dashboard/payments-history",
 ];
 
-const memberRoutes = [
+const memberRoutes: string[] = [
   "/dashboard",
   "/dashboard/profile",
   "/dashboard/create-idea",
@@ -25,13 +25,13 @@ const memberRoutes = [
 ];
 
 export const isAuthRoute = (pathname: string): boolean => {
-  return authRoutes.some((route) => pathname.startsWith(route));
+  return authRoutes.some((route: string) => pathname.startsWith(route));
 };
 
 export const isAdminRoute = (pathname: string): boolean => {
-  return adminRoutes.some((route) => pathname.startsWith(route));
+  return adminRoutes.some((route: string) => pathname.startsWith(route));
 };
 
 export const isMemberRoute = (pathname: string): boolean => {
-  return memberRoutes.some((route) => pathname.startsWith(route));
+  return memberRoutes.some((route: string) => pathname.startsWith(route));
 };

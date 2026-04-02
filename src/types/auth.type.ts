@@ -11,6 +11,15 @@ export interface LoginPayload {
   password: string;
 }
 
+export interface DecodedToken {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  role: UserRole;
+  isDeleted: boolean;
+}
+
 export interface User {
   id: string;
   name: string;
