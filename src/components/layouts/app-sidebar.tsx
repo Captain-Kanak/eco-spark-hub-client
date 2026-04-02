@@ -32,8 +32,7 @@ export function AppSidebar({
   let routes: Route[] = [];
 
   const isActive = (url: string) => {
-    if (url === "/") return pathname === "/";
-    return pathname.startsWith(url);
+    return pathname === url;
   };
 
   switch (user?.role) {
