@@ -14,9 +14,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getUserFromToken } from "@/lib/jwt";
 import { UserRole } from "@/types/enums";
 import { ModeToggle } from "@/components/layouts/ThemeToggle";
+import { getMe } from "@/actions/auth.action";
 
 export default async function DashboardLayout({
   admin,
@@ -25,7 +25,7 @@ export default async function DashboardLayout({
   admin: React.ReactNode;
   member: React.ReactNode;
 }>) {
-  const user = await getUserFromToken();
+  const { data: user } = await getMe();
   let dashboardLink = "";
 
   switch (user?.role) {

@@ -10,3 +10,7 @@ export const register = async (payload: RegisterPayload) => {
 export const login = async (payload: LoginPayload) => {
   return await authServices.login(payload);
 };
+
+export const getMe = async () => {
+  return await authServices.getMe();
+};

@@ -24,9 +24,7 @@ export function NavUser({ user }: { user: any }) {
 
   const handleLogout = async () => {
     try {
-      await deleteCookie("accessToken");
       await deleteCookie("better-auth.session_token");
-      await deleteCookie("refreshToken");
 
       toast.success("Logged out successfully.");
       router.push("/");
@@ -45,15 +43,15 @@ export function NavUser({ user }: { user: any }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground rounded-xl cursor-pointer"
             >
               <Avatar className="h-8 w-8 border-2 border-white dark:border-slate-800 shadow-sm">
-                <AvatarImage src={user.image || ""} />
+                <AvatarImage src={user?.image || ""} />
                 <AvatarFallback className="bg-blue-600 text-white font-bold">
-                  {user.name?.charAt(0)}
+                  {user?.name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
+                <span className="truncate font-semibold">{user?.name}</span>
                 <span className="truncate text-xs text-slate-500">
-                  {user.email}
+                  {user?.email}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -68,15 +66,15 @@ export function NavUser({ user }: { user: any }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 border-2 border-white dark:border-slate-800 shadow-sm">
-                  <AvatarImage src={user.image || ""} />
+                  <AvatarImage src={user?.image || ""} />
                   <AvatarFallback className="bg-blue-600 text-white font-bold">
-                    {user.name?.charAt(0)}
+                    {user?.name?.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
+                  <span className="truncate font-semibold">{user?.name}</span>
                   <span className="truncate text-xs text-slate-500">
-                    {user.role}
+                    {user?.role}
                   </span>
                 </div>
               </div>

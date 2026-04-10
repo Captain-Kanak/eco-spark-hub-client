@@ -1,38 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "./lib/jwt";
-import { isAdminRoute, isAuthRoute, isMemberRoute } from "./lib/authUtils";
-import { DecodedToken } from "./types";
-import { UserRole } from "./types/enums";
+import { getMe } from "./actions/auth.action";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const accessToken = request.cookies.get("accessToken")?.value;
-  const verifiedToken =
-    accessToken && ((await verifyToken(accessToken)) as DecodedToken);
+  const result = await getMe();
+  const user = result.data;
 
-  const authRoute = isAuthRoute(pathname);
-  const adminRoute = isAdminRoute(pathname);
-  const memberRoute = isMemberRoute(pathname);
-
-  if (!accessToken && (adminRoute || memberRoute)) {
+  if (!result.success) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (accessToken && authRoute) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (pathname.startsWith("/admin-dashboard")) {
+    if (user.role !== "ADMIN") {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
   }
 
-  if (verifiedToken && verifiedToken?.role === UserRole.ADMIN && memberRoute) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
-  }
-
-  if (verifiedToken && verifiedToken?.role === UserRole.MEMBER && adminRoute) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
+  if (pathname.startsWith("/dashboard")) {
+    if (user.role !== "MEMBER") {
+      return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/admin-dashboard/:path*", "/dashboard/:path*"],
 };

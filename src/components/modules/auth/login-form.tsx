@@ -27,9 +27,10 @@ import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function LoginForm({
+  redirect,
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { redirect: string }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
@@ -57,7 +58,7 @@ export function LoginForm({
           id: toastId,
         });
         setIsUploading(false);
-        router.push("/");
+        router.push(redirect);
       } catch (error) {
         console.log(error);
         toast.error("An unexpected error occurred", { id: toastId });
