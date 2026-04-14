@@ -218,19 +218,15 @@ const Navbar = ({
                   asChild
                   variant="outline"
                   size="lg"
-                  className="hidden sm:flex border-slate-200 dark:border-slate-800 font-semibold hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/30 dark:hover:text-emerald-400 transition-colors"
+                  className="hidden sm:flex border-slate-200 dark:border-slate-800 font-medium hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/30 hover:border-emerald-200 dark:hover:border-emerald-900 dark:text-slate-300 dark:hover:text-emerald-400 transition-colors"
                 >
                   <Link href={auth.login.url}>{auth.login.title}</Link>
                 </Button>
 
                 <Button
-                  asChild
-                  size="lg"
-                  className={cn(
-                    "bg-emerald-600 text-white font-bold px-8 shadow-lg shadow-emerald-600/20",
-                    "hover:bg-white hover:text-emerald-600 hover:border-emerald-600 border border-transparent",
-                    "transition-all duration-300 active:scale-95",
-                  )}
+                  form="register-form"
+                  type="submit"
+                  className="bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.01] active:scale-[0.99] transition-all font-medium text-white rounded-sm shadow-lg shadow-emerald-600/20 cursor-pointer"
                 >
                   <Link href={auth.signup.url}>{auth.signup.title}</Link>
                 </Button>

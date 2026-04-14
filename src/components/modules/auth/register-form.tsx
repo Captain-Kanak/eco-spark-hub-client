@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -31,6 +30,8 @@ import {
   User,
 } from "lucide-react";
 import { register } from "@/actions/auth.action";
+import { SocialLogin } from "./SocialLogin";
+import Link from "next/link";
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const [showPassword, setShowPassword] = useState(false);
@@ -68,18 +69,22 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   });
 
   return (
-    <Card {...props}>
-      <div className="h-1.5 bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600" />
+    <Card
+      {...props}
+      className="overflow-hidden border-slate-200 dark:border-slate-800 shadow-xl"
+    >
+      {/* Sustainability Gradient Top Bar */}
+      <div className="h-1.5 bg-linear-to-r from-emerald-400 via-emerald-600 to-teal-500" />
 
       <CardHeader className="text-center pt-8 space-y-2">
-        <div className="mx-auto bg-blue-50 dark:bg-blue-900/20 w-12 h-12 rounded-2xl flex items-center justify-center mb-2">
-          <CheckCircle2 className="text-blue-600 dark:text-blue-400 w-6 h-6" />
+        <div className="mx-auto bg-emerald-50 dark:bg-emerald-900/20 w-12 h-12 rounded-2xl flex items-center justify-center mb-2">
+          <CheckCircle2 className="text-emerald-600 dark:text-emerald-400 w-6 h-6" />
         </div>
         <CardTitle className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-          Join Us
+          Join EcoSpark
         </CardTitle>
         <CardDescription className="text-slate-500 dark:text-slate-400 max-w-62.5 mx-auto">
-          Start your journey with our secure medical platform
+          Securely share and discover sustainable ideas
         </CardDescription>
       </CardHeader>
 
@@ -88,19 +93,21 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
           id="register-form"
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit(e);
+            form.handleSubmit();
           }}
         >
-          <FieldGroup>
+          <FieldGroup className="space-y-4">
             <form.Field
               name="name"
               children={(field) => (
                 <Field>
-                  <FieldLabel htmlFor="name">Full Name</FieldLabel>
+                  <FieldLabel className="text-slate-700 dark:text-slate-300">
+                    Full Name
+                  </FieldLabel>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
-                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
+                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
                       placeholder="John Doe"
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -115,12 +122,14 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
               name="email"
               children={(field) => (
                 <Field>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <FieldLabel className="text-slate-700 dark:text-slate-300">
+                    Email
+                  </FieldLabel>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
-                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
-                      placeholder="m@example.com"
+                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
+                      placeholder="name@example.com"
                       type="email"
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -135,22 +144,22 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
               name="password"
               children={(field) => (
                 <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel className="text-slate-700 dark:text-slate-300">
+                    Password
+                  </FieldLabel>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
                       type={showPassword ? "text" : "password"}
-                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
+                      className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
                       placeholder="••••••••"
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
-
-                    {/* Eye Button */}
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer outline-none"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors cursor-pointer"
                       tabIndex={-1}
                     >
                       {showPassword ? (
@@ -168,55 +177,34 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
 
-      <CardFooter className="flex flex-col px-8 pb-10 space-y-4">
+      <CardFooter className="flex flex-col px-8 pb-10">
         <Button
           form="register-form"
           type="submit"
           disabled={isUploading}
-          className="w-full h-12 bg-slate-900 dark:bg-blue-600 hover:scale-[1.02] active:scale-[0.98] transition-all font-bold text-white rounded-xl cursor-pointer"
+          className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.01] active:scale-[0.99] transition-all font-bold text-white rounded-xl shadow-lg shadow-emerald-600/20 cursor-pointer"
         >
           {isUploading ? (
             <>
-              <Loader2
-                className="mr-2 h-4 w-4 animate-spin"
-                aria-hidden="true"
-              />{" "}
-              Registering...
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Creating Account...
             </>
           ) : (
-            "Register"
+            "Create Account"
           )}
         </Button>
 
-        <div className="relative w-full flex items-center gap-4 py-2">
-          <div className="h-px w-full bg-slate-100 dark:bg-slate-800" />
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
-            Social Access
-          </span>
-          <div className="h-px w-full bg-slate-100 dark:bg-slate-800" />
-        </div>
+        <SocialLogin className="mt-2" isLoading={isUploading} />
 
-        {/* <Button
-          // onClick={() => handleGoogleLogin()}
-          variant="outline"
-          className="w-full h-12 rounded-xl border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
-        >
-          <Mail className="mr-2 h-4 w-4 text-rose-500" />
-          <span className="font-semibold text-slate-700 dark:text-slate-300">
-            Continue with Google
-          </span>
-        </Button> */}
-        <FieldGroup>
-          <Field>
-            <Button type="submit">Create Account</Button>
-            <Button variant="outline" type="button">
-              Sign up with Google
-            </Button>
-            <FieldDescription className="px-6 text-center">
-              Already have an account? <a href="#">Sign in</a>
-            </FieldDescription>
-          </Field>
-        </FieldGroup>
+        <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-emerald-600 font-bold hover:underline transition-all"
+          >
+            Log in
+          </Link>
+        </p>
       </CardFooter>
     </Card>
   );

@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { setBetterAuthTokenInCookie } from "@/lib/token";
-import { LoginPayload, RegisterPayload, User } from "@/types";
+import { ApiResponse, LoginPayload, RegisterPayload, User } from "@/types";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;

@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -25,6 +24,8 @@ import { toast } from "sonner";
 import { login } from "@/actions/auth.action";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { SocialLogin } from "./SocialLogin";
+import Link from "next/link";
 
 export function LoginForm({
   redirect,
@@ -76,6 +77,7 @@ export function LoginForm({
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <form
             id="login-form"
@@ -142,55 +144,34 @@ export function LoginForm({
           </form>
         </CardContent>
 
-        <CardFooter className="flex flex-col px-8 pb-10 space-y-4">
+        <CardFooter className="flex flex-col px-8 pb-10">
           <Button
-            form="login-form"
+            form="register-form"
             type="submit"
             disabled={isUploading}
-            className="w-full h-12 bg-slate-900 dark:bg-blue-600 hover:scale-[1.02] active:scale-[0.98] transition-all font-bold text-white rounded-xl cursor-pointer"
+            className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.01] active:scale-[0.99] transition-all font-bold text-white rounded-xl shadow-lg shadow-emerald-600/20 cursor-pointer"
           >
             {isUploading ? (
               <>
-                <Loader2
-                  className="mr-2 h-4 w-4 animate-spin"
-                  aria-hidden="true"
-                />{" "}
-                Logging...
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Logging in...
               </>
             ) : (
               "Login"
             )}
           </Button>
 
-          <div className="relative w-full flex items-center gap-4 py-2">
-            <div className="h-px w-full bg-slate-100 dark:bg-slate-800" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
-              Social Access
-            </span>
-            <div className="h-px w-full bg-slate-100 dark:bg-slate-800" />
-          </div>
+          <SocialLogin isLoading={isUploading} />
 
-          {/* <Button
-          // onClick={() => handleGoogleLogin()}
-          variant="outline"
-          className="w-full h-12 rounded-xl border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
-        >
-          <Mail className="mr-2 h-4 w-4 text-rose-500" />
-          <span className="font-semibold text-slate-700 dark:text-slate-300">
-            Continue with Google
-          </span>
-        </Button> */}
-          <FieldGroup>
-            <Field>
-              <Button type="submit">Create Account</Button>
-              <Button variant="outline" type="button">
-                Sign up with Google
-              </Button>
-              <FieldDescription className="px-6 text-center">
-                Already have an account? <a href="#">Sign in</a>
-              </FieldDescription>
-            </Field>
-          </FieldGroup>
+          <p className="mt-4 text-center text-sm text-slate-500">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              className="text-emerald-600 font-bold hover:underline"
+            >
+              Sign up
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>
