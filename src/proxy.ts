@@ -3,6 +3,7 @@ import { getMe } from "./actions/auth.action";
 import { UserRole } from "./types/enums";
 import {
   adminRoutes,
+  authRoutes,
   memberRoutes,
   protectedRoutes,
 } from "./routes/ProtectedRoutes";
@@ -17,6 +18,18 @@ export async function proxy(request: NextRequest) {
   const isAdminRoute = isMatch(pathname, adminRoutes);
   const isMemberRoute = isMatch(pathname, memberRoutes);
   const isProtectedRoute = isMatch(pathname, protectedRoutes);
+  const isAuthRoute = isMatch(pathname, authRoutes);
+
+  if (isAuthRoute) {
+    const result = await getMe();
+    const user = result?.data;
+
+    if (result?.success && user) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    return NextResponse.next();
+  }
 
   if (!isAdminRoute && !isMemberRoute && !isProtectedRoute) {
     return NextResponse.next();

@@ -52,7 +52,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         const result = await register(value);
 
         if (!result.success) {
-          toast.error("An unexpected error occurred", { id: toastId });
+          toast.error(result.message, { id: toastId });
           setIsUploading(false);
           return;
         }

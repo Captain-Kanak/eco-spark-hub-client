@@ -50,7 +50,7 @@ export function LoginForm({
         const result = await login(value);
 
         if (!result.success) {
-          toast.error("An unexpected error occurred", { id: toastId });
+          toast.error(result.message, { id: toastId });
           setIsUploading(false);
           return;
         }
@@ -61,7 +61,6 @@ export function LoginForm({
         setIsUploading(false);
         router.push(redirect);
       } catch (error) {
-        console.log(error);
         toast.error("An unexpected error occurred", { id: toastId });
         setIsUploading(false);
       }
@@ -146,7 +145,7 @@ export function LoginForm({
 
         <CardFooter className="flex flex-col px-8 pb-10">
           <Button
-            form="register-form"
+            form="login-form"
             type="submit"
             disabled={isUploading}
             className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.01] active:scale-[0.99] transition-all font-bold text-white rounded-xl shadow-lg shadow-emerald-600/20 cursor-pointer"
