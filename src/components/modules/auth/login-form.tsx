@@ -26,6 +26,7 @@ import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
+import { EmailVerificationModal } from "./EmailVerificationModal";
 
 export function LoginForm({
   redirect,
@@ -34,6 +35,7 @@ export function LoginForm({
 }: React.ComponentProps<"div"> & { redirect: string }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [sendEmail, setSendEmail] = useState("");
   const router = useRouter();
 
   const form = useForm({
@@ -48,6 +50,13 @@ export function LoginForm({
 
       try {
         const result = await login(value);
+
+        if (!result.success && result.message === "Email not verified") {
+          setSendEmail(value.email);
+          toast.error(result.message, { id: toastId });
+          setIsUploading(false);
+          return;
+        }
 
         if (!result.success) {
           toast.error(result.message, { id: toastId });
@@ -66,6 +75,16 @@ export function LoginForm({
       }
     },
   });
+
+  if (sendEmail) {
+    return (
+      <EmailVerificationModal
+        isOpen={true}
+        onOpenChange={(open) => !open && setSendEmail("")}
+        email={sendEmail}
+      />
+    );
+  }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>

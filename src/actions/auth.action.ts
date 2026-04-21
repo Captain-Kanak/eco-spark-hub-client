@@ -7,6 +7,10 @@ export const register = async (payload: RegisterPayload) => {
   return await authServices.register(payload);
 };
 
+export const verifyEmail = async (email: string, otp: string) => {
+  return await authServices.verifyEmail(email, otp);
+};
+
 export const login = async (payload: LoginPayload) => {
   return await authServices.login(payload);
 };

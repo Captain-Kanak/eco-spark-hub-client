@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 const API_URL = env.API_URL;
 
 export const authServices = {
-  register: async (payload: RegisterPayload): Promise<ApiResponse<User>> => {
+  register: async (payload: RegisterPayload): Promise<ApiResponse<null>> => {
     try {
       const url = `${API_URL}/api/v1/auth/register`;
 
@@ -45,6 +45,48 @@ export const authServices = {
       };
     }
   },
+  verifyEmail: async (
+    email: string,
+    otp: string,
+  ): Promise<ApiResponse<null>> => {
+    try {
+      const url = `${API_URL}/api/v1/auth/verify-email`;
+
+      const res = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return { success: false, message: result.message, data: null };
+      }
+
+      return {
+        success: true,
+        message: "Email verified successfully",
+        data: null,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
   login: async (payload: LoginPayload): Promise<ApiResponse<User>> => {
     try {
       const url = `${API_URL}/api/v1/auth/login`;
@@ -57,6 +99,12 @@ export const authServices = {
         body: JSON.stringify(payload),
       });
 
+      const result = await res.json();
+
+      if (result.message === "Email not verified") {
+        return { success: false, message: result.message, data: null };
+      }
+
       if (!res.ok) {
         return {
           success: false,
@@ -64,8 +112,6 @@ export const authServices = {
           data: null,
         };
       }
-
-      const result = await res.json();
 
       if (!result.success) {
         return { success: false, message: result.message, data: null };
