@@ -26,11 +26,6 @@ export const AdminRoutes: Route[] = [
     title: "Platform Control",
     items: [
       {
-        title: "Create Category",
-        url: "/admin-dashboard/create-category",
-        icon: Tags,
-      },
-      {
         title: "Manage Categories",
         url: "/admin-dashboard/manage-categories",
         icon: Tags,

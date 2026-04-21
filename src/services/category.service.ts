@@ -53,4 +53,41 @@ export const categoryServices = {
       };
     }
   },
+  getCategories: async (): Promise<ApiResponse<Category[]>> => {
+    try {
+      const url = `${API_URL}/api/v1/categories`;
+
+      const res = await fetch(url.toString());
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error fetching categories",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error fetching categories",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Categories fetched successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error fetching categories",
+        data: null,
+      };
+    }
+  },
 };

@@ -8,3 +8,7 @@ export const createCategory = async (
 ): Promise<ApiResponse<Category>> => {
   return await categoryServices.createCategory(payload);
 };
+
+export const getCategories = async (): Promise<ApiResponse<Category[]>> => {
+  return await categoryServices.getCategories();
+};
