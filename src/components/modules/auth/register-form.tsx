@@ -32,10 +32,12 @@ import {
 import { register } from "@/actions/auth.action";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
+import { EmailVerificationModal } from "./EmailVerificationModal";
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [sendEmail, setSendEmail] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: {
@@ -57,6 +59,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
           return;
         }
 
+        setSendEmail(value.email);
         toast.success(`Verification email sent to ${result.data?.email}`, {
           id: toastId,
         });
@@ -67,6 +70,16 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       }
     },
   });
+
+  if (sendEmail) {
+    return (
+      <EmailVerificationModal
+        isOpen={true}
+        onOpenChange={(open) => !open && setSendEmail("")}
+        email={sendEmail}
+      />
+    );
+  }
 
   return (
     <Card

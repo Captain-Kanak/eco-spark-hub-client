@@ -48,9 +48,9 @@ export const EmailVerificationModal = ({
       const result = await verifyEmail(email, otp);
 
       if (result.success) {
-        toast.success("Identity confirmed! Welcome Back.", { id: toastId });
+        toast.success("Identity confirmed! Please log in.", { id: toastId });
         onOpenChange(false);
-        router.push("/");
+        router.push("/login");
       } else {
         toast.error(result.message || "That code doesn't look right.", {
           id: toastId,
@@ -138,7 +138,7 @@ export const EmailVerificationModal = ({
               <Button
                 onClick={handleVerify}
                 disabled={isVerifying || otp.length !== 6}
-                className="w-full h-14 bg-slate-900 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-black text-base rounded-2xl transition-all shadow-xl shadow-emerald-500/10 active:scale-[0.98]"
+                className="w-full h-14 bg-slate-900 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-black text-base rounded-2xl transition-all shadow-xl shadow-emerald-500/10 active:scale-[0.98] cursor-pointer"
               >
                 {isVerifying ? (
                   <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export const EmailVerificationModal = ({
                 <button
                   onClick={handleResend}
                   disabled={isResending}
-                  className="group flex items-center text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors disabled:opacity-50"
+                  className="group flex items-center text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isResending ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

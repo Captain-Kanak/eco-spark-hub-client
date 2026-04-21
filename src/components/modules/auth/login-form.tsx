@@ -35,7 +35,7 @@ export function LoginForm({
 }: React.ComponentProps<"div"> & { redirect: string }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [sendEmail, setSendEmail] = useState("");
+  const [sendEmail, setSendEmail] = useState<string | null>(null);
   const router = useRouter();
 
   const form = useForm({
