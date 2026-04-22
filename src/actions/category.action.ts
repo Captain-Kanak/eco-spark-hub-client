@@ -4,7 +4,7 @@ import { categoryServices } from "@/services/category.service";
 import { ApiResponse, Category } from "@/types";
 
 export const createCategory = async (
-  payload: Partial<Category>,
+  payload: FormData,
 ): Promise<ApiResponse<Category>> => {
   return await categoryServices.createCategory(payload);
 };

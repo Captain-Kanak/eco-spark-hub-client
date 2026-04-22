@@ -2,30 +2,11 @@ import { FolderTree } from "lucide-react";
 import CategoriesTable from "@/components/modules/dashboard/admin/CategoriesTable";
 import { Category } from "@/types";
 import ManageCategoryHeader from "@/components/modules/dashboard/admin/ManageCategoryHeader";
+import { getCategories } from "@/actions/category.action";
 
-export default function ManageCategoriesPage() {
-  const categories: Category[] = [
-    {
-      id: "019d4972-c759-750f-b4a9-6a967a98cbc0",
-      name: "category 2",
-      icon: null,
-      description: "Resources for urban gardening and local food.",
-      isDeleted: false,
-      createdAt: "2026-04-01T14:29:12.153Z",
-      updatedAt: "2026-04-01T14:29:12.153Z",
-      _count: { ideas: 1 },
-    },
-    {
-      id: "019d486e-814d-740c-a789-60a63e2a2264",
-      name: "category 1",
-      icon: null,
-      description: "Renewable energy and smart grid innovations.",
-      isDeleted: false,
-      createdAt: "2026-04-01T09:44:54.861Z",
-      updatedAt: "2026-04-01T09:44:54.861Z",
-      _count: { ideas: 2 },
-    },
-  ];
+export default async function ManageCategoriesPage() {
+  const { data, meta } = await getCategories();
+  const categories: Category[] = data || [];
 
   return (
     <div className="space-y-6">

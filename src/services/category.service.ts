@@ -5,9 +5,7 @@ import { cookies } from "next/headers";
 const API_URL = env.API_URL;
 
 export const categoryServices = {
-  createCategory: async (
-    payload: Partial<Category>,
-  ): Promise<ApiResponse<Category>> => {
+  createCategory: async (payload: FormData): Promise<ApiResponse<Category>> => {
     try {
       const url = `${API_URL}/api/v1/categories`;
 
@@ -16,10 +14,9 @@ export const categoryServices = {
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Cookie: cookieStore.toString(),
         },
-        body: JSON.stringify(payload),
+        body: payload,
       });
 
       if (!res.ok) {
@@ -80,7 +77,8 @@ export const categoryServices = {
       return {
         success: true,
         message: "Categories fetched successfully",
-        data: result.data,
+        data: result.data.data,
+        meta: result.data.meta,
       };
     } catch (error) {
       return {

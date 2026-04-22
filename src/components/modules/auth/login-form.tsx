@@ -35,8 +35,10 @@ export function LoginForm({
 }: React.ComponentProps<"div"> & { redirect: string }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [sendEmail, setSendEmail] = useState<string | null>(null);
   const router = useRouter();
+  const [verificationEmail, setVerificationEmail] = useState<string | null>(
+    null,
+  );
 
   const form = useForm({
     defaultValues: {
@@ -52,7 +54,7 @@ export function LoginForm({
         const result = await login(value);
 
         if (!result.success && result.message === "Email not verified") {
-          setSendEmail(value.email);
+          setVerificationEmail(value.email);
           toast.error(result.message, { id: toastId });
           setIsUploading(false);
           return;
@@ -75,16 +77,6 @@ export function LoginForm({
       }
     },
   });
-
-  if (sendEmail) {
-    return (
-      <EmailVerificationModal
-        isOpen={true}
-        onOpenChange={(open) => !open && setSendEmail("")}
-        email={sendEmail}
-      />
-    );
-  }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -192,6 +184,14 @@ export function LoginForm({
           </p>
         </CardFooter>
       </Card>
+
+      <EmailVerificationModal
+        isOpen={!!verificationEmail}
+        email={verificationEmail ?? ""}
+        onOpenChange={(open) => {
+          if (!open) setVerificationEmail(null);
+        }}
+      />
     </div>
   );
 }
