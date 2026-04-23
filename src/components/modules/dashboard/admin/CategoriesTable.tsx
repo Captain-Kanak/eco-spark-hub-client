@@ -29,11 +29,15 @@ import {
 import { format } from "date-fns";
 import { Category } from "@/types";
 
+interface CategoriesTableProps {
+  categories: Category[];
+  onEdit: (category: Category) => void;
+}
+
 export default function CategoriesTable({
   categories,
-}: {
-  categories: Category[];
-}) {
+  onEdit,
+}: CategoriesTableProps) {
   return (
     <Table>
       <TableHeader className="bg-slate-50/50 dark:bg-slate-900/50">
@@ -49,19 +53,15 @@ export default function CategoriesTable({
         {categories.map((category) => (
           <TableRow
             key={category.id}
-            className="hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-colors"
+            className="hover:bg-slate-50/50 transition-colors"
           >
             <TableCell>
-              <div className="flex flex-col">
-                <span className="font-bold text-slate-900 dark:text-slate-100 capitalize">
-                  <Avatar className="h-8 w-8 border-2 border-white dark:border-slate-800 shadow-sm">
-                    <AvatarImage src={category.icon || ""} />
-                    <AvatarFallback className="bg-blue-600 text-white font-bold">
-                      {category.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                </span>
-              </div>
+              <Avatar className="h-8 w-8 border shadow-sm">
+                <AvatarImage src={category.icon || ""} />
+                <AvatarFallback className="bg-emerald-600 text-white font-bold">
+                  {category.name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
             </TableCell>
             <TableCell>
               <div className="flex flex-col">
@@ -76,15 +76,15 @@ export default function CategoriesTable({
             <TableCell>
               <Badge
                 variant="secondary"
-                className="bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400 border-none flex w-fit items-center gap-1.5 px-2.5 py-0.5"
+                className="bg-emerald-50 text-emerald-700 border-none gap-1.5"
               >
                 <Lightbulb className="h-3 w-3" />
-                {category._count?.ideas}
+                {category._count?.ideas || 0}
               </Badge>
             </TableCell>
-            <TableCell className="text-slate-600 dark:text-slate-400 text-sm">
+            <TableCell className="text-slate-600 text-sm">
               <div className="flex items-center gap-2">
-                <Calendar className="h-3.5 w-3.5 text-slate-400" />
+                <Calendar className="h-3.5 w-3.5" />
                 {format(new Date(category.createdAt), "MMM dd, yyyy")}
               </div>
             </TableCell>
@@ -93,25 +93,25 @@ export default function CategoriesTable({
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="h-8 w-8 p-0 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
+                    className="h-8 w-8 p-0 cursor-pointer"
                   >
                     <MoreHorizontal className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-40 rounded-xl border-slate-200 dark:border-slate-800 shadow-xl"
+                  className="w-40 rounded-xl shadow-xl"
                 >
                   <DropdownMenuLabel>Options</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-slate-600 dark:text-slate-300">
+                  <DropdownMenuItem
+                    onClick={() => onEdit(category)}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
                     <Edit className="h-4 w-4" />
                     Edit Category
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    // onClick={() => handleDelete(category.id)}
-                    className="flex items-center gap-2 cursor-pointer text-rose-600 focus:text-rose-600 focus:bg-rose-50 dark:focus:bg-rose-950/20"
-                  >
+                  <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-rose-600 focus:text-rose-600">
                     <Trash2 className="h-4 w-4" />
                     Delete
                   </DropdownMenuItem>

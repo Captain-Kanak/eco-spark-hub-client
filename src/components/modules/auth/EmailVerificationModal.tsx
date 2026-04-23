@@ -81,7 +81,7 @@ export const EmailVerificationModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-110 p-0 overflow-hidden border-none bg-white dark:bg-slate-950 rounded-3xl shadow-2xl">
+      <DialogContent className="sm:max-w-110 p-0 overflow-hidden border-none bg-white dark:bg-slate-950 rounded-3xl shadow-2xl [&>button]:cursor-pointer">
         {/* Decorative Header Background */}
         <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-br from-emerald-500/10 via-emerald-500/5 to-transparent -z-10" />
 

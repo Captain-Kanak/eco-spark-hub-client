@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "@tanstack/react-form";
 import {
   Dialog,
@@ -22,60 +22,72 @@ import { Loader2, X, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import * as z from "zod";
-import { createCategory } from "@/actions/category.action";
+import { updateCategory } from "@/actions/category.action";
 import { useRouter } from "next/navigation";
+import { Category } from "@/types";
 
-interface CreateCategoryModalProps {
+interface UpdateCategoryModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  category: Category;
 }
 
-const CreateCategorySchema = z.object({
+const UpdateCategorySchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string(),
-  icon: z.instanceof(File).nullable(),
+  icon: z.any().nullable(),
 });
 
-export const CreateCategoryModal = ({
+export const UpdateCategoryModal = ({
   isOpen,
   onOpenChange,
-}: CreateCategoryModalProps) => {
+  category,
+}: UpdateCategoryModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(category?.icon || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    if (category) {
+      setPreview(category.icon);
+    }
+  }, [category]);
+
   const form = useForm({
     defaultValues: {
-      name: "",
-      description: "",
+      name: category?.name || "",
+      description: category?.description || "",
       icon: null as File | null,
     },
-    validators: { onSubmit: CreateCategorySchema },
+    validators: { onSubmit: UpdateCategorySchema },
     onSubmit: async ({ value }) => {
+      if (!category?.id) return;
+
       setIsSubmitting(true);
-      const toastId = toast.loading("Creating category...");
+      const toastId = toast.loading("Updating category...");
 
       try {
         const formData = new FormData();
         formData.append("name", value.name);
         formData.append("description", value.description);
-        if (value.icon) formData.append("file", value.icon);
 
-        const result = await createCategory(formData);
+        if (value.icon) {
+          formData.append("file", value.icon);
+        }
+
+        const result = await updateCategory(category.id, formData);
 
         if (!result.success) {
-          toast.error("Failed to create category", { id: toastId });
+          toast.error("Failed to update category", { id: toastId });
           return;
         }
 
-        toast.success("Category created successfully", { id: toastId });
-        form.reset();
-        setPreview(null);
+        toast.success("Category updated successfully", { id: toastId });
         onOpenChange(false);
         router.refresh();
       } catch (error) {
-        toast.error("Failed to create category", { id: toastId });
+        toast.error("Failed to update category", { id: toastId });
       } finally {
         setIsSubmitting(false);
       }
@@ -98,15 +110,19 @@ export const CreateCategoryModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 overflow-hidden [&>button]:cursor-pointer">
-        <div className="h-1.5 bg-emerald-500" />
-
+        <div className="h-1.5 bg-amber-500" />{" "}
+        {/* Changed color to amber for "Update" feel */}
         <div className="p-8">
           <DialogHeader>
             <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white">
-              Add New Category
+              Update Category
             </DialogTitle>
             <DialogDescription>
-              Create a new topic to group sustainable ideas and innovations.
+              Modify the details for{" "}
+              <span className="font-bold text-emerald-600">
+                {category?.name}
+              </span>
+              .
             </DialogDescription>
           </DialogHeader>
 
@@ -118,15 +134,13 @@ export const CreateCategoryModal = ({
             className="mt-6 space-y-6"
           >
             <FieldGroup className="space-y-4">
-              {/* Name Field */}
               <form.Field
                 name="name"
                 children={(field) => (
                   <Field>
                     <FieldLabel>Category Name</FieldLabel>
                     <Input
-                      placeholder="e.g. Solar Energy"
-                      className="h-11 rounded-xl border-slate-200 focus:ring-emerald-500"
+                      className="h-11 rounded-xl border-slate-200"
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -136,15 +150,13 @@ export const CreateCategoryModal = ({
                 )}
               />
 
-              {/* Description Field */}
               <form.Field
                 name="description"
                 children={(field) => (
                   <Field>
                     <FieldLabel>Category Description</FieldLabel>
                     <Textarea
-                      placeholder="Describe what this category covers..."
-                      className="min-h-24 rounded-xl border-slate-200 focus:ring-emerald-500 resize-none"
+                      className="min-h-24 rounded-xl border-slate-200 resize-none"
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -154,7 +166,6 @@ export const CreateCategoryModal = ({
                 )}
               />
 
-              {/* Image Upload Field */}
               <form.Field
                 name="icon"
                 children={(field) => (
@@ -162,7 +173,7 @@ export const CreateCategoryModal = ({
                     <FieldLabel>Category Icon</FieldLabel>
                     <div
                       onClick={() => fileInputRef.current?.click()}
-                      className="relative group cursor-pointer border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 transition-all hover:border-emerald-500 hover:bg-emerald-50/30 overflow-hidden"
+                      className="relative group cursor-pointer border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 transition-all hover:border-amber-500 hover:bg-amber-50/30 overflow-hidden"
                     >
                       <input
                         type="file"
@@ -173,7 +184,7 @@ export const CreateCategoryModal = ({
                       />
 
                       {preview ? (
-                        <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-inner">
+                        <div className="relative aspect-video w-full rounded-xl overflow-hidden">
                           <Image
                             src={preview}
                             alt="Preview"
@@ -187,22 +198,15 @@ export const CreateCategoryModal = ({
                               setPreview(null);
                               field.handleChange(null);
                             }}
-                            className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-slate-900/90 rounded-full text-rose-500 shadow-md hover:scale-110 transition-transform"
+                            className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-full text-rose-500 shadow-md"
                           >
                             <X className="h-4 w-4" />
                           </button>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center justify-center py-6 text-slate-500">
-                          <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-full mb-3 group-hover:text-emerald-600 transition-colors">
-                            <UploadCloud className="h-6 w-6" />
-                          </div>
-                          <p className="text-sm font-bold">
-                            Click to upload image
-                          </p>
-                          <p className="text-xs text-slate-400 mt-1">
-                            PNG, JPG or WebP (max. 2MB)
-                          </p>
+                          <UploadCloud className="h-6 w-6 mb-2" />
+                          <p className="text-sm font-bold">Replace Icon</p>
                         </div>
                       )}
                     </div>
@@ -224,15 +228,12 @@ export const CreateCategoryModal = ({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-2 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer"
+                className="flex-2 h-12 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-lg shadow-amber-500/20 cursor-pointer transition-colors"
               >
                 {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Saving...
-                  </>
+                  <Loader2 className="animate-spin" />
                 ) : (
-                  "Create Category"
+                  "Save Changes"
                 )}
               </Button>
             </div>

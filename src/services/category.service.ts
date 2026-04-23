@@ -88,4 +88,52 @@ export const categoryServices = {
       };
     }
   },
+  updateCategory: async (
+    id: string,
+    payload: FormData,
+  ): Promise<ApiResponse<Category>> => {
+    try {
+      const url = `${API_URL}/api/v1/categories/${id}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "PATCH",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+        body: payload,
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error updating category",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error updating category",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Category updated successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error updating category",
+        data: null,
+      };
+    }
+  },
 };

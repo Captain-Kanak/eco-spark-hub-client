@@ -12,3 +12,10 @@ export const createCategory = async (
 export const getCategories = async (): Promise<ApiResponse<Category[]>> => {
   return await categoryServices.getCategories();
 };
+
+export const updateCategory = async (
+  id: string,
+  payload: FormData,
+): Promise<ApiResponse<Category>> => {
+  return await categoryServices.updateCategory(id, payload);
+};
