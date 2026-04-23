@@ -97,7 +97,7 @@ export const CreateCategoryModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 overflow-hidden [&>button]:cursor-pointer">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 [&>button]:cursor-pointer">
         <div className="h-1.5 bg-emerald-500" />
 
         <div className="p-8">
@@ -187,7 +187,7 @@ export const CreateCategoryModal = ({
                               setPreview(null);
                               field.handleChange(null);
                             }}
-                            className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-slate-900/90 rounded-full text-rose-500 shadow-md hover:scale-110 transition-transform"
+                            className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-slate-900/90 rounded-full text-rose-500 shadow-md hover:scale-110 transition-transform cursor-pointer"
                           >
                             <X className="h-4 w-4" />
                           </button>
