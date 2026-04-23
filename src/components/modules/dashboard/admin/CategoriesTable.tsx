@@ -32,11 +32,13 @@ import { Category } from "@/types";
 interface CategoriesTableProps {
   categories: Category[];
   onEdit: (category: Category) => void;
+  onDelete: (category: Category) => void;
 }
 
 export default function CategoriesTable({
   categories,
   onEdit,
+  onDelete,
 }: CategoriesTableProps) {
   return (
     <Table>
@@ -111,7 +113,10 @@ export default function CategoriesTable({
                     <Edit className="h-4 w-4" />
                     Edit Category
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-rose-600 focus:text-rose-600">
+                  <DropdownMenuItem
+                    onClick={() => onDelete(category)}
+                    className="flex items-center gap-2 cursor-pointer text-rose-600 focus:text-rose-600"
+                  >
                     <Trash2 className="h-4 w-4" />
                     Delete
                   </DropdownMenuItem>

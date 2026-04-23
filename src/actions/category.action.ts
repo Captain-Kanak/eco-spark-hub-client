@@ -19,3 +19,9 @@ export const updateCategory = async (
 ): Promise<ApiResponse<Category>> => {
   return await categoryServices.updateCategory(id, payload);
 };
+
+export const deleteCategory = async (
+  id: string,
+): Promise<ApiResponse<Category>> => {
+  return await categoryServices.deleteCategory(id);
+};
