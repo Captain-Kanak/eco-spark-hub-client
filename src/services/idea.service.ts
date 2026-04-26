@@ -80,7 +80,7 @@ export const ideaServices = {
       };
     }
   },
-  createIdea: async (payload: Partial<Idea>): Promise<ApiResponse<Idea>> => {
+  createIdea: async (payload: FormData): Promise<ApiResponse<Idea>> => {
     try {
       const url = `${API_URL}/api/v1/ideas`;
 
@@ -89,10 +89,9 @@ export const ideaServices = {
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Cookie: cookieStore.toString(),
         },
-        body: JSON.stringify(payload),
+        body: payload,
       });
 
       if (!res.ok) {

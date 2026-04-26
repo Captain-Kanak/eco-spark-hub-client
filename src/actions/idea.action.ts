@@ -8,7 +8,7 @@ import { ApiResponse, Idea } from "@/types";
 // };
 
 export const createIdea = async (
-  payload: Partial<Idea>,
+  payload: FormData,
 ): Promise<ApiResponse<Idea>> => {
   return await ideaServices.createIdea(payload);
 };
