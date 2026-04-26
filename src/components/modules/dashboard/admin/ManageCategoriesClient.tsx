@@ -45,6 +45,7 @@ export default function ManageCategoriesClient({
             onOpenChange={setIsUpdateModalOpen}
             category={selectedCategory}
           />
+
           <DeleteCategoryModal
             key={`delete-${selectedCategory.id}`}
             isOpen={isDeleteModalOpen}

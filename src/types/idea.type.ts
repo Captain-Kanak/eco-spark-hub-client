@@ -5,6 +5,8 @@ export interface Idea {
   title: string;
   description: string;
   image: string | null;
+  problemStatement: string;
+  solution: string;
   isPaid: boolean;
   price: number | null;
   status: IdeaStatus;

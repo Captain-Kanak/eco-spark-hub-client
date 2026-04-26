@@ -1,5 +1,5 @@
 import { getCategories } from "@/actions/category.action";
-import CreateIdeaForm from "@/components/modules/dashboard/member/CreateIdea";
+import CreateIdeaForm from "@/components/modules/dashboard/member/CreateIdeaForm";
 
 export default async function CreateIdeaPage() {
   const { data: categories } = await getCategories();

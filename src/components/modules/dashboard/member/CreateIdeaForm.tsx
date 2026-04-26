@@ -84,6 +84,8 @@ export default function CreateIdeaForm({
     validators: { onSubmit: createIdeaSchema },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Submitting your idea...");
+
+      console.log("vlaue:", value);
       try {
         const formData = new FormData();
 
