@@ -27,7 +27,9 @@ import { NavUser } from "../modules/dashboard/NavUser";
 export function AppSidebar({
   user,
   ...props
-}: { user: DecodedToken } & React.ComponentProps<typeof Sidebar>) {
+}: { user: DecodedToken | null | undefined } & React.ComponentProps<
+  typeof Sidebar
+>) {
   const pathname = usePathname();
   let routes: Route[] = [];
 

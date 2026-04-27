@@ -1,5 +1,5 @@
 import { Route } from "@/types";
-import { LayoutDashboard, ShoppingCart, User } from "lucide-react";
+import { LayoutDashboard, Lightbulb, ShoppingCart, User } from "lucide-react";
 
 export const MemberRoutes: Route[] = [
   {
@@ -27,8 +27,8 @@ export const MemberRoutes: Route[] = [
       },
       {
         title: "My Ideas",
-        url: "/dashboard/my-ideas",
-        icon: ShoppingCart,
+        url: "/dashboard/my-ideas/shared-ideas",
+        icon: Lightbulb,
       },
       {
         title: "Payments History",
