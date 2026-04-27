@@ -1,20 +1,13 @@
 "use client";
 
 import { Category, Idea } from "@/types";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Edit3, Eye, Lightbulb, Trash2 } from "lucide-react";
-import Image from "next/image";
+import { Lightbulb } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import UpdateIdeaModal from "./UpdateIdeaModal";
 import MyIdeaCard from "./MyIdeaCard";
+import DeleteIdeaModal from "./DeleteIdeaModal";
 
 export default function MyIdeasClient({
   ideas,
@@ -80,6 +73,13 @@ export default function MyIdeasClient({
             onOpenChange={setIsUpdateModalOpen}
             idea={selectedIdea}
             categories={categories}
+          />
+
+          <DeleteIdeaModal
+            isOpen={isDeleteModalOpen}
+            onOpenChange={setIsDeleteModalOpen}
+            ideaId={selectedIdea.id}
+            ideaTitle={selectedIdea.title}
           />
         </>
       )}

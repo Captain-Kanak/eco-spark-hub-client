@@ -223,4 +223,48 @@ export const ideaServices = {
       };
     }
   },
+  deleteIdeaById: async (id: string): Promise<ApiResponse<Idea>> => {
+    try {
+      const url = `${API_URL}/api/v1/ideas/${id}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "DELETE",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error deleting idea",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error deleting idea",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Idea deleted successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error deleting idea",
+        data: null,
+      };
+    }
+  },
 };

@@ -19,3 +19,9 @@ export const updateIdeaById = async (
 ): Promise<ApiResponse<Idea>> => {
   return await ideaServices.updateIdeaById(id, payload);
 };
+
+export const deleteIdeaById = async (
+  id: string,
+): Promise<ApiResponse<Idea>> => {
+  return await ideaServices.deleteIdeaById(id);
+};
