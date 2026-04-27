@@ -119,7 +119,12 @@ const Navbar = ({
   }, [pathname]);
 
   return (
-    <section className={cn("py-4", className)}>
+    <section
+      className={cn(
+        "py-4 sticky top-0 z-50 border-b border-slate-200/60 bg-white/80 backdrop-blur-md dark:border-slate-800/60 dark:bg-slate-950/80 transition-all",
+        className,
+      )}
+    >
       <div className="container mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
