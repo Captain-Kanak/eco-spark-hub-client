@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { ApiResponse, Idea } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -52,9 +53,19 @@ export const ideaServices = {
       };
     }
   },
-  getIdeas: async (): Promise<ApiResponse<Idea[]>> => {
+  getIdeas: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Idea[]>> => {
     try {
-      const url = `${API_URL}/api/v1/ideas`;
+      const url = new URL(`${API_URL}/api/v1/ideas`);
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
 
       const res = await fetch(url.toString());
 

@@ -2,6 +2,7 @@
 
 import { ideaServices } from "@/services/idea.service";
 import { ApiResponse, Idea } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 
 export const createIdea = async (
   payload: FormData,
@@ -9,8 +10,10 @@ export const createIdea = async (
   return await ideaServices.createIdea(payload);
 };
 
-export const getIdeas = async (): Promise<ApiResponse<Idea[]>> => {
-  return await ideaServices.getIdeas();
+export const getIdeas = async (
+  params: GetIdeaSearchParams,
+): Promise<ApiResponse<Idea[]>> => {
+  return await ideaServices.getIdeas(params);
 };
 
 export const getMyIdeas = async (): Promise<ApiResponse<Idea[]>> => {

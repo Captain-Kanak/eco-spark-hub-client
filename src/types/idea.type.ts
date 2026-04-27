@@ -20,3 +20,7 @@ export interface Idea {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface GetIdeaSearchParams {
+  searchTerm?: string;
+}
