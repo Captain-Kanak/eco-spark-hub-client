@@ -63,7 +63,6 @@ const Navbar = ({
     { title: "IDEAS", url: "/ideas" },
     { title: "ABOUT US", url: "/about" },
     { title: "CONTACT", url: "/contact" },
-    { title: "Category", url: "/category" },
   ],
   auth = {
     login: { title: "Login", url: "/login" },
@@ -72,7 +71,7 @@ const Navbar = ({
 }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(null);
   const router = useRouter();
   let dashboardLink = "/";
 

@@ -79,8 +79,8 @@ export const ideaServices = {
       return {
         success: true,
         message: result.message || "Ideas fetched successfully",
-        data: result.data,
-        meta: result.meta,
+        data: result.data.data,
+        meta: result.data.meta,
       };
     } catch (error) {
       return {

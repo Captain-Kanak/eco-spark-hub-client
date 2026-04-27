@@ -9,6 +9,10 @@ export const createIdea = async (
   return await ideaServices.createIdea(payload);
 };
 
+export const getIdeas = async (): Promise<ApiResponse<Idea[]>> => {
+  return await ideaServices.getIdeas();
+};
+
 export const getMyIdeas = async (): Promise<ApiResponse<Idea[]>> => {
   return await ideaServices.getMyIdeas();
 };
