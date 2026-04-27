@@ -1,5 +1,12 @@
 import { Route } from "@/types";
-import { ClipboardList, LayoutDashboard, Tags, User } from "lucide-react";
+import {
+  DollarSign,
+  LayoutDashboard,
+  Lightbulb,
+  Tags,
+  User,
+  Users,
+} from "lucide-react";
 
 export const AdminRoutes: Route[] = [
   {
@@ -33,17 +40,17 @@ export const AdminRoutes: Route[] = [
       {
         title: "Manage Ideas",
         url: "/admin-dashboard/manage-ideas",
-        icon: ClipboardList,
+        icon: Lightbulb,
       },
       {
         title: "Manage Users",
         url: "/admin-dashboard/manage-users",
-        icon: ClipboardList,
+        icon: Users,
       },
       {
         title: "Payments History",
         url: "/admin-dashboard/payments-history",
-        icon: ClipboardList,
+        icon: DollarSign,
       },
     ],
   },

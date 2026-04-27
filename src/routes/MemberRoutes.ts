@@ -1,5 +1,11 @@
 import { Route } from "@/types";
-import { LayoutDashboard, Lightbulb, ShoppingCart, User } from "lucide-react";
+import {
+  DollarSign,
+  LayoutDashboard,
+  Lightbulb,
+  PlusCircle,
+  User,
+} from "lucide-react";
 
 export const MemberRoutes: Route[] = [
   {
@@ -23,7 +29,7 @@ export const MemberRoutes: Route[] = [
       {
         title: "Create Idea",
         url: "/dashboard/create-idea",
-        icon: ShoppingCart,
+        icon: PlusCircle,
       },
       {
         title: "My Ideas",
@@ -33,7 +39,7 @@ export const MemberRoutes: Route[] = [
       {
         title: "Payments History",
         url: "/dashboard/payments-history",
-        icon: ShoppingCart,
+        icon: DollarSign,
       },
     ],
   },
