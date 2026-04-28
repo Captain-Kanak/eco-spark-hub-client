@@ -6,16 +6,13 @@ import { Lightbulb, X } from "lucide-react";
 import IdeaSearch from "./IdeaSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import IdeaFilter from "./IdeaFilter";
 
 interface PublicIdeasClientProps {
   ideas: Idea[];
-  categories: Category[];
 }
 
-export default function PublicIdeasClient({
-  ideas,
-  categories,
-}: PublicIdeasClientProps) {
+export default function PublicIdeasClient({ ideas }: PublicIdeasClientProps) {
   return (
     <div>
       {ideas.length === 0 ? (
@@ -33,17 +30,30 @@ export default function PublicIdeasClient({
         </div>
       ) : (
         <div>
-          <div className="flex items-center justify-center gap-4">
-            <IdeaSearch />
+          <div className="w-full max-w-5xl mx-auto mb-10">
+            <div className="flex flex-row items-center gap-3 w-full">
+              {/* Search takes up the available space */}
+              <IdeaSearch />
 
-            <Button className="mb-10 hover:text-red-600">
-              <Link
-                href={"/ideas"}
-                className="flex items-center justify-center gap-1"
+              {/* Filter stays at its intrinsic width */}
+              <div className="shrink-0">
+                <IdeaFilter />
+              </div>
+
+              {/* Reset button */}
+              <Button
+                variant="outline"
+                asChild
+                className="shrink-0 rounded-full border-slate-200 dark:border-slate-800 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 h-12 px-6"
               >
-                Clear Filter <X />
-              </Link>
-            </Button>
+                <Link
+                  href="/ideas"
+                  className="flex items-center gap-2 font-bold"
+                >
+                  Clear <X className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

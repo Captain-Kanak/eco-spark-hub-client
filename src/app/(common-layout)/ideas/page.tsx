@@ -1,4 +1,3 @@
-import { getCategories } from "@/actions/category.action";
 import { getIdeas } from "@/actions/idea.action";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { GetIdeaSearchParams } from "@/types/idea.type";
@@ -13,12 +12,11 @@ export default async function IdeaPage({
   const searchTerm = params.searchTerm || "";
 
   const { data: ideas } = await getIdeas({ searchTerm });
-  const { data: categories } = await getCategories();
 
   return (
     <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen pb-20">
       <div className="">
-        <div className="text-center mb-12 space-y-4">
+        <div className="text-center mb-8 space-y-4">
           <h1 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
             Explore <span className="text-emerald-600">Sustainable</span> Ideas
           </h1>
@@ -28,7 +26,7 @@ export default async function IdeaPage({
           </p>
         </div>
 
-        <PublicIdeasClient ideas={ideas || []} categories={categories || []} />
+        <PublicIdeasClient ideas={ideas || []} />
       </div>
     </div>
   );

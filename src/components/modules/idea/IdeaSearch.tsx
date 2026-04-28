@@ -13,31 +13,25 @@ export default function IdeaSearch() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const params = new URLSearchParams(searchParams.toString());
     value ? params.set("searchTerm", value) : params.delete("searchTerm");
-
     router.push(`/ideas?${params.toString()}`);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-col md:flex-row items-center gap-4 mb-10 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm">
-        {/* Search Input */}
-        <div className="relative flex-1 w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <Input
-            placeholder="Search innovative ideas..."
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className="pl-11 h-12 rounded-2xl border-none bg-slate-50 dark:bg-slate-800/50 focus-visible:ring-emerald-500"
-          />
-        </div>
-
-        {/* Search Button */}
+    <form onSubmit={handleSubmit} className="flex-1">
+      <div className="flex items-center gap-2 p-1 pl-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full shadow-sm">
+        <Search className="h-4 w-4 text-slate-400 shrink-0" />
+        <Input
+          placeholder="Search innovative ideas..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 h-10 px-3"
+        />
         <Button
           type="submit"
-          className="rounded-full px-5 cursor-pointer hover:bg-green-500 hover:text-white transition-all duration-500"
+          size="sm"
+          className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all h-9 px-5 cursor-pointer"
         >
           Search
         </Button>
