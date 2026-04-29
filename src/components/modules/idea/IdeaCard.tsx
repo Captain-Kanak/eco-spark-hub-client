@@ -80,7 +80,7 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
             asChild
             className="w-full h-12 bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 rounded-xl font-bold group/btn"
           >
-            <Link href={`/ideas/${idea.id}`}>
+            <Link href={`/payments/${idea.id}`}>
               Get Access for ${idea.price}
               <Sparkles className="ml-2 h-4 w-4 text-amber-400" />
             </Link>

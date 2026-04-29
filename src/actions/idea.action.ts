@@ -20,6 +20,10 @@ export const getMyIdeas = async (): Promise<ApiResponse<Idea[]>> => {
   return await ideaServices.getMyIdeas();
 };
 
+export const getIdeaById = async (id: string): Promise<ApiResponse<Idea>> => {
+  return await ideaServices.getIdeaById(id);
+};
+
 export const updateIdeaById = async (
   id: string,
   payload: FormData,

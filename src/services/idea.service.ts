@@ -12,8 +12,6 @@ export const ideaServices = {
 
       const cookieStore = await cookies();
 
-      console.log("payload", payload);
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
@@ -172,8 +170,8 @@ export const ideaServices = {
 
       return {
         success: true,
-        message: "Error fetching idea",
-        data: null,
+        message: "Idea fetched successfully",
+        data: result.data,
       };
     } catch (error) {
       return {
