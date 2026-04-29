@@ -1,41 +1,27 @@
-import { getMe } from "@/actions/auth.action";
-import { getIdeaById, getPurchasedIdeas } from "@/actions/idea.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  ArrowLeft,
+  CheckCircle2,
+  Lightbulb,
   Lock,
   Sparkles,
-  CheckCircle2,
-  ArrowLeft,
-  Lightbulb,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
-export default async function IdeaDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = await params;
+interface IdeaDetailsComponentProps {
+  idea: any;
+  hasAccess: boolean;
+  id: string;
+}
 
-  const [ideasResult, purchasedResult, userResult] = await Promise.all([
-    getIdeaById(id),
-    getPurchasedIdeas(),
-    getMe(),
-  ]);
-
-  const idea = ideasResult?.data;
-  const user = userResult?.data;
-
-  // Logic checks
-  const isOwner = user?.id === idea?.userId;
-  const isPurchased = purchasedResult?.data?.some((p: any) => p.ideaId === id);
-  const hasAccess = !idea?.isPaid || isPurchased || isOwner;
-
-  if (!idea)
-    return <div className="p-20 text-center font-black">Idea not found.</div>;
-
+export default function IdeaDetailsComponent({
+  idea,
+  hasAccess,
+  id,
+}: IdeaDetailsComponentProps) {
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-10">
       {/* Header / Back Navigation */}
@@ -82,7 +68,7 @@ export default async function IdeaDetailsPage({
                 asChild
                 className="w-full h-14 bg-slate-900 dark:bg-white dark:text-slate-900 rounded-2xl font-black text-lg shadow-xl shadow-slate-200 dark:shadow-none"
               >
-                <Link href={`/payment/${id}`}>Unlock for ${idea.price}</Link>
+                <Link href={`/payments/${id}`}>Unlock for ${idea.price}</Link>
               </Button>
             </div>
           )}

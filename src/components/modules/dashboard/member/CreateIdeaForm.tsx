@@ -109,7 +109,7 @@ export default function CreateIdeaForm({
         if (res?.success) {
           toast.success("Idea created successfully!", { id: toastId });
           setPreview(null);
-          router.push("/dashboard/my-ideas");
+          router.push("/dashboard/my-ideas/shared-ideas");
         } else {
           toast.error(res?.message || "Failed to create idea", { id: toastId });
         }

@@ -10,9 +10,15 @@ import IdeaFilter from "./IdeaFilter";
 
 interface PublicIdeasClientProps {
   ideas: Idea[];
+  purchasedIds: Set<string>;
+  userId: string;
 }
 
-export default function PublicIdeasClient({ ideas }: PublicIdeasClientProps) {
+export default function PublicIdeasClient({
+  ideas,
+  purchasedIds,
+  userId,
+}: PublicIdeasClientProps) {
   return (
     <div>
       {ideas.length === 0 ? (
@@ -57,9 +63,19 @@ export default function PublicIdeasClient({ ideas }: PublicIdeasClientProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {ideas?.map((idea) => (
-              <IdeaCard key={idea.id} idea={idea} />
-            ))}
+            {ideas?.map((idea) => {
+              const isAlreadyPurchased = purchasedIds.has(idea.id);
+              const isOwner = idea.userId === userId;
+
+              return (
+                <IdeaCard
+                  key={idea.id}
+                  idea={idea}
+                  isPurchased={isAlreadyPurchased}
+                  owner={isOwner}
+                />
+              );
+            })}
           </div>
         </div>
       )}

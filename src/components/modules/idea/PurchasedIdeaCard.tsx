@@ -31,7 +31,7 @@ export default function PurchasedIdeaCard({ idea }: PurchasedIdeaCardProps) {
 
         <div className="absolute top-4 left-4">
           <Badge className="bg-emerald-500/90 hover:bg-emerald-500 text-white backdrop-blur-md border-none px-4 py-1 rounded-full text-[10px] font-black tracking-widest uppercase">
-            Owned
+            Purchased
           </Badge>
         </div>
       </div>
