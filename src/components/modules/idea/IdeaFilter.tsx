@@ -98,7 +98,7 @@ export default function IdeaFilter() {
           </SelectItem>
 
           <SelectItem
-            value="name:asc"
+            value="title:asc"
             className="rounded-xl focus:bg-emerald-50 focus:text-emerald-700 dark:text-slate-200 dark:focus:bg-slate-800 dark:focus:text-emerald-400 cursor-pointer"
           >
             <div className="flex items-center gap-2 py-1">

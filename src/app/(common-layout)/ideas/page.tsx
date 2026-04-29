@@ -9,9 +9,19 @@ export default async function IdeaPage({
 }) {
   const params = await searchParams;
 
+  const page = params.page || "1";
+  const limit = params.limit || "10";
   const searchTerm = params.searchTerm || "";
+  const sortBy = params.sortBy || "createdAt";
+  const sortOrder = params.sortOrder || "desc";
 
-  const { data: ideas } = await getIdeas({ searchTerm });
+  const { data: ideas } = await getIdeas({
+    page,
+    limit,
+    searchTerm,
+    sortBy,
+    sortOrder,
+  });
 
   return (
     <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen pb-20">

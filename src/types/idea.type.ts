@@ -22,5 +22,12 @@ export interface Idea {
 }
 
 export interface GetIdeaSearchParams {
+  page?: string;
+  limit?: string;
   searchTerm?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  selectFields?: string;
+  includeFields?: string | undefined;
+  [key: string]: string | undefined;
 }

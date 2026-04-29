@@ -1,6 +1,6 @@
 "use client";
 
-import { Category, Idea } from "@/types";
+import { Idea } from "@/types";
 import IdeaCard from "./IdeaCard";
 import { Lightbulb, X } from "lucide-react";
 import IdeaSearch from "./IdeaSearch";
