@@ -57,6 +57,8 @@ export const ideaServices = {
     try {
       const url = new URL(`${API_URL}/api/v1/ideas`);
 
+      const cookieStore = await cookies();
+
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
           if (value !== undefined && value !== null && value !== "") {
@@ -65,7 +67,12 @@ export const ideaServices = {
         });
       }
 
-      const res = await fetch(url.toString());
+      const res = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
 
       if (!res.ok) {
         return {
