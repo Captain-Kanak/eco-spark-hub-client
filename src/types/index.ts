@@ -9,3 +9,4 @@ export type {
 export type { CookieOptions } from "./cookie.type";
 export type { Category } from "./category.type";
 export type { Route } from "./route.type";
+export type { Payment } from "./payment.type";

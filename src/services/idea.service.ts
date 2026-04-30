@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { ApiResponse, Idea } from "@/types";
+import { ApiResponse, Idea, Payment } from "@/types";
 import { GetIdeaSearchParams } from "@/types/idea.type";
 import { cookies } from "next/headers";
 
@@ -144,7 +144,7 @@ export const ideaServices = {
       };
     }
   },
-  getPurchasedIdeas: async (): Promise<ApiResponse<Idea[]>> => {
+  getPurchasedIdeas: async (): Promise<ApiResponse<Payment[]>> => {
     try {
       const url = `${API_URL}/api/v1/ideas/purchased-ideas`;
 
@@ -191,7 +191,14 @@ export const ideaServices = {
     try {
       const url = `${API_URL}/api/v1/ideas/${id}`;
 
-      const res = await fetch(url.toString());
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
 
       if (!res.ok) {
         return {

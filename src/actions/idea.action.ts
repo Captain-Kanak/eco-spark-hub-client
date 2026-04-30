@@ -1,7 +1,7 @@
 "use server";
 
 import { ideaServices } from "@/services/idea.service";
-import { ApiResponse, Idea } from "@/types";
+import { ApiResponse, Idea, Payment } from "@/types";
 import { GetIdeaSearchParams } from "@/types/idea.type";
 
 export const createIdea = async (
@@ -20,7 +20,7 @@ export const getMyIdeas = async (): Promise<ApiResponse<Idea[]>> => {
   return await ideaServices.getMyIdeas();
 };
 
-export const getPurchasedIdeas = async (): Promise<ApiResponse<Idea[]>> => {
+export const getPurchasedIdeas = async (): Promise<ApiResponse<Payment[]>> => {
   return await ideaServices.getPurchasedIdeas();
 };
 

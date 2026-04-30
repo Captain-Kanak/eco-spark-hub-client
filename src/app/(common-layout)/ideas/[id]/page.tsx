@@ -2,6 +2,7 @@ import { getMe } from "@/actions/auth.action";
 import { getIdeaById, getPurchasedIdeas } from "@/actions/idea.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Payment } from "@/types";
 import {
   Lock,
   Sparkles,
@@ -15,7 +16,7 @@ import Link from "next/link";
 export default async function IdeaDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
 
@@ -28,16 +29,28 @@ export default async function IdeaDetailsPage({
   const idea = ideasResult?.data;
   const user = userResult?.data;
 
-  // Logic checks
   const isOwner = user?.id === idea?.userId;
-  const isPurchased = purchasedResult?.data?.some((p: any) => p.ideaId === id);
+  const isPurchased = purchasedResult?.data?.some(
+    (p: Payment) => p.ideaId === id,
+  );
   const hasAccess = !idea?.isPaid || isPurchased || isOwner;
 
-  if (!idea)
-    return <div className="p-20 text-center font-black">Idea not found.</div>;
+  if (!idea) {
+    return (
+      <div className="p-20 text-center font-black">
+        <div className="flex items-center justify-center gap-4">
+          <Lock className="h-8 w-8" />
+          <h1 className="text-3xl font-bold">Locked</h1>
+        </div>
+        <p className="text-slate-500 dark:text-slate-400 mt-4">
+          You don&apos;t have access to this idea.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-10">
+    <div className="max-w-7xl mx-auto p-6 space-y-10">
       {/* Header / Back Navigation */}
       <div className="flex items-center justify-between">
         <Button
