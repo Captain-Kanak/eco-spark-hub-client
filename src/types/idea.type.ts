@@ -28,6 +28,7 @@ export interface GetIdeaSearchParams {
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   selectFields?: string;
+  categoryId?: string;
   includeFields?: string | undefined;
   [key: string]: string | undefined;
 }

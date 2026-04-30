@@ -1,8 +1,8 @@
 import { getMe } from "@/actions/auth.action";
 import { getIdeas, getPurchasedIdeas } from "@/actions/idea.action";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
+import { Payment } from "@/types";
 import { GetIdeaSearchParams } from "@/types/idea.type";
-import { Payment } from "@/types/payment.type";
 
 export default async function IdeaPage({
   searchParams,
@@ -16,6 +16,7 @@ export default async function IdeaPage({
   const searchTerm = params.searchTerm || "";
   const sortBy = params.sortBy || "createdAt";
   const sortOrder = params.sortOrder || "desc";
+  const categoryId = params.categoryId || "";
 
   const [ideasResult, purchasedResult, userResult] = await Promise.all([
     getIdeas({
@@ -24,13 +25,14 @@ export default async function IdeaPage({
       searchTerm,
       sortBy,
       sortOrder,
+      categoryId,
     }),
     getPurchasedIdeas(),
     getMe(),
   ]);
 
   const purchasedIds = new Set(
-    purchasedResult?.data?.map((p: any) => p.ideaId),
+    purchasedResult?.data?.map((p: Payment) => p.ideaId),
   );
   const user = userResult?.data;
 
