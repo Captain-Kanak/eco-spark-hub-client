@@ -16,8 +16,10 @@ export const getIdeas = async (
   return await ideaServices.getIdeas(params);
 };
 
-export const getMyIdeas = async (): Promise<ApiResponse<Idea[]>> => {
-  return await ideaServices.getMyIdeas();
+export const getMyIdeas = async (
+  params: GetIdeaSearchParams,
+): Promise<ApiResponse<Idea[]>> => {
+  return await ideaServices.getMyIdeas(params);
 };
 
 export const getPurchasedIdeas = async (): Promise<ApiResponse<Payment[]>> => {

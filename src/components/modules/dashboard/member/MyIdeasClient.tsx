@@ -56,7 +56,7 @@ export default function MyIdeasClient({
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {ideas.map((idea) => (
+        {ideas?.map((idea) => (
           <MyIdeaCard
             key={idea.id}
             idea={idea}

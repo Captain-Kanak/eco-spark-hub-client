@@ -13,7 +13,7 @@ export default async function IdeaPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = params.limit || "12";
+  const limit = "12";
   const searchTerm = params.searchTerm || "";
   const sortBy = params.sortBy || "createdAt";
   const sortOrder = params.sortOrder || "desc";

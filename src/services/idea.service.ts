@@ -106,14 +106,23 @@ export const ideaServices = {
       };
     }
   },
-  getMyIdeas: async (): Promise<ApiResponse<Idea[]>> => {
+  getMyIdeas: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Idea[]>> => {
     try {
-      const url = `${API_URL}/api/v1/ideas/my-ideas`;
+      const url = new URL(`${API_URL}/api/v1/ideas/my-ideas`);
 
       const cookieStore = await cookies();
 
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
+
       const res = await fetch(url.toString(), {
-        method: "GET",
         headers: {
           Cookie: cookieStore.toString(),
         },
@@ -140,8 +149,8 @@ export const ideaServices = {
       return {
         success: true,
         message: result.message || "Ideas fetched successfully",
-        data: result.data,
-        meta: result.meta,
+        data: result.data.data,
+        meta: result.data.meta,
       };
     } catch (error) {
       return {
