@@ -5,8 +5,9 @@ export interface ApiResponse<T> {
   meta?: Meta | null;
 }
 
-interface Meta {
+export interface Meta {
+  currentPage: number;
+  limit: number;
   total: number;
-  page: number;
-  pageSize: number;
+  totalPages: number;
 }

@@ -7,6 +7,8 @@ import IdeaSearch from "./IdeaSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import IdeaFilter from "./IdeaFilter";
+import { Meta } from "@/types/api.type";
+import AppPagination from "@/components/layouts/AppPagination";
 
 interface PublicIdeasClientProps {
   ideas: Idea[];

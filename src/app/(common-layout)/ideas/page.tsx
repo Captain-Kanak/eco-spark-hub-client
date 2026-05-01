@@ -1,5 +1,6 @@
 import { getMe } from "@/actions/auth.action";
 import { getIdeas, getPurchasedIdeas } from "@/actions/idea.action";
+import AppPagination from "@/components/layouts/AppPagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { Payment } from "@/types";
 import { GetIdeaSearchParams } from "@/types/idea.type";
@@ -12,7 +13,7 @@ export default async function IdeaPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = params.limit || "10";
+  const limit = params.limit || "12";
   const searchTerm = params.searchTerm || "";
   const sortBy = params.sortBy || "createdAt";
   const sortOrder = params.sortOrder || "desc";
@@ -35,6 +36,7 @@ export default async function IdeaPage({
     purchasedResult?.data?.map((p: Payment) => p.ideaId),
   );
   const user = userResult?.data;
+  const meta = ideasResult?.meta;
 
   return (
     <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen pb-20">
@@ -53,6 +55,11 @@ export default async function IdeaPage({
           ideas={ideasResult.data || []}
           purchasedIds={purchasedIds}
           userId={user?.id || ""}
+        />
+
+        <AppPagination
+          totalPages={meta?.totalPages || 1}
+          currentPage={meta?.currentPage || 1}
         />
       </div>
     </div>
