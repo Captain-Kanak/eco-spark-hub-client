@@ -1,5 +1,6 @@
 import { env } from "@/env";
-import { ApiResponse } from "@/types";
+import { ApiResponse, Payment } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 import { cookies } from "next/headers";
 
 export interface PaymentIntent {
@@ -111,5 +112,58 @@ export const paymentServices = {
       };
     }
   },
-  getMyPayments: async () => {},
+  getSales: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Payment[]>> => {
+    try {
+      const url = new URL(`${API_URL}/api/v1/payments/get-sales`);
+
+      const cookieStore = await cookies();
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error fetching payments",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error fetching payments",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: result.message || "Payments fetched successfully",
+        data: result.data.data,
+        meta: result.data.meta,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error fetching payments",
+        data: null,
+      };
+    }
+  },
 };

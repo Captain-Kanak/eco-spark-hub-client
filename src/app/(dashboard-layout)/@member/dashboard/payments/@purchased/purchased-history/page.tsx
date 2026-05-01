@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import AppPagination from "@/components/layouts/AppPagination";
+import { Payment } from "@/types";
 
 export default async function PurchasedHistoryPage({
   searchParams,
@@ -53,7 +54,7 @@ export default async function PurchasedHistoryPage({
             </thead>
             <tbody className="divide-y divide-slate-50 dark:divide-slate-900">
               {payments && payments.length > 0 ? (
-                payments.map((payment: any) => (
+                payments.map((payment: Payment) => (
                   <tr
                     key={payment.id}
                     className="group hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors"

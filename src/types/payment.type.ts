@@ -1,4 +1,6 @@
+import { User } from "./auth.type";
 import { PaymentStatus } from "./enums";
+import { Idea } from "./idea.type";
 
 export interface Payment {
   id: string;
@@ -8,7 +10,9 @@ export interface Payment {
   paymentMethod: string;
   isDeleted: boolean;
   ideaId: string;
+  idea: Idea;
   userId: string;
+  user: User;
   deletedAt: string;
   createdAt: string;
   updatedAt: string;

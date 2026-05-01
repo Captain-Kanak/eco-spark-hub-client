@@ -5,7 +5,8 @@ import {
   PaymentIntent,
   paymentServices,
 } from "@/services/payment.service";
-import { ApiResponse } from "@/types";
+import { ApiResponse, Payment } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 
 export const createPaymentIntent = async (
   payload: PaymentIntent,
@@ -15,4 +16,10 @@ export const createPaymentIntent = async (
 
 export const confirmPayment = async (payload: ConfirmPaymentPayload) => {
   return await paymentServices.confirmPayment(payload);
+};
+
+export const getSales = async (
+  params?: GetIdeaSearchParams,
+): Promise<ApiResponse<Payment[]>> => {
+  return await paymentServices.getSales(params);
 };
