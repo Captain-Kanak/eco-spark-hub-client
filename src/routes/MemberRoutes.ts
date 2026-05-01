@@ -38,7 +38,7 @@ export const MemberRoutes: Route[] = [
       },
       {
         title: "Payments History",
-        url: "/dashboard/payments-history",
+        url: "/dashboard/payments/sales-history",
         icon: DollarSign,
       },
     ],

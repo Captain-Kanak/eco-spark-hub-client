@@ -12,9 +12,8 @@ export default function MyIdeasLayout({
 }: Readonly<{ shared: React.ReactNode; purchased: React.ReactNode }>) {
   const pathname = usePathname();
 
-  const isShared =
-    pathname.includes("/shared-ideas") || pathname === "/dashboard/my-ideas";
-  const isPurchased = pathname.includes("/purchased-ideas");
+  const isShared = pathname === "/dashboard/my-ideas/shared-ideas";
+  const isPurchased = pathname === "/dashboard/my-ideas/purchased-ideas";
 
   return (
     <div className="flex flex-1 flex-col animate-in fade-in duration-500">
@@ -48,13 +47,15 @@ export default function MyIdeasLayout({
         </div>
 
         {/* Parallel Slots Container */}
-        <div className="mt-4">
-          {isShared ? (
-            <div className="animate-in slide-in-from-bottom-4 duration-500">
+        <div className="relative min-h-100">
+          {isShared && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               {shared}
             </div>
-          ) : (
-            <div className="animate-in slide-in-from-bottom-4 duration-500">
+          )}
+
+          {isPurchased && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               {purchased}
             </div>
           )}

@@ -12,7 +12,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import AppPagination from "@/components/layouts/AppPagination";
 
-export default async function PaymentsHistoryPage({
+export default async function PurchasedHistoryPage({
   searchParams,
 }: {
   searchParams: Promise<GetIdeaSearchParams>;
@@ -28,17 +28,6 @@ export default async function PaymentsHistoryPage({
 
   return (
     <div className="container mx-auto">
-      {/* Header Section */}
-      <div className="mb-10">
-        <h1 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">
-          Payment <span className="text-emerald-500 italic">History</span>
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 font-medium">
-          Manage your transactions and access blueprints for purchased
-          eco-innovations.
-        </p>
-      </div>
-
       {/* Table Section */}
       <div className="bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 rounded-[2.5rem] overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
