@@ -41,7 +41,7 @@ export default async function SalesHistoryPage({
                   Sold Idea / Blueprint
                 </th>
                 <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-slate-400">
-                  Buyer Details
+                  Buyer Name
                 </th>
                 <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-slate-400">
                   Sale Date
