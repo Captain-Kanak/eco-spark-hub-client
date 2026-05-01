@@ -171,4 +171,47 @@ export const authServices = {
       };
     }
   },
+  updateProfile: async (payload: FormData): Promise<ApiResponse<User>> => {
+    try {
+      const url = `${API_URL}/api/v1/users/update-profile`;
+
+      const cookieStore = await cookies();
+
+      console.log("payload", payload);
+
+      const res = await fetch(url.toString(), {
+        method: "PATCH",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+        body: payload,
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return { success: false, message: result.message, data: null };
+      }
+
+      return {
+        success: true,
+        message: "Profile updated successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
 };

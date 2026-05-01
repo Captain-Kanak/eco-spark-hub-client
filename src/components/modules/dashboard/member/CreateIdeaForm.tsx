@@ -85,7 +85,6 @@ export default function CreateIdeaForm({
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Submitting your idea...");
 
-      console.log("vlaue:", value);
       try {
         const formData = new FormData();
 

@@ -18,3 +18,7 @@ export const login = async (payload: LoginPayload) => {
 export const getMe = async () => {
   return await authServices.getMe();
 };
+
+export const updateProfile = async (payload: FormData) => {
+  return await authServices.updateProfile(payload);
+};
