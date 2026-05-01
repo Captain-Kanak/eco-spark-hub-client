@@ -160,11 +160,21 @@ export const ideaServices = {
       };
     }
   },
-  getPurchasedIdeas: async (): Promise<ApiResponse<Payment[]>> => {
+  getPurchasedIdeas: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Payment[]>> => {
     try {
-      const url = `${API_URL}/api/v1/ideas/purchased-ideas`;
+      const url = new URL(`${API_URL}/api/v1/ideas/purchased-ideas`);
 
       const cookieStore = await cookies();
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
 
       const res = await fetch(url.toString(), {
         headers: {
@@ -193,7 +203,8 @@ export const ideaServices = {
       return {
         success: true,
         message: "Ideas fetched successfully",
-        data: result.data,
+        data: result.data.data,
+        meta: result.data.meta,
       };
     } catch (error) {
       return {

@@ -44,7 +44,7 @@ export default function Hero() {
           <Button
             asChild
             size="lg"
-            className="h-16 px-10 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-emerald-600 dark:hover:bg-emerald-500 dark:hover:text-white font-black text-lg transition-all shadow-2xl shadow-emerald-500/20 group"
+            className="h-16 px-10 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-emerald-600 dark:hover:bg-emerald-500 dark:hover:text-white font-black text-lg transition-all shadow-2xl shadow-emerald-500/20 group cursor-pointer"
           >
             <Link href="/ideas">
               Explore Ideas
@@ -55,7 +55,7 @@ export default function Hero() {
           <Button
             variant="outline"
             size="lg"
-            className="h-16 px-10 rounded-2xl border-2 border-slate-100 dark:border-slate-800 font-black text-lg hover:bg-slate-50 dark:hover:bg-slate-900"
+            className="h-16 px-10 rounded-2xl border-2 border-slate-100 dark:border-slate-800 font-black text-lg hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer transition-all shadow-2xl shadow-slate-500/20 group"
           >
             <Link
               href="/dashboard/create-idea"

@@ -1,10 +1,24 @@
 import { getPurchasedIdeas } from "@/actions/idea.action";
+import AppPagination from "@/components/layouts/AppPagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 import { PackageOpen } from "lucide-react";
 import React from "react";
 
-export default async function PurchasedIdeasPage() {
-  const { data: payments } = await getPurchasedIdeas();
+export default async function PurchasedIdeasPage({
+  searchParams,
+}: {
+  searchParams: Promise<GetIdeaSearchParams>;
+}) {
+  const params = await searchParams;
+
+  const page = params.page || "1";
+  const limit = "12";
+
+  const { data: payments, meta } = await getPurchasedIdeas({
+    page,
+    limit,
+  });
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -17,10 +31,17 @@ export default async function PurchasedIdeasPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {payments?.map((payment: any) => (
-            <PurchasedIdeaCard key={payment.id} idea={payment.idea} />
-          ))}
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {payments?.map((payment: any) => (
+              <PurchasedIdeaCard key={payment.id} idea={payment.idea} />
+            ))}
+          </div>
+
+          <AppPagination
+            totalPages={meta?.totalPages || 1}
+            currentPage={meta?.currentPage || 1}
+          />
         </div>
       )}
     </div>
