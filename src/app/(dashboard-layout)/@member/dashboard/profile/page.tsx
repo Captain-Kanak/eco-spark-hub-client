@@ -49,7 +49,7 @@ export default async function MemberProfilePage() {
 
               <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full text-[10px] font-black uppercase tracking-widest">
                 <ShieldCheck size={12} />
-                Verified Member
+                Verified {user.role}
               </div>
             </div>
 
