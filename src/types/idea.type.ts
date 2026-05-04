@@ -1,3 +1,4 @@
+import { User } from "./auth.type";
 import { IdeaStatus } from "./enums";
 
 export interface Idea {
@@ -16,6 +17,7 @@ export interface Idea {
   isDeleted: boolean;
   categoryId: string;
   userId: string;
+  user: User;
   deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;

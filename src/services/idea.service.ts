@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { ApiResponse, Idea, Payment } from "@/types";
+import { IdeaStatus } from "@/types/enums";
 import { GetIdeaSearchParams } from "@/types/idea.type";
 import { cookies } from "next/headers";
 
@@ -47,6 +48,61 @@ export const ideaServices = {
       return {
         success: false,
         message: "Error creating idea",
+        data: null,
+      };
+    }
+  },
+  getPendingIdeas: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Idea[]>> => {
+    try {
+      const url = new URL(`${API_URL}/api/v1/ideas/pending-ideas`);
+
+      const cookieStore = await cookies();
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
+
+      const res = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error fetching ideas",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error fetching ideas",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: result.message || "Ideas fetched successfully",
+        data: result.data.data,
+        meta: result.data.meta,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error fetching ideas",
         data: null,
       };
     }
@@ -305,6 +361,55 @@ export const ideaServices = {
       return {
         success: false,
         message: "Error updating idea",
+        data: null,
+      };
+    }
+  },
+  updateIdeaStatusById: async (payload: {
+    ideaId: string;
+    status: IdeaStatus;
+  }): Promise<ApiResponse<Idea>> => {
+    try {
+      const url = `${API_URL}/api/v1/ideas/update-idea-status/${payload.ideaId}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "PATCH",
+        headers: {
+          Cookie: cookieStore.toString(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error updating idea",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error updating idea",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Idea updated successfully",
+        data: result.data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || "Error updating idea",
         data: null,
       };
     }

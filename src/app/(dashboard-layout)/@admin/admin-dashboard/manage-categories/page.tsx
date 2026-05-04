@@ -14,7 +14,7 @@ export default async function ManageCategoriesPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = "3";
+  const limit = "12";
 
   const { data: categories, meta } = await getCategories({ page, limit });
 
