@@ -22,9 +22,6 @@ export default async function ManagePendingIdeasPage({
     limit,
   });
 
-  console.log("pendingIdeas", pendingIdeas);
-  console.log("meta", meta);
-
   if (!pendingIdeas || pendingIdeas.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-[2rem] text-slate-400">
@@ -37,12 +34,24 @@ export default async function ManagePendingIdeasPage({
   return (
     <div>
       <div className="grid gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">
+            {pendingIdeas.length} - Pending Ideas
+          </h2>
+          <p className="text-sm text-slate-500">
+            These are ideas that have been submitted by users and are waiting
+            for approval.
+          </p>
+        </div>
+
         {pendingIdeas.map((idea: Idea, index) => (
           <Card
             key={idea.id}
             className="p-6 rounded-[2rem] border-slate-200 flex items-center justify-between group hover:border-emerald-200 transition-colors"
           >
-            <div className="text-2xl font-bold text-slate-400">#{index + 1}</div>
+            <div className="text-2xl font-bold text-slate-400">
+              #{index + 1}
+            </div>
             <div className="space-y-1">
               <div className="flex items-center gap-3">
                 <h3 className="font-bold text-lg">{idea.title}</h3>

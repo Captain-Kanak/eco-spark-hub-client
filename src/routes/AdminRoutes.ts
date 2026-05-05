@@ -39,7 +39,7 @@ export const AdminRoutes: Route[] = [
       },
       {
         title: "Manage Ideas",
-        url: "/admin-dashboard/manage-ideas/approved",
+        url: "/admin-dashboard/manage-ideas/pending",
         icon: Lightbulb,
       },
       {

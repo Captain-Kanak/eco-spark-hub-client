@@ -18,6 +18,11 @@ export interface Idea {
   categoryId: string;
   userId: string;
   user: User;
+  _count: {
+    votes: number;
+    comments: number;
+    payments: number;
+  };
   deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
