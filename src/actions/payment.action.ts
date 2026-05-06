@@ -23,3 +23,9 @@ export const getSales = async (
 ): Promise<ApiResponse<Payment[]>> => {
   return await paymentServices.getSales(params);
 };
+
+export const getAllPayments = async (
+  params?: GetIdeaSearchParams,
+): Promise<ApiResponse<Payment[]>> => {
+  return await paymentServices.getAllPayments(params);
+};

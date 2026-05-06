@@ -13,7 +13,7 @@ export default async function ManageUsersPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = "2";
+  const limit = "12";
 
   const { data: users, meta } = await getUsers({
     page,

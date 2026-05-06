@@ -166,4 +166,58 @@ export const paymentServices = {
       };
     }
   },
+  getAllPayments: async (
+    params?: GetIdeaSearchParams,
+  ): Promise<ApiResponse<Payment[]>> => {
+    try {
+      const url = new URL(`${API_URL}/api/v1/payments/get-all-payments`);
+
+      const cookieStore = await cookies();
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.append(key, value.toString());
+          }
+        });
+      }
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "Error fetching all payments",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message || "Error fetching all payments",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: result.message || "All payments fetched successfully",
+        data: result.data.data,
+        meta: result.data.meta,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || "Error fetching all payments",
+        data: null,
+      };
+    }
+  },
 };
