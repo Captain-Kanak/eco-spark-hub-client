@@ -18,7 +18,7 @@ export default async function PaymentsHistoryPage({
   });
 
   return (
-    <div className="container mx-auto py-8 space-y-6">
+    <div className="container mx-auto space-y-6">
       {/* Header Deck */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>

@@ -9,14 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import {
-  Eye,
-  CreditCard,
-  Calendar,
-  ArrowUpRight,
-  Hash,
-  Sparkles,
-} from "lucide-react";
+import { Eye, CreditCard, Calendar, Hash, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 export default function PaymentDetailsSheet({ payment }: { payment: any }) {
