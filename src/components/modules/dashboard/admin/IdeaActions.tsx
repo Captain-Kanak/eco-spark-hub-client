@@ -33,7 +33,7 @@ export default function IdeaActions({ ideaId }: IdeaActionsProps) {
 
         if (result.success) {
           toast.success(
-            `Idea ${type === "approve" ? "APPROVED" : "REJECTED"} successfully`,
+            `Idea ${type === "approve" ? "Approved" : "Rejected"} successfully`,
           );
           router.refresh();
         } else {

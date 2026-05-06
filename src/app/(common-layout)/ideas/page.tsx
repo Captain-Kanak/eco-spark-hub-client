@@ -28,7 +28,7 @@ export default async function IdeaPage({
       sortOrder,
       categoryId,
     }),
-    getPurchasedIdeas(),
+    getPurchasedIdeas({}),
     getMe(),
   ]);
 

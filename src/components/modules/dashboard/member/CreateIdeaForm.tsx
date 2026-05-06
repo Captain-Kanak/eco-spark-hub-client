@@ -34,6 +34,7 @@ import { createIdea } from "@/actions/idea.action";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const createIdeaSchema = z
   .object({
@@ -106,7 +107,9 @@ export default function CreateIdeaForm({
         const res = await createIdea(formData);
 
         if (res?.success) {
-          toast.success("Idea created successfully!", { id: toastId });
+          toast.info("Admin will review your idea shortly!", {
+            id: toastId,
+          });
           setPreview(null);
           router.push("/dashboard/my-ideas/shared-ideas");
         } else {
@@ -167,15 +170,13 @@ export default function CreateIdeaForm({
                         <SelectValue placeholder="Select Category" />
                       </SelectTrigger>
                       <SelectContent className="rounded-xl">
-                        {categories.map((cat) => (
-                          <SelectItem
-                            key={cat.id}
-                            value={cat.id}
-                            className="cursor-pointer"
-                          >
-                            {cat.name}
-                          </SelectItem>
-                        ))}
+                        <div className="max-h-60 overflow-y-auto">
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={cat.id}>
+                              {cat.name}
+                            </SelectItem>
+                          ))}
+                        </div>
                       </SelectContent>
                     </Select>
                     <FieldError errors={field.state.meta.errors} />

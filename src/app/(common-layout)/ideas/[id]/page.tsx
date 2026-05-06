@@ -22,7 +22,7 @@ export default async function IdeaDetailsPage({
 
   const [ideasResult, purchasedResult, userResult] = await Promise.all([
     getIdeaById(id),
-    getPurchasedIdeas(),
+    getPurchasedIdeas({}),
     getMe(),
   ]);
 
