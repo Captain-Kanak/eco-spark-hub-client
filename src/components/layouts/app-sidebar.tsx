@@ -33,7 +33,7 @@ export function AppSidebar({
   const pathname = usePathname();
   let routes: Route[] = [];
 
-  const isActive = (url: string) => {
+  const isActive = (url: string): boolean => {
     return pathname === url;
   };
 

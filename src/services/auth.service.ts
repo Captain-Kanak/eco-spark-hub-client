@@ -1,6 +1,7 @@
 import { env } from "@/env";
 import { setBetterAuthTokenInCookie } from "@/lib/token";
 import { ApiResponse, LoginPayload, RegisterPayload, User } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea.type";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -205,6 +206,94 @@ export const authServices = {
         success: true,
         message: "Profile updated successfully",
         data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
+  getUsers: async (
+    params: GetIdeaSearchParams,
+  ): Promise<ApiResponse<User[]>> => {
+    try {
+      const url = new URL(`${API_URL}/api/v1/users/get-users`);
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          url.searchParams.append(key, value.toString());
+        }
+      });
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return { success: false, message: result.message, data: null };
+      }
+
+      return {
+        success: true,
+        message: "Users fetched successfully",
+        data: result.data.data,
+        meta: result.data.meta,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
+  },
+  deleteUser: async (userId: string): Promise<ApiResponse<null>> => {
+    try {
+      const url = `${API_URL}/api/v1/users/${userId}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "DELETE",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return { success: false, message: result.message, data: null };
+      }
+
+      return {
+        success: true,
+        message: "User deleted successfully",
+        data: null,
       };
     } catch (error) {
       return {

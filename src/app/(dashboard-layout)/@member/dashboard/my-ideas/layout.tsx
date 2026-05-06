@@ -32,6 +32,7 @@ export default function MyIdeasLayout({
             <Lightbulb className="h-4 w-4" />
             Shared Ideas
           </Link>
+          
           <Link
             href="/dashboard/my-ideas/purchased-ideas"
             className={cn(

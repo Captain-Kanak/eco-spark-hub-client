@@ -9,7 +9,10 @@ import { Lightbulb } from "lucide-react";
 export default function ManageIdeasLayout({
   approved,
   pending,
-}: Readonly<{ approved: React.ReactNode; pending: React.ReactNode }>) {
+}: Readonly<{
+  approved: React.ReactNode;
+  pending: React.ReactNode;
+}>) {
   const pathname = usePathname();
 
   const isApproved = pathname === "/admin-dashboard/manage-ideas/approved";

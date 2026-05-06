@@ -14,7 +14,7 @@ export default async function ManageApprovedIdeasPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = "12";
+  const limit = "10";
 
   const { data: approvedIdeas, meta } = await getIdeas({
     page,
