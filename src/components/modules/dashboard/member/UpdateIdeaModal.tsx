@@ -101,6 +101,7 @@ export default function UpdateIdeaModal({
         if (res?.success) {
           toast.success("Idea updated successfully!", { id: toastId });
           onOpenChange(false);
+          form.reset();
           router.refresh();
         } else {
           toast.error(res?.message || "Failed to update", { id: toastId });
@@ -128,7 +129,7 @@ export default function UpdateIdeaModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl border-none rounded-[2.5rem] p-0 shadow-2xl">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl border-none rounded-[2.5rem] p-0 shadow-2xl [&>button]:cursor-pointer">
         <div className="h-2 bg-amber-500 w-full" />
 
         <div className="p-8">
