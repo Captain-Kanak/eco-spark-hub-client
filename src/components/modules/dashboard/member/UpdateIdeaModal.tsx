@@ -82,8 +82,6 @@ export default function UpdateIdeaModal({
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       const toastId = toast.loading("Updating your idea...");
-
-      console.log("vlaue:", value);
       try {
         const formData = new FormData();
         formData.append("title", value.title);
@@ -95,7 +93,7 @@ export default function UpdateIdeaModal({
         formData.append("price", String(value.price));
 
         if (value.image) {
-          formData.append("image", value.image);
+          formData.append("file", value.image);
         }
 
         const res = await updateIdeaById(idea.id, formData);

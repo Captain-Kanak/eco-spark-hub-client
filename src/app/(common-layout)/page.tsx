@@ -5,6 +5,8 @@ import Stats from "@/components/modules/home/Stats";
 import HowItWorks from "@/components/modules/home/HowItWorks";
 import FinalCTA from "@/components/modules/home/FinalCTA";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const { data: categories } = await getCategories();
 
