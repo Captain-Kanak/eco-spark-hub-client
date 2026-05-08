@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🌱 EcoSpark-Hub | Environmental Innovation Marketplace
 
-## Getting Started
+EcoSpark-Hub is a high-performance, full-stack incubator and marketplace designed to bridge the gap between green visionaries and global supporters. It features a triple-tier ecosystem (Admin, Innovator, Supporter) built to accelerate the transition to a sustainable future through transparent funding and community-voted innovation.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🚀 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛡️ Global Admin Suite
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Project Audit Log: Monitor every interaction, idea creation, and transaction across the entire environmental network.
+- Category Governance: Full CRUD operations for environmental sectors (e.g., Carbon Capture, Reforestation) with optimized state handling.
+- Impact Analytics: Real-time monitoring of total carbon-offset potential, funding growth, and user engagement.
+- User Orchestration: Admin can delete any user if needed.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 Innovator Dashboard
 
-## Learn More
+- Idea Incubation: Specialized tools for visionaries to submit project blueprints, including problem statements, solutions, and pricing models.
+- Media Integration: Integrated Cloudinary API for high-resolution project renders and profile branding.
+- Tracking: Monitor community analytics, total sales and spended.
 
-To learn more about Next.js, take a look at the following resources:
+## 🌍 Supporter Experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Innovation Discovery: Advanced filtering by eco-category and real-time search across global green initiatives.
+- Impact Checkout: A snapshot-based funding system that preserves project details at the moment of contribution.
+- Green Profile: Personalized dashboard to track "Sparked" projects and manage supporter identity.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### 🛠 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Framework: Next.js 16 (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS + Framer Motion (for premium animations)
+- Database/ORM: PostgreSQL + Prisma
+- State & Forms: Optimized React Hooks with Server Actions
+- Icons & UI: Lucide React, Shadcn UI, Sonner (Toasts)
+- Image Hosting: Cloudinary API
+- Deployment: Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 🔧 Installation & Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Captain-Kanak/eco-spark-hub-client
+   cd eco-spark-hub-client
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+3. Environment Variables: Create a .env file and add your credentials:
+   ```bash
+   API_URL="http://localhost:5000"
+   NEXT_PUBLIC_API_URL="http://localhost:5000"
+   NEXT_PUBLIC_APP_URL="http://localhost:3000"
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="stripe_publishable_key_here"
+   ```
+4. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+---
+
+### 🔒 Core Business Logic
+
+- **Idea Snapshot Integrity:** When a supporter backs an idea, the system takes a "Data Snapshot." This ensures the specific version of the solution and the pricing are locked in the `SupportItems` table, preventing discrepancies if the innovator updates the project later.
+- **Community Vetting:** Uses a custom voting logic that influences project visibility on the global feed, ensuring high-impact ideas gain the most traction.
+- **Responsive "Eco" UI:** A mobile-first design using a 12-column grid, featuring custom `rounded-[3rem]` geometries and dark-mode support to reflect a modern, sustainable brand identity.
+
+---
+
+## 👤 Author
+
+- Kanak Ray
+- Full Stack Developer
+- (Node.js · Express.js · TypeScript · PostgreSQL · Prisma)
+
+---
+
+## 📄 License
+
+This project is intended for educational and demonstration purposes.
