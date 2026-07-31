@@ -1,168 +1,24 @@
 import { env } from "@/env";
-import {
-  ApiResponse,
-  LoginUser,
-  RegisterUser,
-  User,
-  VerifyEmail,
-} from "@/types";
+import { ApiResponse, SearchQueryParams, User } from "@/types";
 import { cookies } from "next/headers";
 
-const API_URL = `${env.API_URL}/api/v1/auth`;
+const API_URL = `${env.API_URL}/api/v1/users`;
 
-export const authService = {
-  register: async (payload: RegisterUser): Promise<ApiResponse<User>> => {
+export const userService = {
+  getUsers: async (params: SearchQueryParams): Promise<ApiResponse<User[]>> => {
     try {
-      const url = `${API_URL}/register`;
+      const url = new URL(`${API_URL}`);
 
-      const res = await fetch(url.toString(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          url.searchParams.append(key, value.toString());
+        }
       });
-
-      if (!res.ok) {
-        return {
-          success: false,
-          message: "An unexpected error occurred",
-          data: null,
-        };
-      }
-
-      const result = await res.json();
-
-      if (!result.success) {
-        return {
-          success: false,
-          message: result.message,
-          data: null,
-        };
-      }
-
-      return {
-        success: true,
-        message: "Registration successful",
-        data: result.data.user,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: "An unexpected error occurred",
-        data: null,
-      };
-    }
-  },
-  verifyEmail: async (payload: VerifyEmail): Promise<ApiResponse<null>> => {
-    try {
-      const url = `${API_URL}/verify-email`;
-
-      const res = await fetch(url.toString(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        return {
-          success: false,
-          message: "An unexpected error occurred",
-          data: null,
-        };
-      }
-
-      const result = await res.json();
-
-      if (!result.success) {
-        return {
-          success: false,
-          message: result.message,
-          data: null,
-        };
-      }
-
-      return {
-        success: true,
-        message: "Email verified successfully",
-        data: null,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: "An unexpected error occurred",
-        data: null,
-      };
-    }
-  },
-  login: async (payload: LoginUser): Promise<ApiResponse<User>> => {
-    try {
-      const url = `${API_URL}/login`;
-
-      const res = await fetch(url.toString(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        return {
-          success: false,
-          message: "An unexpected error occurred",
-          data: null,
-        };
-      }
-
-      if (res.status === 403) {
-        return {
-          success: false,
-          message:
-            "Your account has not been verified, please verify your account",
-          data: null,
-        };
-      }
-
-      const result = await res.json();
-
-      if (!result.success) {
-        return {
-          success: false,
-          message: result.message,
-          data: null,
-        };
-      }
-
-      const { token, user } = result.data;
-
-      // await setBetterAuthTokenInCookie(token);
-
-      return {
-        success: true,
-        message: "Login successful",
-        data: user,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: "An unexpected error occurred",
-        data: null,
-      };
-    }
-  },
-  getMe: async (): Promise<ApiResponse<User>> => {
-    try {
-      const url = `${API_URL}/get-me`;
 
       const cookieStore = await cookies();
 
       const res = await fetch(url.toString(), {
-        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Cookie: cookieStore.toString(),
         },
       });
@@ -187,8 +43,142 @@ export const authService = {
 
       return {
         success: true,
-        message: "User data retrieved successfully",
+        message: "Users fetched successfully",
+        data: result.data.data,
+        meta: result.data.meta,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
+  },
+  updateProfile: async (payload: FormData): Promise<ApiResponse<User>> => {
+    try {
+      const url = `${API_URL}/update-profile`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "PATCH",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+        body: payload,
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message,
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Profile updated successfully",
         data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
+  blockUser: async (userId: string): Promise<ApiResponse<null>> => {
+    try {
+      const url = `${API_URL}/block/${userId}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "PATCH",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message,
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "User blocked successfully",
+        data: null,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
+  deleteUser: async (userId: string): Promise<ApiResponse<null>> => {
+    try {
+      const url = `${API_URL}/delete/${userId}`;
+
+      const cookieStore = await cookies();
+
+      const res = await fetch(url.toString(), {
+        method: "DELETE",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message,
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "User deleted successfully",
+        data: null,
       };
     } catch (error) {
       return {
