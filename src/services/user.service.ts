@@ -1,6 +1,6 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, SearchQueryParams, User } from "@/types";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/users`;
 
@@ -15,11 +15,9 @@ export const userService = {
         }
       });
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 
@@ -59,12 +57,10 @@ export const userService = {
     try {
       const url = `${API_URL}/update-profile`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: payload,
       });
@@ -104,12 +100,10 @@ export const userService = {
     try {
       const url = `${API_URL}/block/${userId}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 
@@ -148,12 +142,10 @@ export const userService = {
     try {
       const url = `${API_URL}/delete/${userId}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 

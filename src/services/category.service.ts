@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, Category, SearchQueryParams } from "@/types";
 import { cookies } from "next/headers";
 
@@ -9,12 +10,10 @@ export const categoryService = {
     try {
       const url = `${API_URL}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: payload,
       });
@@ -142,12 +141,10 @@ export const categoryService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: payload,
       });
@@ -187,12 +184,10 @@ export const categoryService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 

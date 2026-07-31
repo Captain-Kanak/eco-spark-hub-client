@@ -1,7 +1,7 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, Idea, SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/ideas`;
 
@@ -10,12 +10,10 @@ export const ideaService = {
     try {
       const url = `${API_URL}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: payload,
       });
@@ -108,13 +106,11 @@ export const ideaService = {
     try {
       const url = `${API_URL}/update-status/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: JSON.stringify(status),
       });
@@ -196,12 +192,10 @@ export const ideaService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: payload,
       });
@@ -241,12 +235,10 @@ export const ideaService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 

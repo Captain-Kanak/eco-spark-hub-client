@@ -1,6 +1,6 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, CreatePaymentIntent } from "@/types";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/donations`;
 
@@ -11,13 +11,11 @@ export const paymentServices = {
     try {
       const url = `${API_URL}/create-payment-intent`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: JSON.stringify(payload),
       });

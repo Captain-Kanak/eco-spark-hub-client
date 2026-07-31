@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import {
   ApiResponse,
   LoginUser,
@@ -6,7 +7,6 @@ import {
   User,
   VerifyEmail,
 } from "@/types";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/auth`;
 
@@ -157,13 +157,11 @@ export const authService = {
     try {
       const url = `${API_URL}/get-me`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 

@@ -1,6 +1,6 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, Like } from "@/types";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/likes`;
 
@@ -9,13 +9,11 @@ export const userService = {
     try {
       const url = `${API_URL}/${ideaId}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 

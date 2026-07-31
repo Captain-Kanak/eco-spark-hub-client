@@ -1,6 +1,6 @@
 import { env } from "@/env";
+import { getCookieHeaders } from "@/lib/getCookieHeaders";
 import { ApiResponse, Comment, CreateComment, UpdateComment } from "@/types";
-import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/comments`;
 
@@ -11,13 +11,11 @@ export const commentService = {
     try {
       const url = `${API_URL}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: JSON.stringify(payload),
       });
@@ -60,13 +58,11 @@ export const commentService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
         body: JSON.stringify(payload),
       });
@@ -106,12 +102,10 @@ export const commentService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: await getCookieHeaders(),
         },
       });
 
