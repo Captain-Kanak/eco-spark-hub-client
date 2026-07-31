@@ -3,7 +3,7 @@ import { getIdeas, getPurchasedIdeas } from "@/actions/idea.action";
 import AppPagination from "@/components/layouts/AppPagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { Payment } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export default async function IdeaPage({
   searchParams,

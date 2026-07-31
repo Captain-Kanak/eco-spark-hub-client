@@ -3,7 +3,7 @@
 import { ideaServices } from "@/services/idea.service";
 import { ApiResponse, Idea, Payment } from "@/types";
 import { IdeaStatus } from "@/types/enums";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export const createIdea = async (
   payload: FormData,

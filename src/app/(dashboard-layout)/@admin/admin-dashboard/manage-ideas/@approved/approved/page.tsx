@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Globe, User, MessageSquare } from "lucide-react";
 import DeleteIdeaButton from "@/components/modules/dashboard/admin/DeleteIdeaButton";
-import { GetIdeaSearchParams, Idea } from "@/types/idea.type";
+import { GetIdeaSearchParams, Idea } from "@/types/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 
 export default async function ManageApprovedIdeasPage({

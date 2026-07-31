@@ -1,7 +1,7 @@
 import { getPurchasedIdeas } from "@/actions/idea.action";
 import AppPagination from "@/components/layouts/AppPagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 import { PackageOpen } from "lucide-react";
 import React from "react";
 

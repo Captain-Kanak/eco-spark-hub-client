@@ -6,7 +6,7 @@ import {
   paymentServices,
 } from "@/services/payment.service";
 import { ApiResponse, Payment } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export const createPaymentIntent = async (
   payload: PaymentIntent,

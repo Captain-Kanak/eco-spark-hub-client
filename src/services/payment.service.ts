@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { ApiResponse, Payment } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 import { cookies } from "next/headers";
 
 export interface PaymentIntent {

@@ -2,7 +2,7 @@
 
 import { categoryServices } from "@/services/category.service";
 import { ApiResponse, Category } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export const createCategory = async (
   payload: FormData,

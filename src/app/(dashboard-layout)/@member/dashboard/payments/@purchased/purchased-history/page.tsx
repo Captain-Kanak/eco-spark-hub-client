@@ -1,6 +1,6 @@
 import React from "react";
 import { getPurchasedIdeas } from "@/actions/idea.action";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 import {
   Calendar,
   ExternalLink,

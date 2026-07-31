@@ -2,7 +2,7 @@ import { getSales } from "@/actions/payment.action";
 import AppPagination from "@/components/layouts/AppPagination";
 import { cn } from "@/lib/utils";
 import { Payment } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 import {
   Calendar,
   CheckCircle2,

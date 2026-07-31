@@ -5,7 +5,7 @@ import { Clock, XCircle } from "lucide-react";
 import { Idea } from "@/types";
 import IdeaActions from "@/components/modules/dashboard/admin/IdeaActions";
 import AppPagination from "@/components/layouts/AppPagination";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export default async function ManagePendingIdeasPage({
   searchParams,

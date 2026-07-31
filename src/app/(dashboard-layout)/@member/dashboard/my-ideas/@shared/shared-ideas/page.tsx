@@ -2,7 +2,7 @@ import { getCategories } from "@/actions/category.action";
 import { getMyIdeas } from "@/actions/idea.action";
 import AppPagination from "@/components/layouts/AppPagination";
 import MyIdeasClient from "@/components/modules/dashboard/member/MyIdeasClient";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export default async function SharedIdeasPage({
   searchParams,

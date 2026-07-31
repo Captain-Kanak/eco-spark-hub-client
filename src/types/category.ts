@@ -1,13 +1,14 @@
+import { Idea } from "./idea";
+
 export interface Category {
   id: string;
   name: string;
+  slug: string;
   icon: string | null;
-  description?: string;
-  isDeleted: boolean;
-  deletedAt?: string;
+  description: string | null;
   createdAt: string;
   updatedAt: string;
-  _count?: {
-    ideas: number;
-  };
+  deletedAt: string | null;
+
+  ideas?: Idea[];
 }

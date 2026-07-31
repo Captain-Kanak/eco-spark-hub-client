@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { ApiResponse, Category } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;

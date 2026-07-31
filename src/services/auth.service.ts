@@ -1,13 +1,13 @@
 import { env } from "@/env";
 import { setBetterAuthTokenInCookie } from "@/lib/token";
-import { ApiResponse, LoginPayload, RegisterPayload, User } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { ApiResponse, LoginPayload, RegisterUser, User } from "@/types";
+import { GetIdeaSearchParams } from "@/types/idea";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
 
 export const authServices = {
-  register: async (payload: RegisterPayload): Promise<ApiResponse<User>> => {
+  register: async (payload: RegisterUser): Promise<ApiResponse<User>> => {
     try {
       const url = `${API_URL}/api/v1/auth/register`;
 

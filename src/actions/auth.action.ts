@@ -2,7 +2,7 @@
 
 import { authServices } from "@/services/auth.service";
 import { LoginPayload, RegisterPayload } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export const register = async (payload: RegisterPayload) => {
   return await authServices.register(payload);

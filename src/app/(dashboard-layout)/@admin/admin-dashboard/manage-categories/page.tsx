@@ -4,7 +4,7 @@ import ManageCategoryHeader from "@/components/modules/dashboard/admin/ManageCat
 import { getCategories } from "@/actions/category.action";
 import ManageCategoriesClient from "@/components/modules/dashboard/admin/ManageCategoriesClient";
 import AppPagination from "@/components/layouts/AppPagination";
-import { GetIdeaSearchParams } from "@/types/idea.type";
+import { GetIdeaSearchParams } from "@/types/idea";
 
 export default async function ManageCategoriesPage({
   searchParams,
