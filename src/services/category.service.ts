@@ -39,7 +39,7 @@ export const categoryServices = {
 
       return {
         success: true,
-        message: "Category created successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {
@@ -86,7 +86,7 @@ export const categoryServices = {
 
       return {
         success: true,
-        message: "Categories fetched successfully",
+        message: result.message,
         data: result.data.data,
         meta: result.data.meta,
       };
@@ -124,7 +124,7 @@ export const categoryServices = {
 
       return {
         success: true,
-        message: "Category fetched successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {
@@ -172,7 +172,7 @@ export const categoryServices = {
 
       return {
         success: true,
-        message: "Category updated successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {
@@ -216,7 +216,7 @@ export const categoryServices = {
 
       return {
         success: true,
-        message: "Category deleted successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {

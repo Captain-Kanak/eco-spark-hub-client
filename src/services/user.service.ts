@@ -43,7 +43,7 @@ export const userService = {
 
       return {
         success: true,
-        message: "Users fetched successfully",
+        message: result.message,
         data: result.data.data,
         meta: result.data.meta,
       };
@@ -89,7 +89,7 @@ export const userService = {
 
       return {
         success: true,
-        message: "Profile updated successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {
@@ -133,7 +133,7 @@ export const userService = {
 
       return {
         success: true,
-        message: "User blocked successfully",
+        message: result.message,
         data: null,
       };
     } catch (error) {
@@ -177,7 +177,7 @@ export const userService = {
 
       return {
         success: true,
-        message: "User deleted successfully",
+        message: result.message,
         data: null,
       };
     } catch (error) {

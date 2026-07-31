@@ -43,7 +43,7 @@ export const authService = {
 
       return {
         success: true,
-        message: "Registration successful",
+        message: result.message,
         data: result.data.user,
       };
     } catch (error) {
@@ -86,7 +86,7 @@ export const authService = {
 
       return {
         success: true,
-        message: "Email verified successfully",
+        message: result.message,
         data: null,
       };
     } catch (error) {
@@ -109,19 +109,19 @@ export const authService = {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        return {
-          success: false,
-          message: "An unexpected error occurred",
-          data: null,
-        };
-      }
-
       if (res.status === 403) {
         return {
           success: false,
           message:
             "Your account has not been verified, please verify your account",
+          data: null,
+        };
+      }
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
           data: null,
         };
       }
@@ -142,7 +142,7 @@ export const authService = {
 
       return {
         success: true,
-        message: "Login successful",
+        message: result.message,
         data: user,
       };
     } catch (error) {
@@ -187,7 +187,7 @@ export const authService = {
 
       return {
         success: true,
-        message: "User data retrieved successfully",
+        message: result.message,
         data: result.data,
       };
     } catch (error) {
