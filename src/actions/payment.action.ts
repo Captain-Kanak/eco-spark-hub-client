@@ -4,7 +4,7 @@ import {
   ConfirmPaymentPayload,
   PaymentIntent,
   paymentServices,
-} from "@/services/payment.service";
+} from "@/services/donation.service";
 import { ApiResponse, Payment } from "@/types";
 import { GetIdeaSearchParams } from "@/types/idea";
 

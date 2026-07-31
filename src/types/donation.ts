@@ -2,6 +2,12 @@ import { User } from "./user";
 import { Currency, PaymentGateway, PaymentStatus } from "./enums";
 import { Idea } from "./idea";
 
+export interface CreatePaymentIntent {
+  ideaId: string;
+  amount: number;
+  currency: Currency;
+}
+
 export interface Donation {
   id: string;
   originalCurrency: Currency;
