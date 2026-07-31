@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/categories`;
 
-export const categoryServices = {
+export const categoryService = {
   createCategory: async (payload: FormData): Promise<ApiResponse<Category>> => {
     try {
       const url = `${API_URL}`;

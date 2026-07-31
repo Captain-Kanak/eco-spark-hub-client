@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 const API_URL = `${env.API_URL}/api/v1/ideas`;
 
-export const ideaServices = {
+export const ideaService = {
   createIdea: async (payload: FormData): Promise<ApiResponse<Idea>> => {
     try {
       const url = `${API_URL}`;
