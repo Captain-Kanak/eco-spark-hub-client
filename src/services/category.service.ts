@@ -1,14 +1,13 @@
 import { env } from "@/env";
-import { ApiResponse, Category } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { ApiResponse, Category, SearchQueryParams } from "@/types";
 import { cookies } from "next/headers";
 
-const API_URL = env.API_URL;
+const API_URL = `${env.API_URL}/api/v1/categories`;
 
 export const categoryServices = {
   createCategory: async (payload: FormData): Promise<ApiResponse<Category>> => {
     try {
-      const url = `${API_URL}/api/v1/categories`;
+      const url = `${API_URL}`;
 
       const cookieStore = await cookies();
 
@@ -23,7 +22,7 @@ export const categoryServices = {
       if (!res.ok) {
         return {
           success: false,
-          message: "Error creating category",
+          message: "An unexpected error occurred",
           data: null,
         };
       }
@@ -33,7 +32,7 @@ export const categoryServices = {
       if (!result.success) {
         return {
           success: false,
-          message: result.message || "Error creating category",
+          message: result.message,
           data: null,
         };
       }
@@ -46,16 +45,16 @@ export const categoryServices = {
     } catch (error) {
       return {
         success: false,
-        message: "Error creating category",
+        message: "An unexpected error occurred",
         data: null,
       };
     }
   },
   getCategories: async (
-    params?: GetIdeaSearchParams,
+    params?: SearchQueryParams,
   ): Promise<ApiResponse<Category[]>> => {
     try {
-      const url = new URL(`${API_URL}/api/v1/categories`);
+      const url = new URL(`${API_URL}`);
 
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -70,7 +69,7 @@ export const categoryServices = {
       if (!res.ok) {
         return {
           success: false,
-          message: "Error fetching categories",
+          message: "An unexpected error occurred",
           data: null,
         };
       }
@@ -80,7 +79,7 @@ export const categoryServices = {
       if (!result.success) {
         return {
           success: false,
-          message: result.message || "Error fetching categories",
+          message: result.message,
           data: null,
         };
       }
@@ -94,7 +93,44 @@ export const categoryServices = {
     } catch (error) {
       return {
         success: false,
-        message: "Error fetching categories",
+        message: "An unexpected error occurred",
+        data: null,
+      };
+    }
+  },
+  getCategoryById: async (id: string): Promise<ApiResponse<Category>> => {
+    try {
+      const url = `${API_URL}/${id}`;
+
+      const res = await fetch(url.toString());
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: "An unexpected error occurred",
+          data: null,
+        };
+      }
+
+      const result = await res.json();
+
+      if (!result.success) {
+        return {
+          success: false,
+          message: result.message,
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Category fetched successfully",
+        data: result.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "An unexpected error occurred",
         data: null,
       };
     }
@@ -104,7 +140,7 @@ export const categoryServices = {
     payload: FormData,
   ): Promise<ApiResponse<Category>> => {
     try {
-      const url = `${API_URL}/api/v1/categories/${id}`;
+      const url = `${API_URL}/${id}`;
 
       const cookieStore = await cookies();
 
@@ -119,7 +155,7 @@ export const categoryServices = {
       if (!res.ok) {
         return {
           success: false,
-          message: "Error updating category",
+          message: "An unexpected error occurred",
           data: null,
         };
       }
@@ -129,7 +165,7 @@ export const categoryServices = {
       if (!result.success) {
         return {
           success: false,
-          message: result.message || "Error updating category",
+          message: result.message,
           data: null,
         };
       }
@@ -142,14 +178,14 @@ export const categoryServices = {
     } catch (error) {
       return {
         success: false,
-        message: "Error updating category",
+        message: "An unexpected error occurred",
         data: null,
       };
     }
   },
   deleteCategory: async (id: string): Promise<ApiResponse<Category>> => {
     try {
-      const url = `${API_URL}/api/v1/categories/${id}`;
+      const url = `${API_URL}/${id}`;
 
       const cookieStore = await cookies();
 
@@ -163,7 +199,7 @@ export const categoryServices = {
       if (!res.ok) {
         return {
           success: false,
-          message: "Error deleting category",
+          message: "An unexpected error occurred",
           data: null,
         };
       }
@@ -173,7 +209,7 @@ export const categoryServices = {
       if (!result.success) {
         return {
           success: false,
-          message: result.message || "Error deleting category",
+          message: result.message,
           data: null,
         };
       }
@@ -186,7 +222,7 @@ export const categoryServices = {
     } catch (error) {
       return {
         success: false,
-        message: "Error deleting category",
+        message: "An unexpected error occurred",
         data: null,
       };
     }
