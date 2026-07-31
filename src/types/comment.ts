@@ -1,5 +1,15 @@
 import type { Idea } from "./idea";
-import type { User } from "./auth";
+import type { User } from "./user";
+
+export interface CreateComment {
+  ideaId: string;
+  content: string;
+  parentId?: string;
+}
+
+export interface UpdateComment {
+  content?: string;
+}
 
 export interface Comment {
   id: string;

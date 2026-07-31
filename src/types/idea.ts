@@ -1,8 +1,34 @@
-import { User } from "./auth";
+import { User } from "./user";
 import { Category } from "./category";
 import { Comment } from "./comment";
 import { IdeaStatus } from "./enums";
 import { Like } from "./like";
+
+export interface CreateIdea {
+  title: string;
+  coverImage?: string;
+  description: string;
+  problemStatement: string;
+  proposedSolution: string;
+  expectedImpact: string;
+  location: string;
+  estimatedBudget: number;
+  fundingGoal: number;
+  categoryId: string;
+}
+
+export interface UpdateIdea {
+  title?: string;
+  coverImage?: string;
+  description?: string;
+  problemStatement?: string;
+  proposedSolution?: string;
+  expectedImpact?: string;
+  location?: string;
+  estimatedBudget?: number;
+  fundingGoal?: number;
+  categoryId?: string;
+}
 
 export interface Idea {
   id: string;

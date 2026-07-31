@@ -57,8 +57,6 @@ export const ideaService = {
     try {
       const url = new URL(`${API_URL}`);
 
-      const cookieStore = await cookies();
-
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
           if (value !== undefined && value !== null && value !== "") {
@@ -69,9 +67,6 @@ export const ideaService = {
 
       const res = await fetch(url.toString(), {
         method: "GET",
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
       });
 
       if (!res.ok) {
@@ -118,8 +113,8 @@ export const ideaService = {
       const res = await fetch(url.toString(), {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
           "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
         },
         body: JSON.stringify(status),
       });
@@ -159,13 +154,8 @@ export const ideaService = {
     try {
       const url = `${API_URL}/${id}`;
 
-      const cookieStore = await cookies();
-
       const res = await fetch(url.toString(), {
         method: "GET",
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
       });
 
       if (!res.ok) {

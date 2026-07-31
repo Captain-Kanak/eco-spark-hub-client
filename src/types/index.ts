@@ -1,5 +1,6 @@
 export * from "./api";
 export * from "./auth";
+export * from "./user";
 export * from "./category";
 export * from "./idea";
 export * from "./like";

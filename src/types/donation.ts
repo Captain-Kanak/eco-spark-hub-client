@@ -1,4 +1,4 @@
-import { User } from "./auth";
+import { User } from "./user";
 import { Currency, PaymentGateway, PaymentStatus } from "./enums";
 import { Idea } from "./idea";
 
