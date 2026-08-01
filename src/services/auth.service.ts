@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { api } from "@/lib/api";
+import { setBetterAuthTokenInCookie } from "@/lib/token";
 import { LoginUser, RegisterUser, User, VerifyEmail } from "@/types";
 
 const API_URL = `${env.API_URL}/api/v1/auth`;
@@ -13,7 +14,15 @@ const verifyEmail = async (payload: VerifyEmail) => {
 };
 
 const login = async (payload: LoginUser) => {
-  return api.post<User>(`${API_URL}/login`, payload);
+  const result = await api.post<{
+    redirect: boolean;
+    token: string;
+    user: User;
+  }>(`${API_URL}/login`, payload);
+
+  await setBetterAuthTokenInCookie(result.data?.token || "");
+
+  return result;
 };
 
 const getMe = async () => {
