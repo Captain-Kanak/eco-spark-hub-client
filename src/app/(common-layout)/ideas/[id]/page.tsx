@@ -1,4 +1,4 @@
-import { ideaAction } from "@/actions/idea";
+import { getIdeaById } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
 import { Lock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ export default async function IdeaDetailsPage({
 }) {
   const { id } = await params;
 
-  const [ideasResult] = await Promise.all([ideaAction.getById(id)]);
+  const [ideasResult] = await Promise.all([getIdeaById(id)]);
 
   const idea = ideasResult?.data;
 

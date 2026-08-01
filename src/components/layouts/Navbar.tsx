@@ -34,7 +34,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { UserRole } from "@/types/enums";
 import { deleteCookie } from "@/lib/cookie";
 import { toast } from "sonner";
-import { authAction } from "@/actions/auth";
+import { getMe } from "@/actions/auth";
 
 interface MenuItem {
   title: string;
@@ -108,7 +108,7 @@ const Navbar = ({
 
   useEffect(() => {
     const getUser = async () => {
-      const result = await authAction.getMe();
+      const result = await getMe();
 
       if (result.success) {
         setUser(result.data);

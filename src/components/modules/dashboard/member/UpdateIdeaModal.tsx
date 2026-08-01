@@ -32,7 +32,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-import { ideaAction } from "@/actions/idea";
+import { updateIdeaById } from "@/actions/idea";
 
 interface UpdateIdeaModalProps {
   isOpen: boolean;
@@ -92,7 +92,7 @@ export default function UpdateIdeaModal({
           formData.append("coverImage", value.coverImage);
         }
 
-        const res = await ideaAction.updateById(idea.id, formData);
+        const res = await updateIdeaById(idea.id, formData);
 
         if (res?.success) {
           toast.success("Idea updated successfully!", { id: toastId });

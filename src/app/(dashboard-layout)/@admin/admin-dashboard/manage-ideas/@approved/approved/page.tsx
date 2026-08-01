@@ -5,8 +5,8 @@ import DeleteIdeaButton from "@/components/modules/dashboard/admin/DeleteIdeaBut
 import { Idea } from "@/types/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import { SearchQueryParams } from "@/types";
-import { ideaAction } from "@/actions/idea";
 import { IdeaStatus } from "@/types/enums";
+import { getIdeas } from "@/actions/idea";
 
 export default async function ManageApprovedIdeasPage({
   searchParams,
@@ -18,7 +18,7 @@ export default async function ManageApprovedIdeasPage({
   const page = params.page || "1";
   const limit = "10";
 
-  const { data: approvedIdeas, meta } = await ideaAction.getAll({
+  const { data: approvedIdeas, meta } = await getIdeas({
     page,
     limit,
     status: IdeaStatus.PUBLISHED,

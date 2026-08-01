@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ideaAction } from "@/actions/idea";
+import { deleteIdeaById } from "@/actions/idea";
 
 export default function DeleteIdeaButton({ ideaId }: { ideaId: string }) {
   const [isPending, startTransition] = useTransition();
@@ -14,7 +14,7 @@ export default function DeleteIdeaButton({ ideaId }: { ideaId: string }) {
 
   const handleDelete = () => {
     startTransition(async () => {
-      const result = await ideaAction.deleteById(ideaId);
+      const result = await deleteIdeaById(ideaId);
       if (result.success) {
         toast.success("Idea deleted permanently");
         router.refresh();

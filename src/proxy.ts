@@ -6,7 +6,7 @@ import {
   memberRoutes,
   protectedRoutes,
 } from "./routes/ProtectedRoutes";
-import { authAction } from "./actions/auth";
+import { getMe } from "./actions/auth";
 
 const isMatch = (pathname: string, routes: string[]) => {
   return routes.some((route) => pathname.startsWith(route));
@@ -21,7 +21,7 @@ export async function proxy(request: NextRequest) {
   const isAuthRoute = isMatch(pathname, authRoutes);
 
   if (isAuthRoute) {
-    const result = await authAction.getMe();
+    const result = await getMe();
     const user = result?.data;
 
     if (result?.success && user) {
@@ -35,7 +35,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const result = await authAction.getMe();
+  const result = await getMe();
   const user = result?.data;
 
   if (!result.success || !user) {

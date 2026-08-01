@@ -24,7 +24,7 @@ import Image from "next/image";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { Category } from "@/types";
-import { categoryAction } from "@/actions/category";
+import { updateCategoryById } from "@/actions/category";
 
 interface UpdateCategoryModalProps {
   isOpen: boolean;
@@ -76,7 +76,7 @@ export const UpdateCategoryModal = ({
           formData.append("file", value.icon);
         }
 
-        const result = await categoryAction.updateById(category.id, formData);
+        const result = await updateCategoryById(category.id, formData);
 
         if (!result.success) {
           toast.error("Failed to update category", { id: toastId });

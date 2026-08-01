@@ -23,7 +23,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-import { categoryAction } from "@/actions/category";
+import { createCategory } from "@/actions/category";
 
 interface CreateCategoryModalProps {
   isOpen: boolean;
@@ -62,7 +62,7 @@ export const CreateCategoryModal = ({
         formData.append("description", value.description);
         if (value.icon) formData.append("file", value.icon);
 
-        const result = await categoryAction.create(formData);
+        const result = await createCategory(formData);
 
         if (!result.success) {
           toast.error("Failed to create category", { id: toastId });

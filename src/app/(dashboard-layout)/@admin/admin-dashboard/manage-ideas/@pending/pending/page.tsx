@@ -4,8 +4,8 @@ import { Clock } from "lucide-react";
 import { Idea, SearchQueryParams } from "@/types";
 import IdeaActions from "@/components/modules/dashboard/admin/IdeaActions";
 import AppPagination from "@/components/layouts/AppPagination";
-import { ideaAction } from "@/actions/idea";
 import { IdeaStatus } from "@/types/enums";
+import { getIdeas } from "@/actions/idea";
 
 export default async function ManagePendingIdeasPage({
   searchParams,
@@ -17,7 +17,7 @@ export default async function ManagePendingIdeasPage({
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: pendingIdeas, meta } = await ideaAction.getAll({
+  const { data: pendingIdeas, meta } = await getIdeas({
     page,
     limit,
     status: IdeaStatus.ON_REVIEW,

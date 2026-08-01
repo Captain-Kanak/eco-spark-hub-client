@@ -3,7 +3,7 @@ import ManageCategoryHeader from "@/components/modules/dashboard/admin/ManageCat
 import ManageCategoriesClient from "@/components/modules/dashboard/admin/ManageCategoriesClient";
 import AppPagination from "@/components/layouts/AppPagination";
 import { SearchQueryParams } from "@/types";
-import { categoryAction } from "@/actions/category";
+import { getCategories } from "@/actions/category";
 
 export default async function ManageCategoriesPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function ManageCategoriesPage({
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: categories, meta } = await categoryAction.getAll({
+  const { data: categories, meta } = await getCategories({
     page,
     limit,
   });

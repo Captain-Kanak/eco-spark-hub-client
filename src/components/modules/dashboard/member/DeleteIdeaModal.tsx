@@ -1,6 +1,6 @@
 "use client";
 
-import { ideaAction } from "@/actions/idea";
+import { deleteIdeaById } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,7 +37,7 @@ export default function DeleteIdeaModal({
     const toastId = toast.loading("Removing Idea...");
 
     try {
-      const result = await ideaAction.deleteById(ideaId);
+      const result = await deleteIdeaById(ideaId);
 
       if (!result.success) {
         toast.error("Failed to delete idea", { id: toastId });

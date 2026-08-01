@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { userAction } from "@/actions/user";
+import { deleteUserById } from "@/actions/user";
 
 export default function DeleteUserButton({
   userId,
@@ -20,7 +20,7 @@ export default function DeleteUserButton({
 
   const handleDelete = () => {
     startTransition(async () => {
-      const result = await userAction.deleteById(userId);
+      const result = await deleteUserById(userId);
       if (result.success) {
         toast.success(`User ${userName} removed.`);
         router.refresh();

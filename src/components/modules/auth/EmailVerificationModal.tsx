@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCcw, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { authAction } from "@/actions/auth";
+import { verifyEmail } from "@/actions/auth";
 
 interface EmailVerificationModalProps {
   isOpen: boolean;
@@ -45,7 +45,7 @@ export const EmailVerificationModal = ({
     const toastId = toast.loading("Verifying security code...");
 
     try {
-      const result = await authAction.verifyEmail({ email, otp });
+      const result = await verifyEmail({ email, otp });
 
       if (result.success) {
         toast.success("Identity confirmed! Please log in.", { id: toastId });
@@ -66,7 +66,7 @@ export const EmailVerificationModal = ({
   const handleResend = async () => {
     setIsResending(true);
     try {
-      const result = await authAction.verifyEmail({ email, otp });
+      const result = await verifyEmail({ email, otp });
       if (result.success) {
         toast.success("Fresh code sent to your inbox.");
       } else {

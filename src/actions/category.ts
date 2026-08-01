@@ -3,30 +3,22 @@
 import { categoryService } from "@/services/category.service";
 import { SearchQueryParams } from "@/types";
 
-const create = async (payload: FormData) => {
+export const createCategory = async (payload: FormData) => {
   return await categoryService.create(payload);
 };
 
-const getAll = async (params: SearchQueryParams) => {
+export const getCategories = async (params: SearchQueryParams) => {
   return await categoryService.getAll(params);
 };
 
-const getById = async (id: string) => {
+export const getCategoryById = async (id: string) => {
   return await categoryService.getById(id);
 };
 
-const updateById = async (id: string, payload: FormData) => {
+export const updateCategoryById = async (id: string, payload: FormData) => {
   return await categoryService.updateById(id, payload);
 };
 
-const deleteById = async (id: string) => {
+export const deleteCategoryById = async (id: string) => {
   return await categoryService.deleteById(id);
-};
-
-export const categoryAction = {
-  create,
-  getAll,
-  getById,
-  updateById,
-  deleteById,
 };

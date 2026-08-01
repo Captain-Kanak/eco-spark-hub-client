@@ -1,5 +1,5 @@
-import { authAction } from "@/actions/auth";
-import { ideaAction } from "@/actions/idea";
+import { getMe } from "@/actions/auth";
+import { getIdeas } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { SearchQueryParams } from "@/types";
@@ -19,7 +19,7 @@ export default async function IdeaPage({
   const categoryId = params.categoryId || "";
 
   const [ideasResult, userResult] = await Promise.all([
-    ideaAction.getAll({
+    getIdeas({
       page,
       limit,
       searchTerm,
@@ -27,7 +27,7 @@ export default async function IdeaPage({
       sortOrder,
       categoryId,
     }),
-    authAction.getMe(),
+    getMe(),
   ]);
 
   const user = userResult?.data;

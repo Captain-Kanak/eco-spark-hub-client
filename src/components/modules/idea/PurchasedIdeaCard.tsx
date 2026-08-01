@@ -16,9 +16,9 @@ export default function PurchasedIdeaCard({ idea }: PurchasedIdeaCardProps) {
   return (
     <div className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-4 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
       <div className="relative aspect-16/10 w-full overflow-hidden rounded-[2rem] bg-slate-100 dark:bg-slate-800">
-        {idea.image ? (
+        {idea.coverImage ? (
           <Image
-            src={idea.image}
+            src={idea.coverImage}
             alt={idea.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-110"

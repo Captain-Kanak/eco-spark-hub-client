@@ -6,7 +6,7 @@ import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { IdeaStatus } from "@/types/enums";
 import { useRouter } from "next/navigation";
-import { ideaAction } from "@/actions/idea";
+import { updateIdeaStatusById } from "@/actions/idea";
 
 interface IdeaActionsProps {
   ideaId: string;
@@ -26,7 +26,7 @@ export default function IdeaActions({ ideaId }: IdeaActionsProps) {
         const status =
           type === "approve" ? IdeaStatus.PUBLISHED : IdeaStatus.REJECTED;
 
-        const result = await ideaAction.updateStatusById(ideaId, status);
+        const result = await updateIdeaStatusById(ideaId, status);
 
         if (result.success) {
           toast.success(

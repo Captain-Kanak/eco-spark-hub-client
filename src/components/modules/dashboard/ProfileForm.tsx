@@ -27,7 +27,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { userAction } from "@/actions/user";
+import { updateUserById } from "@/actions/user";
 
 const updateProfileSchema = z.object({
   name: z.string(),
@@ -64,7 +64,7 @@ export default function ProfileForm({ user }: { user: User }) {
           formData.append("dateOfBirth", value.dateOfBirth);
         if (value.image) formData.append("file", value.image);
 
-        const result = await userAction.updateById(formData);
+        const result = await updateUserById(formData);
 
         if (result.success) {
           toast.success("Profile updated successfully!", { id: toastId });

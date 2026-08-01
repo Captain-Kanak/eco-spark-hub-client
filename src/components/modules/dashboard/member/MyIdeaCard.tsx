@@ -10,7 +10,6 @@ import { Idea } from "@/types";
 import { Edit3, Eye, Lightbulb, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 interface MyIdeaCardProps {
   idea: Idea;
@@ -27,9 +26,9 @@ export default function MyIdeaCard({
     <Card className="group overflow-hidden rounded-[2rem] border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300">
       {/* Image Container */}
       <div className="relative aspect-video overflow-hidden bg-slate-100">
-        {idea.image ? (
+        {idea.coverImage ? (
           <Image
-            src={idea.image}
+            src={idea.coverImage}
             alt={idea.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -39,23 +38,9 @@ export default function MyIdeaCard({
             <Lightbulb className="h-10 w-10 text-slate-300" />
           </div>
         )}
-
-        {/* Status Badge */}
-        <div className="absolute top-4 left-4 flex gap-2">
-          <Badge className={idea.isPaid ? "bg-amber-500" : "bg-emerald-500"}>
-            {idea.isPaid ? "Premium" : "Free"}
-          </Badge>
-        </div>
       </div>
 
-      <CardHeader className="p-6 pb-2">
-        <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2">
-          {idea.price ? `$${idea.price}` : "Free"}
-        </div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white line-clamp-1">
-          {idea.title}
-        </h3>
-      </CardHeader>
+      <CardHeader className="p-6 pb-2"></CardHeader>
 
       <CardContent className="px-6 py-0">
         <p className="text-slate-500 dark:text-slate-400 text-sm line-clamp-2 italic">

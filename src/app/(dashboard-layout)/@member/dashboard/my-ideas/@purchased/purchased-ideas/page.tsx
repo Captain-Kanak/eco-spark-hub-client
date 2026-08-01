@@ -1,4 +1,4 @@
-import { ideaAction } from "@/actions/idea";
+import { getIdeas } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
 import { SearchQueryParams } from "@/types";
@@ -14,7 +14,7 @@ export default async function PurchasedIdeasPage({
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: payments, meta } = await ideaAction.getAll({
+  const { data: payments, meta } = await getIdeas({
     page,
     limit,
   });

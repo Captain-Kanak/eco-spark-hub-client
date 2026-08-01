@@ -1,14 +1,14 @@
-import { categoryAction } from "@/actions/category";
-import { ideaAction } from "@/actions/idea";
-import { userAction } from "@/actions/user";
+import { getCategories } from "@/actions/category";
+import { getIdeas } from "@/actions/idea";
+import { getUsers } from "@/actions/user";
 import StatsGrid from "@/components/modules/dashboard/admin/StatsGrid";
 import { Sparkles } from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const [usersPromise, categoriesPromise, ideasPromise] = await Promise.all([
-    userAction.getAll({}),
-    categoryAction.getAll({}),
-    ideaAction.getAll({}),
+    getUsers({}),
+    getCategories({}),
+    getIdeas({}),
   ]);
 
   const stats = {

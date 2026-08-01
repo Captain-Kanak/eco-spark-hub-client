@@ -1,4 +1,4 @@
-import { userAction } from "@/actions/user";
+import { getUsers } from "@/actions/user";
 import AppPagination from "@/components/layouts/AppPagination";
 import DeleteUserButton from "@/components/modules/dashboard/admin/DeleteUserButton";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ export default async function ManageUsersPage({
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: users, meta } = await userAction.getAll({
+  const { data: users, meta } = await getUsers({
     page,
     limit,
   });

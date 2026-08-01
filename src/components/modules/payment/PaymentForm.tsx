@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { toast } from "sonner";
-import { Loader2, Lock, CreditCard } from "lucide-react";
+import { Lock, CreditCard } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Idea } from "@/types";
 import { Button } from "@/components/ui/button";
-import { ideaAction } from "@/actions/idea";
-import { donationAction } from "@/actions/donation";
 import { Currency } from "@/types/enums";
+import { getIdeaById } from "@/actions/idea";
+import { createPaymentIntent } from "@/actions/donation";
 
 export default function PaymentForm() {
   const stripe = useStripe();
@@ -24,7 +24,7 @@ export default function PaymentForm() {
   const [paymentError, setPaymentError] = useState<string>("");
 
   useEffect(() => {
-    ideaAction.getById(id as string).then((res) => setIdea(res?.data));
+    getIdeaById(id as string).then((res) => setIdea(res?.data));
   }, [id]);
 
   const cardOptions = {
@@ -64,7 +64,7 @@ export default function PaymentForm() {
       return;
     }
 
-    const paymentIntent = await donationAction.createPaymentIntent({
+    const paymentIntent = await createPaymentIntent({
       ideaId: id as string,
       amount: 500,
       currency: Currency.USD,

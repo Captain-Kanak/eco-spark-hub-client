@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
 import { EmailVerificationModal } from "./EmailVerificationModal";
-import { authAction } from "@/actions/auth";
+import { login } from "@/actions/auth";
 
 export function LoginForm({
   redirect,
@@ -51,7 +51,7 @@ export function LoginForm({
       const toastId = toast.loading("Logging in...");
 
       try {
-        const result = await authAction.login(value);
+        const result = await login(value);
 
         if (!result.success && result.message === "Email not verified") {
           setVerificationEmail(value.email);

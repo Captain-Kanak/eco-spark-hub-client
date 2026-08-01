@@ -1,9 +1,9 @@
-import { authAction } from "@/actions/auth";
+import { getMe } from "@/actions/auth";
 import ProfileForm from "@/components/modules/dashboard/ProfileForm";
 import { ShieldCheck, Mail, Camera, Calendar } from "lucide-react";
 
 export default async function MemberProfilePage() {
-  const { data: user } = await authAction.getMe();
+  const { data: user } = await getMe();
 
   if (!user) return null;
 

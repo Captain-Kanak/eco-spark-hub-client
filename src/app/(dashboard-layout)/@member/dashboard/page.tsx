@@ -1,9 +1,8 @@
+import { getIdeas } from "@/actions/idea";
 import { BarChart3 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { ideaAction } from "@/actions/idea";
 
 export default async function MemberDashboardPage() {
-  const [ideasPromise] = await Promise.all([ideaAction.getAll({})]);
+  const [ideasPromise] = await Promise.all([getIdeas({})]);
 
   const totalIdeas = ideasPromise.meta?.total || 0;
 

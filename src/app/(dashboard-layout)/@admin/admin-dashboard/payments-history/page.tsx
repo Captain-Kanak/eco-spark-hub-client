@@ -1,7 +1,3 @@
-import AppPagination from "@/components/layouts/AppPagination";
-import PaymentDetailsSheet from "@/components/modules/dashboard/admin/PaymentDetailsSheet";
-import { CreditCard, ArrowDownLeft, DollarSign } from "lucide-react";
-
 export default async function PaymentsHistoryPage({
   searchParams,
 }: {

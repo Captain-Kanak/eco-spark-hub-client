@@ -14,7 +14,7 @@ import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { categoryAction } from "@/actions/category";
+import { deleteCategoryById } from "@/actions/category";
 
 interface DeleteCategoryModalProps {
   isOpen: boolean;
@@ -37,7 +37,7 @@ export const DeleteCategoryModal = ({
     const toastId = toast.loading("Removing category...");
 
     try {
-      const result = await categoryAction.deleteById(categoryId);
+      const result = await deleteCategoryById(categoryId);
 
       if (!result.success) {
         toast.error("Failed to delete category", { id: toastId });
