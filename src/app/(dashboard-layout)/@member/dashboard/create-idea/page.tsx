@@ -1,4 +1,4 @@
-import { getCategories } from "@/actions/category.action";
+import { getCategories } from "@/actions/category";
 import CreateIdeaForm from "@/components/modules/dashboard/member/CreateIdeaForm";
 
 export default async function CreateIdeaPage() {

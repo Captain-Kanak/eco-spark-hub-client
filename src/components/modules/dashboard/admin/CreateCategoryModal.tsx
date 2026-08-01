@@ -22,7 +22,7 @@ import { Loader2, X, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import * as z from "zod";
-import { createCategory } from "@/actions/category.action";
+import { createCategory } from "@/actions/category";
 import { useRouter } from "next/navigation";
 
 interface CreateCategoryModalProps {

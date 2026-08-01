@@ -1,4 +1,4 @@
-import { getCategories } from "@/actions/category.action";
+import { getCategories } from "@/actions/category";
 import Categories from "@/components/modules/home/Categories";
 import Hero from "@/components/modules/home/Hero";
 import Stats from "@/components/modules/home/Stats";

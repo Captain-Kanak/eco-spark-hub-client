@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { deleteCategory } from "@/actions/category.action";
+import { deleteCategory } from "@/actions/category";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
