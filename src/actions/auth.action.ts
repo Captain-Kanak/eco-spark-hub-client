@@ -1,29 +1,27 @@
 "use server";
 
-export const register = async (payload: RegisterPayload) => {
-  return await authServices.register(payload);
+import { authService } from "@/services/auth.service";
+import { LoginUser, RegisterUser, VerifyEmail } from "@/types";
+
+const register = async (payload: RegisterUser) => {
+  return await authService.register(payload);
 };
 
-export const verifyEmail = async (email: string, otp: string) => {
-  return await authServices.verifyEmail(email, otp);
+const verifyEmail = async (payload: VerifyEmail) => {
+  return await authService.verifyEmail(payload);
 };
 
-export const login = async (payload: LoginPayload) => {
-  return await authServices.login(payload);
+const login = async (payload: LoginUser) => {
+  return await authService.login(payload);
 };
 
-export const getMe = async () => {
-  return await authServices.getMe();
+const getMe = async () => {
+  return await authService.getMe();
 };
 
-export const updateProfile = async (payload: FormData) => {
-  return await authServices.updateProfile(payload);
-};
-
-export const getUsers = async (params: GetIdeaSearchParams) => {
-  return await authServices.getUsers(params);
-};
-
-export const deleteUser = async (userId: string) => {
-  return await authServices.deleteUser(userId);
+export const authAction = {
+  register,
+  verifyEmail,
+  login,
+  getMe,
 };
