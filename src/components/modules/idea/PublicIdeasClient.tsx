@@ -7,18 +7,14 @@ import IdeaSearch from "./IdeaSearch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import IdeaFilter from "./IdeaFilter";
-import { Meta } from "@/types/api";
-import AppPagination from "@/components/layouts/AppPagination";
 
 interface PublicIdeasClientProps {
   ideas: Idea[];
-  purchasedIds: Set<string>;
   userId: string;
 }
 
 export default function PublicIdeasClient({
   ideas,
-  purchasedIds,
   userId,
 }: PublicIdeasClientProps) {
   return (
@@ -66,17 +62,9 @@ export default function PublicIdeasClient({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {ideas?.map((idea) => {
-              const isAlreadyPurchased = purchasedIds.has(idea.id);
               const isOwner = idea.userId === userId;
 
-              return (
-                <IdeaCard
-                  key={idea.id}
-                  idea={idea}
-                  isPurchased={isAlreadyPurchased}
-                  owner={isOwner}
-                />
-              );
+              return <IdeaCard key={idea.id} idea={idea} owner={isOwner} />;
             })}
           </div>
         </div>

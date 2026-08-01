@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight, Play, Leaf } from "lucide-react";
+import { Sparkles, ArrowRight, Leaf } from "lucide-react";
 
 export default function Hero() {
   return (

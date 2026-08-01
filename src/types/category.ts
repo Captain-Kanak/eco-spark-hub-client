@@ -22,5 +22,9 @@ export interface Category {
   updatedAt: string;
   deletedAt: string | null;
 
+  _count: {
+    ideas: number;
+  };
+
   ideas?: Idea[];
 }

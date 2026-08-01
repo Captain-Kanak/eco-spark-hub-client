@@ -6,10 +6,11 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { toast } from "sonner";
 import { Loader2, Lock, CreditCard } from "lucide-react";
 import { useTheme } from "next-themes";
-import { getIdeaById } from "@/actions/idea";
-import { confirmPayment, createPaymentIntent } from "@/actions/donation";
 import { Idea } from "@/types";
 import { Button } from "@/components/ui/button";
+import { ideaAction } from "@/actions/idea";
+import { donationAction } from "@/actions/donation";
+import { Currency } from "@/types/enums";
 
 export default function PaymentForm() {
   const stripe = useStripe();
@@ -23,7 +24,7 @@ export default function PaymentForm() {
   const [paymentError, setPaymentError] = useState<string>("");
 
   useEffect(() => {
-    getIdeaById(id as string).then((res) => setIdea(res?.data));
+    ideaAction.getById(id as string).then((res) => setIdea(res?.data));
   }, [id]);
 
   const cardOptions = {
@@ -63,7 +64,11 @@ export default function PaymentForm() {
       return;
     }
 
-    const paymentIntent = await createPaymentIntent({ ideaId: id as string });
+    const paymentIntent = await donationAction.createPaymentIntent({
+      ideaId: id as string,
+      amount: 500,
+      currency: Currency.USD,
+    });
     const secret = paymentIntent.data;
 
     if (!secret) {
@@ -79,19 +84,22 @@ export default function PaymentForm() {
     if (result.error) {
       setPaymentError(result.error.message || "Payment failed");
     } else if (result.paymentIntent.status === "succeeded") {
-      const res = await confirmPayment({
-        ideaId: id as string,
-        transactionId: result.paymentIntent.id,
-        paymentMethod: "card",
-      });
+      // const res = await confirmPayment({
+      //   ideaId: id as string,
+      //   transactionId: result.paymentIntent.id,
+      //   paymentMethod: "card",
+      // });
+      // if (!res.success) {
+      //   setPaymentError(res.message);
+      // } else {
+      //   toast.success("Payment successful!");
+      //   router.push("/dashboard/my-ideas/purchased-ideas");
+      //   return;
+      // }
 
-      if (!res.success) {
-        setPaymentError(res.message);
-      } else {
-        toast.success("Payment successful!");
-        router.push("/dashboard/my-ideas/purchased-ideas");
-        return;
-      }
+      toast.success("Payment successful!");
+      router.push("/dashboard/my-ideas/purchased-ideas");
+      return;
     }
     setLoading(false);
   };
@@ -128,11 +136,7 @@ export default function PaymentForm() {
           disabled={!stripe || loading}
           className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
         >
-          {loading ? (
-            <Loader2 className="animate-spin h-5 w-5" />
-          ) : (
-            `Pay $${idea?.price || "0.00"}`
-          )}
+          Pay Now
         </Button>
 
         {paymentError && (

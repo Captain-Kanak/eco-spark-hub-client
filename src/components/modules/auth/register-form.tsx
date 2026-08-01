@@ -29,10 +29,10 @@ import {
   Mail,
   User,
 } from "lucide-react";
-import { register } from "@/actions/auth";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
 import { EmailVerificationModal } from "./EmailVerificationModal";
+import { authAction } from "@/actions/auth";
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const [showPassword, setShowPassword] = useState(false);
@@ -53,7 +53,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("Creating your account...");
 
       try {
-        const result = await register(value);
+        const result = await authAction.register(value);
 
         if (!result.success) {
           toast.error(result.message, { id: toastId });

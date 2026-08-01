@@ -1,16 +1,6 @@
-import { getMe } from "@/actions/auth";
-import { getIdeaById, getPurchasedIdeas } from "@/actions/idea";
-import { Badge } from "@/components/ui/badge";
+import { ideaAction } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
-import { Payment } from "@/types";
-import {
-  Lock,
-  Sparkles,
-  CheckCircle2,
-  ArrowLeft,
-  Lightbulb,
-} from "lucide-react";
-import Image from "next/image";
+import { Lock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default async function IdeaDetailsPage({
@@ -20,20 +10,9 @@ export default async function IdeaDetailsPage({
 }) {
   const { id } = await params;
 
-  const [ideasResult, purchasedResult, userResult] = await Promise.all([
-    getIdeaById(id),
-    getPurchasedIdeas({}),
-    getMe(),
-  ]);
+  const [ideasResult] = await Promise.all([ideaAction.getById(id)]);
 
   const idea = ideasResult?.data;
-  const user = userResult?.data;
-
-  const isOwner = user?.id === idea?.userId;
-  const isPurchased = purchasedResult?.data?.some(
-    (p: Payment) => p.ideaId === id,
-  );
-  const hasAccess = !idea?.isPaid || isPurchased || isOwner;
 
   if (!idea) {
     return (
@@ -62,13 +41,6 @@ export default async function IdeaDetailsPage({
             <ArrowLeft className="h-4 w-4" /> Back to Explore
           </Link>
         </Button>
-        <div className="flex gap-2">
-          {hasAccess && (
-            <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-200 px-4 py-1 rounded-full font-bold">
-              <CheckCircle2 className="h-3 w-3 mr-1" /> Full Access
-            </Badge>
-          )}
-        </div>
       </div>
 
       {/* Hero Section */}
@@ -82,20 +54,7 @@ export default async function IdeaDetailsPage({
           </p>
         </div>
 
-        <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-900">
-          {idea.image ? (
-            <Image
-              src={idea.image}
-              alt={idea.title}
-              fill
-              className="object-cover"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-300">
-              <Lightbulb className="h-20 w-20 opacity-20" />
-            </div>
-          )}
-        </div>
+        <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-900"></div>
       </div>
 
       {/* Main Content Area */}
@@ -110,7 +69,7 @@ export default async function IdeaDetailsPage({
         <div className="bg-white dark:bg-slate-900/50 p-8 md:p-12 rounded-[3rem] border border-slate-100 dark:border-slate-800 min-h-100">
           <h2 className="text-2xl font-black mb-6">Solution Details</h2>
           <div className="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 leading-loose">
-            <div dangerouslySetInnerHTML={{ __html: idea.solution }} />
+            <div dangerouslySetInnerHTML={{ __html: idea.proposedSolution }} />
           </div>
         </div>
       </div>

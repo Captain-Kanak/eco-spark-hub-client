@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Users, Lightbulb, Globe2, Zap } from "lucide-react";
 
 const stats = [

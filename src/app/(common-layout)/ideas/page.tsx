@@ -1,14 +1,13 @@
-import { getMe } from "@/actions/auth";
-import { getIdeas, getPurchasedIdeas } from "@/actions/idea";
+import { authAction } from "@/actions/auth";
+import { ideaAction } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
-import { Payment } from "@/types";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { SearchQueryParams } from "@/types";
 
 export default async function IdeaPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
@@ -19,8 +18,8 @@ export default async function IdeaPage({
   const sortOrder = params.sortOrder || "desc";
   const categoryId = params.categoryId || "";
 
-  const [ideasResult, purchasedResult, userResult] = await Promise.all([
-    getIdeas({
+  const [ideasResult, userResult] = await Promise.all([
+    ideaAction.getAll({
       page,
       limit,
       searchTerm,
@@ -28,13 +27,9 @@ export default async function IdeaPage({
       sortOrder,
       categoryId,
     }),
-    getPurchasedIdeas({}),
-    getMe(),
+    authAction.getMe(),
   ]);
 
-  const purchasedIds = new Set(
-    purchasedResult?.data?.map((p: Payment) => p.ideaId),
-  );
   const user = userResult?.data;
   const meta = ideasResult?.meta;
 
@@ -53,7 +48,6 @@ export default async function IdeaPage({
 
         <PublicIdeasClient
           ideas={ideasResult.data || []}
-          purchasedIds={purchasedIds}
           userId={user?.id || ""}
         />
 

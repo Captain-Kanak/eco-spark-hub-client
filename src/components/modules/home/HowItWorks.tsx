@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Search, Lock, Zap, Share2 } from "lucide-react";
 
 const steps = [

@@ -20,7 +20,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ModeToggle } from "./ThemeToggle";
 import { useEffect, useState } from "react";
-import { getMe } from "@/actions/auth";
 import { User } from "@/types";
 import {
   DropdownMenu,
@@ -35,6 +34,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { UserRole } from "@/types/enums";
 import { deleteCookie } from "@/lib/cookie";
 import { toast } from "sonner";
+import { authAction } from "@/actions/auth";
 
 interface MenuItem {
   title: string;
@@ -108,7 +108,7 @@ const Navbar = ({
 
   useEffect(() => {
     const getUser = async () => {
-      const result = await getMe();
+      const result = await authAction.getMe();
 
       if (result.success) {
         setUser(result.data);
