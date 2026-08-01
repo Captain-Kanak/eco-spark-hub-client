@@ -1,10 +1,9 @@
-import { getMe } from "@/actions/auth";
+import { authAction } from "@/actions/auth";
 import ProfileForm from "@/components/modules/dashboard/ProfileForm";
 import { ShieldCheck, Mail, Camera, Calendar } from "lucide-react";
-import React from "react";
 
 export default async function MemberProfilePage() {
-  const { data: user } = await getMe();
+  const { data: user } = await authAction.getMe();
 
   if (!user) return null;
 
@@ -61,8 +60,8 @@ export default async function MemberProfilePage() {
               <div className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-400">
                 <Calendar size={16} className="text-slate-400" />
                 Date of birth:{" "}
-                {user.date_of_birth
-                  ? new Date(user.date_of_birth).toLocaleDateString("en-US")
+                {user.dateOfBirth
+                  ? new Date(user.dateOfBirth).toLocaleDateString("en-US")
                   : "-"}
               </div>
               <div className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-400">

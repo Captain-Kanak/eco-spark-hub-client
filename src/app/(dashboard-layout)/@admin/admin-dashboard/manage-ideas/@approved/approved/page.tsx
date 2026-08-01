@@ -1,24 +1,27 @@
-import { getIdeas } from "@/actions/idea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Globe, User, MessageSquare } from "lucide-react";
 import DeleteIdeaButton from "@/components/modules/dashboard/admin/DeleteIdeaButton";
-import { GetIdeaSearchParams, Idea } from "@/types/idea";
+import { Idea } from "@/types/idea";
 import AppPagination from "@/components/layouts/AppPagination";
+import { SearchQueryParams } from "@/types";
+import { ideaAction } from "@/actions/idea";
+import { IdeaStatus } from "@/types/enums";
 
 export default async function ManageApprovedIdeasPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
   const page = params.page || "1";
   const limit = "10";
 
-  const { data: approvedIdeas, meta } = await getIdeas({
+  const { data: approvedIdeas, meta } = await ideaAction.getAll({
     page,
     limit,
+    status: IdeaStatus.PUBLISHED,
   });
 
   if (!approvedIdeas?.length) {
@@ -91,7 +94,7 @@ export default async function ManageApprovedIdeasPage({
                     <span className="h-5 w-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">
                       $
                     </span>
-                    {idea._count.payments}{" "}
+                    {idea._count.donations}{" "}
                     <span className="font-medium opacity-60">Purchases</span>
                   </Badge>
                 </div>

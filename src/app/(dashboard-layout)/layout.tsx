@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserRole } from "@/types/enums";
 import { ModeToggle } from "@/components/layouts/ThemeToggle";
-import { getMe } from "@/actions/auth";
+import { authAction } from "@/actions/auth";
 
 export default async function DashboardLayout({
   admin,
@@ -25,7 +25,7 @@ export default async function DashboardLayout({
   admin: React.ReactNode;
   member: React.ReactNode;
 }>) {
-  const { data: user } = await getMe();
+  const { data: user } = await authAction.getMe();
   let dashboardLink = "";
 
   switch (user?.role) {

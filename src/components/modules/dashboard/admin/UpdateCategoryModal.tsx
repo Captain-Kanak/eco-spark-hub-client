@@ -22,9 +22,9 @@ import { Loader2, X, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import * as z from "zod";
-import { updateCategory } from "@/actions/category";
 import { useRouter } from "next/navigation";
 import { Category } from "@/types";
+import { categoryAction } from "@/actions/category";
 
 interface UpdateCategoryModalProps {
   isOpen: boolean;
@@ -76,7 +76,7 @@ export const UpdateCategoryModal = ({
           formData.append("file", value.icon);
         }
 
-        const result = await updateCategory(category.id, formData);
+        const result = await categoryAction.updateById(category.id, formData);
 
         if (!result.success) {
           toast.error("Failed to update category", { id: toastId });

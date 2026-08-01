@@ -1,25 +1,26 @@
-import { getPendingIdeas } from "@/actions/idea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, XCircle } from "lucide-react";
-import { Idea } from "@/types";
+import { Clock } from "lucide-react";
+import { Idea, SearchQueryParams } from "@/types";
 import IdeaActions from "@/components/modules/dashboard/admin/IdeaActions";
 import AppPagination from "@/components/layouts/AppPagination";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { ideaAction } from "@/actions/idea";
+import { IdeaStatus } from "@/types/enums";
 
 export default async function ManagePendingIdeasPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: pendingIdeas, meta } = await getPendingIdeas({
+  const { data: pendingIdeas, meta } = await ideaAction.getAll({
     page,
     limit,
+    status: IdeaStatus.ON_REVIEW,
   });
 
   if (!pendingIdeas || pendingIdeas.length === 0) {

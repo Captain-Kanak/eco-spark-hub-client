@@ -1,36 +1,20 @@
-import { getUsers } from "@/actions/auth";
-import { getCategories } from "@/actions/category";
-import { getIdeas, getPendingIdeas } from "@/actions/idea";
-import { getAllPayments } from "@/actions/donation";
+import { categoryAction } from "@/actions/category";
+import { ideaAction } from "@/actions/idea";
+import { userAction } from "@/actions/user";
 import StatsGrid from "@/components/modules/dashboard/admin/StatsGrid";
 import { Sparkles } from "lucide-react";
 
 export default async function AdminDashboardPage() {
-  const [
-    usersPromise,
-    categoriesPromise,
-    ideasPromise,
-    pendingIdeasPromise,
-    paymentsPromise,
-  ] = await Promise.all([
-    getUsers({}),
-    getCategories({}),
-    getIdeas({}),
-    getPendingIdeas({}),
-    getAllPayments({}),
+  const [usersPromise, categoriesPromise, ideasPromise] = await Promise.all([
+    userAction.getAll({}),
+    categoryAction.getAll({}),
+    ideaAction.getAll({}),
   ]);
 
   const stats = {
     totalUsers: usersPromise.meta?.total || 0,
     totalCategories: categoriesPromise.meta?.total || 0,
     totalIdeas: ideasPromise.meta?.total || 0,
-    totalPendingIdeas: pendingIdeasPromise.meta?.total || 0,
-    totalPayments: paymentsPromise.meta?.total || 0,
-    totalRevenue:
-      paymentsPromise.data?.reduce(
-        (sum: number, payment: any) => sum + payment.amount,
-        0,
-      ) || 0,
   };
 
   return (

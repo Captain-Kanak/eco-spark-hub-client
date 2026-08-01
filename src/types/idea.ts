@@ -51,6 +51,13 @@ export interface Idea {
   updatedAt: string;
   deletedAt: string | null;
 
+  _count: {
+    likes: number;
+    comments: number;
+    ideaUpdates: number;
+    donations: number;
+  };
+
   user?: User;
   category?: Category;
 

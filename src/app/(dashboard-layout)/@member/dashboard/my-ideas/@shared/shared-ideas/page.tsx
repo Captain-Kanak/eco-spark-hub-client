@@ -1,13 +1,13 @@
-import { getCategories } from "@/actions/category";
-import { getMyIdeas } from "@/actions/idea";
+import { categoryAction } from "@/actions/category";
+import { ideaAction } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import MyIdeasClient from "@/components/modules/dashboard/member/MyIdeasClient";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { SearchQueryParams } from "@/types";
 
 export default async function SharedIdeasPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
@@ -15,8 +15,8 @@ export default async function SharedIdeasPage({
   const limit = "12";
 
   const [categoriesPromise, ideasPromise] = await Promise.all([
-    getCategories(),
-    getMyIdeas({
+    categoryAction.getAll({}),
+    ideaAction.getAll({
       page,
       limit,
     }),

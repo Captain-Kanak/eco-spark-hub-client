@@ -30,11 +30,10 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { createIdea } from "@/actions/idea";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ideaAction } from "@/actions/idea";
 
 const createIdeaSchema = z
   .object({
@@ -104,7 +103,7 @@ export default function CreateIdeaForm({
           formData.append("file", value.image);
         }
 
-        const res = await createIdea(formData);
+        const res = await ideaAction.create(formData);
 
         if (res?.success) {
           toast.info("Admin will review your idea shortly!", {

@@ -1,22 +1,24 @@
 import { FolderTree } from "lucide-react";
-import { Category } from "@/types";
 import ManageCategoryHeader from "@/components/modules/dashboard/admin/ManageCategoryHeader";
-import { getCategories } from "@/actions/category";
 import ManageCategoriesClient from "@/components/modules/dashboard/admin/ManageCategoriesClient";
 import AppPagination from "@/components/layouts/AppPagination";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { SearchQueryParams } from "@/types";
+import { categoryAction } from "@/actions/category";
 
 export default async function ManageCategoriesPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: categories, meta } = await getCategories({ page, limit });
+  const { data: categories, meta } = await categoryAction.getAll({
+    page,
+    limit,
+  });
 
   if (!categories) return null;
 

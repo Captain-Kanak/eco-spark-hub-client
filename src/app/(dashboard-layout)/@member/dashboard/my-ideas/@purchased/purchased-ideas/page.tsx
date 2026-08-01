@@ -1,21 +1,20 @@
-import { getPurchasedIdeas } from "@/actions/idea";
+import { ideaAction } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
-import { GetIdeaSearchParams } from "@/types/idea";
+import { SearchQueryParams } from "@/types";
 import { PackageOpen } from "lucide-react";
-import React from "react";
 
 export default async function PurchasedIdeasPage({
   searchParams,
 }: {
-  searchParams: Promise<GetIdeaSearchParams>;
+  searchParams: Promise<SearchQueryParams>;
 }) {
   const params = await searchParams;
 
   const page = params.page || "1";
   const limit = "12";
 
-  const { data: payments, meta } = await getPurchasedIdeas({
+  const { data: payments, meta } = await ideaAction.getAll({
     page,
     limit,
   });
