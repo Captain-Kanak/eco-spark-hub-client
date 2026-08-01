@@ -21,7 +21,7 @@ import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { authValidations } from "@/validations/auth.validation";
 import { toast } from "sonner";
-import { login } from "@/actions/auth.action";
+import { login } from "@/actions/auth";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SocialLogin } from "./SocialLogin";

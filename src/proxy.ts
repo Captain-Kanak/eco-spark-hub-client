@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getMe } from "./actions/auth.action";
+import { getMe } from "./actions/auth";
 import { UserRole } from "./types/enums";
 import {
   adminRoutes,

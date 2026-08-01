@@ -29,7 +29,7 @@ import {
   Mail,
   User,
 } from "lucide-react";
-import { register } from "@/actions/auth.action";
+import { register } from "@/actions/auth";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
 import { EmailVerificationModal } from "./EmailVerificationModal";

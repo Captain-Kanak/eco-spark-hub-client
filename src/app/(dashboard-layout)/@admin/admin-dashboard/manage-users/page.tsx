@@ -1,4 +1,4 @@
-import { getUsers } from "@/actions/auth.action";
+import { getUsers } from "@/actions/auth";
 import AppPagination from "@/components/layouts/AppPagination";
 import DeleteUserButton from "@/components/modules/dashboard/admin/DeleteUserButton";
 import { cn } from "@/lib/utils";

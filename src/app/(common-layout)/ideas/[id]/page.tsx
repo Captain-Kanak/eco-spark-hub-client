@@ -1,4 +1,4 @@
-import { getMe } from "@/actions/auth.action";
+import { getMe } from "@/actions/auth";
 import { getIdeaById, getPurchasedIdeas } from "@/actions/idea.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

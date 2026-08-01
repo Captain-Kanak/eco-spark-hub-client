@@ -1,4 +1,4 @@
-import { getUsers } from "@/actions/auth.action";
+import { getUsers } from "@/actions/auth";
 import { getCategories } from "@/actions/category.action";
 import { getIdeas, getPendingIdeas } from "@/actions/idea.action";
 import { getAllPayments } from "@/actions/payment.action";

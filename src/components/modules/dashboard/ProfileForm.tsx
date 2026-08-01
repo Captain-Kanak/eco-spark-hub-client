@@ -11,7 +11,7 @@ import {
   Calendar,
   User as UserIcon,
 } from "lucide-react";
-import { updateProfile } from "@/actions/auth.action";
+import { updateProfile } from "@/actions/auth";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { User } from "@/types";

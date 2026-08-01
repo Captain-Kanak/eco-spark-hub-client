@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCcw, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
-import { verifyEmail } from "@/actions/auth.action";
+import { verifyEmail } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 
 interface EmailVerificationModalProps {

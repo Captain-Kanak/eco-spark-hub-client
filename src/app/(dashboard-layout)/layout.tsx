@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserRole } from "@/types/enums";
 import { ModeToggle } from "@/components/layouts/ThemeToggle";
-import { getMe } from "@/actions/auth.action";
+import { getMe } from "@/actions/auth";
 
 export default async function DashboardLayout({
   admin,

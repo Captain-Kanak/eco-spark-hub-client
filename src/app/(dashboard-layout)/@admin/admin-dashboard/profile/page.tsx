@@ -1,4 +1,4 @@
-import { getMe } from "@/actions/auth.action";
+import { getMe } from "@/actions/auth";
 import ProfileForm from "@/components/modules/dashboard/ProfileForm";
 import { User, ShieldCheck, Mail, Camera, Calendar } from "lucide-react";
 import React from "react";

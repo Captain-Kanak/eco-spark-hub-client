@@ -20,7 +20,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ModeToggle } from "./ThemeToggle";
 import { useEffect, useState } from "react";
-import { getMe } from "@/actions/auth.action";
+import { getMe } from "@/actions/auth";
 import { User } from "@/types";
 import {
   DropdownMenu,

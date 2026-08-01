@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useTransition, useState } from "react";
-import { deleteUser } from "@/actions/auth.action";
+import { deleteUser } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Trash2, Loader2, X } from "lucide-react";
 import { toast } from "sonner";
