@@ -4,14 +4,16 @@ import { ApiResponse, Like } from "@/types";
 
 const API_URL = `${env.API_URL}/api/v1/likes`;
 
-export const userService = {
-  likeHandler: async (ideaId: string) => {
-    return api.post<ApiResponse<Like>>(
-      `${API_URL}/${ideaId}`,
-      {},
-      {
-        auth: true,
-      },
-    );
-  },
+const likeHandler = async (ideaId: string) => {
+  return api.post<ApiResponse<Like>>(
+    `${API_URL}/${ideaId}`,
+    {},
+    {
+      auth: true,
+    },
+  );
+};
+
+export const likeService = {
+  likeHandler,
 };
