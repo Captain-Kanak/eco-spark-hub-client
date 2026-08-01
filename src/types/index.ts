@@ -7,3 +7,4 @@ export * from "./like";
 export * from "./comment";
 export * from "./donation";
 export * from "./cookie";
+export * from "./route";

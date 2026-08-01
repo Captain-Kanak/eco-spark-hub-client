@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { DecodedToken, Route } from "@/types";
+import { User, Route } from "@/types";
 import { usePathname } from "next/navigation";
 import { UserRole } from "@/types/enums";
 import { AdminRoutes } from "@/routes/AdminRoutes";
@@ -27,9 +27,7 @@ import { NavUser } from "../modules/dashboard/NavUser";
 export function AppSidebar({
   user,
   ...props
-}: { user: DecodedToken | null | undefined } & React.ComponentProps<
-  typeof Sidebar
->) {
+}: { user: User | null | undefined } & React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   let routes: Route[] = [];
 
