@@ -1,5 +1,5 @@
 import { getCategories } from "@/actions/category";
-import { getMyIdeas } from "@/actions/idea.action";
+import { getMyIdeas } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import MyIdeasClient from "@/components/modules/dashboard/member/MyIdeasClient";
 import { GetIdeaSearchParams } from "@/types/idea";

@@ -1,4 +1,4 @@
-import { getPendingIdeas } from "@/actions/idea.action";
+import { getPendingIdeas } from "@/actions/idea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, XCircle } from "lucide-react";

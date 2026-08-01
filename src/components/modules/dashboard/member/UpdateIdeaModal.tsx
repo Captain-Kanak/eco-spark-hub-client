@@ -1,6 +1,6 @@
 "use client";
 
-import { updateIdeaById } from "@/actions/idea.action";
+import { updateIdeaById } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

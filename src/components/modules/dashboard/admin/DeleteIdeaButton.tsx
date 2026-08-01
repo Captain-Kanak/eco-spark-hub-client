@@ -4,7 +4,7 @@ import React, { useTransition, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash2, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
-import { deleteIdeaById } from "@/actions/idea.action";
+import { deleteIdeaById } from "@/actions/idea";
 import { useRouter } from "next/navigation";
 
 export default function DeleteIdeaButton({ ideaId }: { ideaId: string }) {

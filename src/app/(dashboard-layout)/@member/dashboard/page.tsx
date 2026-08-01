@@ -1,4 +1,4 @@
-import { getMyIdeas, getPurchasedIdeas } from "@/actions/idea.action";
+import { getMyIdeas, getPurchasedIdeas } from "@/actions/idea";
 import { getSales } from "@/actions/payment.action";
 import { Payment } from "@/types";
 import React from "react";

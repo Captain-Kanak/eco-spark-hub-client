@@ -1,4 +1,4 @@
-import { getIdeas } from "@/actions/idea.action";
+import { getIdeas } from "@/actions/idea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Globe, User, MessageSquare } from "lucide-react";

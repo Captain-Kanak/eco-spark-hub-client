@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteIdeaById } from "@/actions/idea.action";
+import { deleteIdeaById } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

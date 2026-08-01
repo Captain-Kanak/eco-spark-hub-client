@@ -11,7 +11,7 @@ const create = async (payload: FormData) => {
   });
 };
 
-const getAll = async (params?: SearchQueryParams) => {
+const getAll = async (params: SearchQueryParams) => {
   const url = new URL(API_URL);
 
   if (params) {

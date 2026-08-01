@@ -4,7 +4,7 @@ import React, { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { updateIdeaStatusById } from "@/actions/idea.action";
+import { updateIdeaStatusById } from "@/actions/idea";
 import { IdeaStatus } from "@/types/enums";
 import { useRouter } from "next/navigation";
 

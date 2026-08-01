@@ -1,5 +1,5 @@
 import { getMe } from "@/actions/auth";
-import { getIdeas, getPurchasedIdeas } from "@/actions/idea.action";
+import { getIdeas, getPurchasedIdeas } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { Payment } from "@/types";

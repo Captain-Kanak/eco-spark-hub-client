@@ -1,5 +1,5 @@
 import { getMe } from "@/actions/auth";
-import { getIdeaById, getPurchasedIdeas } from "@/actions/idea.action";
+import { getIdeaById, getPurchasedIdeas } from "@/actions/idea";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Payment } from "@/types";

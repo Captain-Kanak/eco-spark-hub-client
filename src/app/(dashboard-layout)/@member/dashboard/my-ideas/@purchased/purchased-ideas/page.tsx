@@ -1,4 +1,4 @@
-import { getPurchasedIdeas } from "@/actions/idea.action";
+import { getPurchasedIdeas } from "@/actions/idea";
 import AppPagination from "@/components/layouts/AppPagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
 import { GetIdeaSearchParams } from "@/types/idea";
