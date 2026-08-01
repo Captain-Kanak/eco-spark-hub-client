@@ -1,4 +1,4 @@
-import { getSales } from "@/actions/payment.action";
+import { getSales } from "@/actions/donation";
 import AppPagination from "@/components/layouts/AppPagination";
 import { cn } from "@/lib/utils";
 import { Payment } from "@/types";

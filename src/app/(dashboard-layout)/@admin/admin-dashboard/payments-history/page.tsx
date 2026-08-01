@@ -1,4 +1,4 @@
-import { getAllPayments } from "@/actions/payment.action";
+import { getAllPayments } from "@/actions/donation";
 import AppPagination from "@/components/layouts/AppPagination";
 import PaymentDetailsSheet from "@/components/modules/dashboard/admin/PaymentDetailsSheet";
 import { CreditCard, ArrowDownLeft, DollarSign } from "lucide-react";

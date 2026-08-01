@@ -1,7 +1,7 @@
 import { getUsers } from "@/actions/auth";
 import { getCategories } from "@/actions/category";
 import { getIdeas, getPendingIdeas } from "@/actions/idea";
-import { getAllPayments } from "@/actions/payment.action";
+import { getAllPayments } from "@/actions/donation";
 import StatsGrid from "@/components/modules/dashboard/admin/StatsGrid";
 import { Sparkles } from "lucide-react";
 

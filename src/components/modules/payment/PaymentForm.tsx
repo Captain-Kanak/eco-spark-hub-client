@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Loader2, Lock, CreditCard } from "lucide-react";
 import { useTheme } from "next-themes";
 import { getIdeaById } from "@/actions/idea";
-import { confirmPayment, createPaymentIntent } from "@/actions/payment.action";
+import { confirmPayment, createPaymentIntent } from "@/actions/donation";
 import { Idea } from "@/types";
 import { Button } from "@/components/ui/button";
 
