@@ -11,7 +11,6 @@ import {
   Calendar,
   User as UserIcon,
 } from "lucide-react";
-import { updateProfile } from "@/actions/auth";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { User } from "@/types";
@@ -24,22 +23,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { userAction } from "@/actions/user";
 
 const updateProfileSchema = z.object({
   name: z.string(),
   image: z.any().nullable(),
   phone: z.string(),
   address: z.string(),
-  date_of_birth: z.string(),
+  dateOfBirth: z.string(),
 });
 
 export default function ProfileForm({ user }: { user: User }) {
@@ -53,7 +48,7 @@ export default function ProfileForm({ user }: { user: User }) {
       image: null as File | null,
       phone: user.phone || "",
       address: user.address || "",
-      date_of_birth: user.date_of_birth || "",
+      dateOfBirth: user.dateOfBirth || "",
     },
     validators: { onSubmit: updateProfileSchema },
     onSubmit: async ({ value }) => {
@@ -65,11 +60,11 @@ export default function ProfileForm({ user }: { user: User }) {
         if (value.name) formData.append("name", value.name);
         if (value.phone) formData.append("phone", value.phone);
         if (value.address) formData.append("address", value.address);
-        if (value.date_of_birth)
-          formData.append("date_of_birth", value.date_of_birth);
+        if (value.dateOfBirth)
+          formData.append("dateOfBirth", value.dateOfBirth);
         if (value.image) formData.append("file", value.image);
 
-        const result = await updateProfile(formData);
+        const result = await userAction.updateById(formData);
 
         if (result.success) {
           toast.success("Profile updated successfully!", { id: toastId });
@@ -191,7 +186,7 @@ export default function ProfileForm({ user }: { user: User }) {
 
             {/* Date of Birth */}
             <form.Field
-              name="date_of_birth"
+              name="dateOfBirth"
               children={(field) => (
                 <Field className="space-y-2">
                   <FieldLabel className="font-bold flex items-center gap-2 text-sm">

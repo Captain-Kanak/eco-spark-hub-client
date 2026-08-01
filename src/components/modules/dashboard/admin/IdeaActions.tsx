@@ -4,9 +4,9 @@ import React, { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { updateIdeaStatusById } from "@/actions/idea";
 import { IdeaStatus } from "@/types/enums";
 import { useRouter } from "next/navigation";
+import { ideaAction } from "@/actions/idea";
 
 interface IdeaActionsProps {
   ideaId: string;
@@ -23,13 +23,10 @@ export default function IdeaActions({ ideaId }: IdeaActionsProps) {
     setActionType(type);
     startTransition(async () => {
       try {
-        const statusType =
-          type === "approve" ? IdeaStatus.APPROVED : IdeaStatus.REJECTED;
+        const status =
+          type === "approve" ? IdeaStatus.PUBLISHED : IdeaStatus.REJECTED;
 
-        const result = await updateIdeaStatusById({
-          ideaId,
-          status: statusType,
-        });
+        const result = await ideaAction.updateStatusById(ideaId, status);
 
         if (result.success) {
           toast.success(

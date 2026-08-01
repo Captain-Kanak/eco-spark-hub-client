@@ -1,6 +1,5 @@
 "use client";
 
-import { updateIdeaById } from "@/actions/idea";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -33,6 +32,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
+import { ideaAction } from "@/actions/idea";
 
 interface UpdateIdeaModalProps {
   isOpen: boolean;
@@ -44,12 +44,10 @@ interface UpdateIdeaModalProps {
 const updateIdeaSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
   description: z.string().min(20, "Description must be at least 20 characters"),
-  image: z.any().nullable(),
+  coverImage: z.any().nullable(),
   problemStatement: z.string().min(20, "Please describe the problem"),
-  solution: z.string().min(20, "Please describe the solution"),
+  proposedSolution: z.string().min(20, "Please describe the solution"),
   categoryId: z.string().min(1, "Category is required"),
-  isPaid: z.boolean(),
-  price: z.number().nonnegative(),
 });
 
 export default function UpdateIdeaModal({
@@ -59,24 +57,24 @@ export default function UpdateIdeaModal({
   categories,
 }: UpdateIdeaModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [preview, setPreview] = useState<string | null>(idea?.image || null);
+  const [preview, setPreview] = useState<string | null>(
+    idea?.coverImage || null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (idea) setPreview(idea.image);
+    if (idea) setPreview(idea.coverImage);
   }, [idea]);
 
   const form = useForm({
     defaultValues: {
       title: idea?.title || "",
       description: idea?.description || "",
-      image: null as File | null,
+      coverImage: null as File | null,
       problemStatement: idea?.problemStatement || "",
-      solution: idea?.solution || "",
+      proposedSolution: idea?.proposedSolution || "",
       categoryId: idea?.categoryId || "",
-      isPaid: idea?.isPaid || false,
-      price: idea?.price || 0,
     },
     validators: { onSubmit: updateIdeaSchema },
     onSubmit: async ({ value }) => {
@@ -87,16 +85,14 @@ export default function UpdateIdeaModal({
         formData.append("title", value.title);
         formData.append("description", value.description);
         formData.append("problemStatement", value.problemStatement);
-        formData.append("solution", value.solution);
+        formData.append("proposedSolution", value.proposedSolution);
         formData.append("categoryId", value.categoryId);
-        formData.append("isPaid", String(value.isPaid));
-        formData.append("price", String(value.price));
 
-        if (value.image) {
-          formData.append("file", value.image);
+        if (value.coverImage) {
+          formData.append("coverImage", value.coverImage);
         }
 
-        const res = await updateIdeaById(idea.id, formData);
+        const res = await ideaAction.updateById(idea.id, formData);
 
         if (res?.success) {
           toast.success("Idea updated successfully!", { id: toastId });
@@ -199,7 +195,7 @@ export default function UpdateIdeaModal({
 
               {/* Image Upload */}
               <form.Field
-                name="image"
+                name="coverImage"
                 children={(field) => (
                   <Field>
                     <FieldLabel className="font-bold">Cover Image</FieldLabel>
@@ -271,10 +267,12 @@ export default function UpdateIdeaModal({
                   )}
                 />
                 <form.Field
-                  name="solution"
+                  name="proposedSolution"
                   children={(field) => (
                     <Field>
-                      <FieldLabel className="font-bold">Solution</FieldLabel>
+                      <FieldLabel className="font-bold">
+                        Proposed Solution
+                      </FieldLabel>
                       <Textarea
                         className="rounded-xl min-h-25"
                         value={field.state.value}
@@ -282,46 +280,6 @@ export default function UpdateIdeaModal({
                       />
                     </Field>
                   )}
-                />
-              </div>
-
-              {/* Pricing Row */}
-              <div className="flex items-center gap-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200">
-                <form.Field
-                  name="isPaid"
-                  children={(field) => (
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        checked={field.state.value}
-                        onCheckedChange={field.handleChange}
-                      />
-                      <FieldLabel className="mb-0">Paid Idea?</FieldLabel>
-                    </div>
-                  )}
-                />
-
-                <form.Subscribe
-                  selector={(state) => state.values.isPaid}
-                  children={(isPaid) =>
-                    isPaid && (
-                      <form.Field
-                        name="price"
-                        children={(field) => (
-                          <div className="flex-1 animate-in slide-in-from-left-2">
-                            <Input
-                              type="number"
-                              className="h-10 rounded-lg"
-                              placeholder="Price ($)"
-                              value={field.state.value}
-                              onChange={(e) =>
-                                field.handleChange(Number(e.target.value))
-                              }
-                            />
-                          </div>
-                        )}
-                      />
-                    )
-                  }
                 />
               </div>
             </FieldGroup>

@@ -1,72 +1,11 @@
-import { getMyIdeas, getPurchasedIdeas } from "@/actions/idea";
-import { getSales } from "@/actions/donation";
-import { Payment } from "@/types";
-import React from "react";
-import {
-  Lightbulb,
-  ShoppingBag,
-  TrendingUp,
-  Wallet,
-  ArrowUpRight,
-  ArrowDownRight,
-  BarChart3,
-} from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ideaAction } from "@/actions/idea";
 
 export default async function MemberDashboardPage() {
-  const [ideasPromise, purchasesPromise, salesPromise] = await Promise.all([
-    getMyIdeas({}),
-    getPurchasedIdeas({}),
-    getSales({}),
-  ]);
+  const [ideasPromise] = await Promise.all([ideaAction.getAll({})]);
 
   const totalIdeas = ideasPromise.meta?.total || 0;
-  const totalPurchases = purchasesPromise.meta?.total || 0;
-  const totalSpent =
-    purchasesPromise.data?.reduce(
-      (acc: number, curr: Payment) => acc + curr.amount,
-      0,
-    ) || 0;
-  const totalSales = salesPromise.meta?.total || 0;
-  const totalRevenue =
-    salesPromise.data?.reduce(
-      (acc: number, curr: Payment) => acc + curr.amount,
-      0,
-    ) || 0;
-
-  const netProfit = totalRevenue - totalSpent;
-
-  const metrics = [
-    {
-      label: "Total Revenue",
-      value: `$${totalRevenue.toLocaleString()}`,
-      description: `${totalSales} successful sales`,
-      icon: TrendingUp,
-      color: "text-emerald-600",
-      bgColor: "bg-emerald-50 dark:bg-emerald-500/10",
-      borderColor: "border-emerald-100 dark:border-emerald-500/20",
-      trend: <ArrowUpRight className="text-emerald-500" size={16} />,
-    },
-    {
-      label: "Total Spent",
-      value: `$${totalSpent.toLocaleString()}`,
-      description: `${totalPurchases} ideas unlocked`,
-      icon: Wallet,
-      color: "text-rose-600",
-      bgColor: "bg-rose-50 dark:bg-rose-500/10",
-      borderColor: "border-rose-100 dark:border-rose-500/20",
-      trend: <ArrowDownRight className="text-rose-500" size={16} />,
-    },
-    {
-      label: "My Innovations",
-      value: totalIdeas,
-      description: "Active blueprints",
-      icon: Lightbulb,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50 dark:bg-blue-500/10",
-      borderColor: "border-blue-100 dark:border-blue-500/20",
-    },
-  ];
 
   return (
     <div className="container mx-auto py-10 animate-in fade-in duration-700">
@@ -81,41 +20,7 @@ export default async function MemberDashboardPage() {
       </div>
 
       {/* Main Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {metrics.map((m, idx) => (
-          <div
-            key={idx}
-            className={cn(
-              "p-8 rounded-[2.5rem] border transition-all hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none",
-              m.bgColor,
-              m.borderColor,
-            )}
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div
-                className={cn(
-                  "p-3 rounded-2xl bg-white dark:bg-slate-900 shadow-sm",
-                  m.color,
-                )}
-              >
-                <m.icon size={24} />
-              </div>
-              {m.trend}
-            </div>
-            <div>
-              <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">
-                {m.label}
-              </h3>
-              <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">
-                {m.value}
-              </p>
-              <p className="text-sm font-bold text-slate-500 mt-2">
-                {m.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"></div>
 
       {/* Secondary Performance Card */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -127,16 +32,6 @@ export default async function MemberDashboardPage() {
                 Net Financial Impact
               </h3>
             </div>
-            <p
-              className={cn(
-                "text-5xl font-black tracking-tighter",
-                netProfit >= 0 ? "text-emerald-400" : "text-rose-400",
-              )}
-            >
-              {netProfit >= 0
-                ? `+$${netProfit.toLocaleString()}`
-                : `-$${Math.abs(netProfit).toLocaleString()}`}
-            </p>
           </div>
           <div className="hidden sm:block opacity-20 text-white">
             <BarChart3 size={80} strokeWidth={1} />
