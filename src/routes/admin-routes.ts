@@ -7,14 +7,15 @@ import {
   User,
   Users,
 } from "lucide-react";
+import { ADMIN_ROUTE_PATHS } from "./routes-constant";
 
-export const AdminRoutes: Route[] = [
+export const ADMIN_ROUTES: Route[] = [
   {
     title: "Account",
     items: [
       {
         title: "Profile",
-        url: "/admin-dashboard/profile",
+        url: ADMIN_ROUTE_PATHS.PROFILE,
         icon: User,
       },
     ],
@@ -24,7 +25,7 @@ export const AdminRoutes: Route[] = [
     items: [
       {
         title: "Overview",
-        url: "/admin-dashboard",
+        url: ADMIN_ROUTE_PATHS.OVERVIEW,
         icon: LayoutDashboard,
       },
     ],
@@ -34,22 +35,22 @@ export const AdminRoutes: Route[] = [
     items: [
       {
         title: "Manage Categories",
-        url: "/admin-dashboard/manage-categories",
+        url: ADMIN_ROUTE_PATHS.MANAGE_CATEGORIES,
         icon: Tags,
       },
       {
         title: "Manage Ideas",
-        url: "/admin-dashboard/manage-ideas/pending",
+        url: ADMIN_ROUTE_PATHS.MANAGE_IDEAS,
         icon: Lightbulb,
       },
       {
         title: "Manage Users",
-        url: "/admin-dashboard/manage-users",
+        url: ADMIN_ROUTE_PATHS.MANAGE_USERS,
         icon: Users,
       },
       {
         title: "Payments History",
-        url: "/admin-dashboard/payments-history",
+        url: ADMIN_ROUTE_PATHS.PAYMENTS_HISTORY,
         icon: DollarSign,
       },
     ],

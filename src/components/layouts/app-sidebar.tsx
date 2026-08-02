@@ -17,8 +17,8 @@ import {
 import { User, Route } from "@/types";
 import { usePathname } from "next/navigation";
 import { UserRole } from "@/types/enums";
-import { AdminRoutes } from "@/routes/AdminRoutes";
-import { MemberRoutes } from "@/routes/MemberRoutes";
+import { AdminRoutes } from "@/routes/admin-routes";
+import { MemberRoutes } from "@/routes/member-routes";
 import Logo from "./Logo";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
