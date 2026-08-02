@@ -55,8 +55,10 @@ export default function Footer() {
             <Logo />
 
             <p className="max-w-sm text-sm leading-7 text-slate-600 dark:text-slate-400">
-              Fund bold environmental ideas. Empower innovators. Build a more
-              sustainable future together.
+              Eco Spark Hub empowers innovators, supporters, and communities to
+              transform environmental ideas into real-world impact. Together,
+              we're building a cleaner, greener, and more sustainable future—one
+              idea at a time.
             </p>
 
             <div className="flex gap-4">
