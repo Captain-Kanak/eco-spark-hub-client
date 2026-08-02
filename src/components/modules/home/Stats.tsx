@@ -31,14 +31,12 @@ export default function Stats() {
   return (
     <section className="relative overflow-hidden py-24">
       {/* Background */}
-
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Heading */}
-
         <div className="mb-14 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/20 dark:text-emerald-400">
             <Sparkles className="h-4 w-4" />
@@ -56,7 +54,6 @@ export default function Stats() {
         </div>
 
         {/* Stats */}
-
         <div className="overflow-hidden rounded-[36px] border border-slate-200/70 bg-white/80 shadow-xl backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/70">
           <div className="grid divide-y divide-slate-200 dark:divide-slate-800 md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4">
             {stats.map((stat) => (
