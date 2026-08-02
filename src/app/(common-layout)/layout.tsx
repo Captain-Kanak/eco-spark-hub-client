@@ -11,7 +11,7 @@ export default function CommonLayout({
     <>
       <Navbar />
 
-      <div className="container mx-auto min-h-screen">{children}</div>
+      <main>{children}</main>
 
       <Footer />
     </>
