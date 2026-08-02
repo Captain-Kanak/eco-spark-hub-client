@@ -1,5 +1,5 @@
 import Categories from "@/components/modules/home/Categories";
-import Hero from "@/components/modules/home/Hero";
+import Banner from "@/components/modules/home/Banner";
 import Stats from "@/components/modules/home/Stats";
 import HowItWorks from "@/components/modules/home/HowItWorks";
 import { getCategories } from "@/actions/category";
@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
+      <Banner />
 
       <Stats />
 

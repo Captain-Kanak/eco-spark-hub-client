@@ -29,7 +29,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="relative overflow-hidden py-24">
+    <section className="relative overflow-hidden py-12 lg:py-18">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />

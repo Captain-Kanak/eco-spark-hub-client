@@ -7,7 +7,7 @@ import { Category } from "@/types";
 
 export default function Categories({ categories }: { categories: Category[] }) {
   return (
-    <section className="relative overflow-hidden bg-background py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-background py-12 lg:py-18">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.08),transparent_60%)]" />
