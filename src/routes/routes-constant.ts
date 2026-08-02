@@ -43,11 +43,6 @@ export const IDEA_ROUTE_PATHS = {
   DETAILS: (slug: string) => `${PUBLIC_ROUTE_PATHS.IDEAS}/${slug}`,
 } as const;
 
-export const CATEGORY_ROUTE_PATHS = {
-  LIST: PUBLIC_ROUTE_PATHS.CATEGORIES,
-  DETAILS: (slug: string) => `${PUBLIC_ROUTE_PATHS.CATEGORIES}/${slug}`,
-} as const;
-
 export const DONATION_ROUTE_PATHS = {
   PREFIX: DONATION_ROUTE_PREFIX,
   DONATE: (ideaId: string) => `${DONATION_ROUTE_PREFIX}/${ideaId}`,

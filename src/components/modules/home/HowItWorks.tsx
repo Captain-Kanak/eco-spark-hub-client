@@ -47,7 +47,7 @@ export default function HowItWorks() {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-500/5 blur-[140px]" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 lg:px-0">
         {/* Header */}
 
         <div className="mx-auto mb-24 max-w-3xl text-center">
