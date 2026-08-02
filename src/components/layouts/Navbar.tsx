@@ -10,6 +10,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -126,37 +127,38 @@ const Navbar = ({
       )}
     >
       <div className="container mx-auto">
-        {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
-          <div className="flex items-center gap-6">
-            {/* Logo */}
-            <Logo />
+        {/* Desktop */}
+        <nav className="hidden lg:flex items-center justify-between">
+          {/* Logo */}
+          <Logo />
 
-            <div className="flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {menu.map((item) => (
-                    <NavigationMenuItem key={item.title}>
-                      <Link
-                        href={item.url}
-                        className={cn(
-                          "group inline-flex h-9 w-max items-center justify-center rounded-full px-4 py-2 text-sm font-bold transition-all duration-200",
-                          isActive(item.url)
-                            ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/20"
-                            : "text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 dark:text-slate-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400",
-                        )}
-                      >
-                        {item.title.toUpperCase()}
-                      </Link>
-                    </NavigationMenuItem>
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
+          {/* Nav Links */}
+          <div className="flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList className="rounded-full border border-emerald-100/60 bg-white/70 p-1 backdrop-blur-md dark:border-emerald-900/50 dark:bg-slate-900/70">
+                {menu.map((item) => (
+                  <NavigationMenuItem key={item.title}>
+                    <Link
+                      href={item.url}
+                      className={cn(
+                        "relative flex h-10 items-center px-5 text-sm font-semibold transition-all duration-300",
+                        "after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-emerald-500 after:transition-all",
+                        isActive(item.url)
+                          ? "scale-105 text-emerald-600 after:w-8 dark:text-emerald-400"
+                          : "text-slate-600 hover:scale-105 hover:text-emerald-600 hover:after:w-6 dark:text-slate-300 dark:hover:text-emerald-400",
+                      )}
+                    >
+                      {item.title.toUpperCase()}
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
+          {/* Mode Toggle and Auth */}
           <div className="flex items-center gap-3">
-            <div className="mr-2">
+            <div className="flex items-center rounded-full border border-slate-200/70 p-1 dark:border-slate-800">
               <ModeToggle />
             </div>
 
@@ -166,21 +168,21 @@ const Navbar = ({
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="relative h-10 w-10 rounded-full p-0 border border-slate-200 dark:border-slate-800 hover:ring-4 hover:ring-blue-500/10 transition-all cursor-pointer"
+                      className="relative h-10 w-10 cursor-pointer rounded-full border border-slate-200 p-0 transition-all duration-300 hover:scale-105 hover:border-emerald-300 hover:ring-4 hover:ring-emerald-500/10 dark:border-slate-800 dark:hover:border-emerald-700"
                     >
                       <Avatar className="h-full w-full">
                         <AvatarImage
                           src={user.image || ""}
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-blue-600 text-white font-bold">
+                        <AvatarFallback className="bg-emerald-600 text-white font-bold">
                           {user.name?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
-                    className="w-64 mt-2 p-2 rounded-2xl shadow-2xl border-slate-200/60 dark:border-slate-800/60"
+                    className="mt-2 w-64 rounded-xl border border-slate-200/70 bg-background p-2 shadow-xl dark:border-slate-800"
                     align="end"
                   >
                     <DropdownMenuLabel>
@@ -197,7 +199,7 @@ const Navbar = ({
                     <DropdownMenuGroup>
                       <DropdownMenuItem
                         asChild
-                        className="rounded-lg h-10 cursor-pointer focus:bg-blue-50 dark:focus:bg-blue-900/20 focus:text-blue-600"
+                        className="h-10 cursor-pointer rounded-lg transition-colors focus:bg-emerald-50 focus:text-emerald-600 dark:focus:bg-emerald-900/20"
                       >
                         <Link href={`${dashboardLink}`}>
                           <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -220,17 +222,18 @@ const Navbar = ({
               <div className="hidden lg:flex items-center gap-2">
                 <Button
                   asChild
-                  variant="outline"
+                  variant="ghost"
                   size="lg"
-                  className="hidden sm:flex border-slate-200 dark:border-slate-800 font-medium hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/30 hover:border-emerald-200 dark:hover:border-emerald-900 dark:text-slate-300 dark:hover:text-emerald-400 transition-colors"
+                  className="rounded-full border-slate-200 font-semibold transition-all hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-800 dark:hover:border-emerald-800 dark:hover:bg-emerald-900/20"
                 >
                   <Link href={auth.login.url}>{auth.login.title}</Link>
                 </Button>
 
                 <Button
+                  asChild
                   form="register-form"
                   type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.01] active:scale-[0.99] transition-all font-medium text-white rounded-sm shadow-lg shadow-emerald-600/20 cursor-pointer"
+                  className="rounded-full bg-emerald-600 px-6 font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-300 hover:scale-105 hover:bg-emerald-700 active:scale-95"
                 >
                   <Link href={auth.signup.url}>{auth.signup.title}</Link>
                 </Button>
@@ -239,114 +242,136 @@ const Navbar = ({
           </div>
         </nav>
 
-        {/* Mobile Menu */}
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="lg:hidden rounded-xl border-slate-200 dark:border-slate-800 cursor-pointer"
+        {/* Mobile */}
+        <div className="flex items-center justify-between lg:hidden">
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="lg:hidden rounded-full border-slate-200 transition-all duration-300 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-600 dark:border-slate-800 dark:hover:border-emerald-800 dark:hover:bg-emerald-900/20"
+              >
+                <Menu className="size-5" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent
+              side="right"
+              className="w-full sm:w-90 bg-background p-0 backdrop-blur-xl"
             >
-              <Menu className="size-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-full sm:w-87.5 p-0 flex flex-col border-l border-slate-200 dark:border-slate-800"
-          >
-            <SheetHeader className="p-6 text-left border-b border-slate-100 dark:border-slate-900">
-              <SheetTitle className="flex items-center gap-2">
-                <Logo />
-              </SheetTitle>
-            </SheetHeader>
+              <SheetHeader className="p-6 text-left border-b border-slate-100 dark:border-slate-900">
+                <SheetTitle className="flex items-center gap-2">
+                  <Logo />
+                </SheetTitle>
+              </SheetHeader>
 
-            <div className="flex-1 overflow-y-auto px-6 py-8">
-              {/* User Section for Mobile */}
-              {user && (
-                <div className="mb-8 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Avatar className="h-12 w-12 border-2 border-white dark:border-slate-800 shadow-sm">
-                      <AvatarImage src={user.image || ""} />
-                      <AvatarFallback className="bg-blue-600 text-white font-bold">
-                        {user.name?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="font-bold text-slate-900 dark:text-white leading-tight">
-                        {user.name}
-                      </span>
-                      <span className="text-xs text-slate-500 truncate max-w-37.5">
-                        {user.email}
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    asChild
-                    variant="secondary"
-                    className="w-full justify-between h-10 rounded-xl"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href={`${dashboardLink}`}>
-                      <div className="flex items-center">
-                        <LayoutDashboard className="mr-2 h-4 w-4" />
-                        Dashboard
+              <div className="flex-1 overflow-y-auto px-6 py-8">
+                {user && (
+                  <div className="mb-8 rounded-2xl border border-emerald-100/60 bg-emerald-50/40 p-4 dark:border-emerald-900/40 dark:bg-emerald-900/10">
+                    <div className="flex items-center gap-4 mb-4">
+                      <Avatar className="h-12 w-12 border-2 border-white dark:border-slate-800 shadow-sm">
+                        <AvatarImage src={user.image || ""} />
+                        <AvatarFallback className="bg-emerald-600 text-white font-bold">
+                          {user.name?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+
+                      <div className="flex flex-col">
+                        <span className="font-bold text-slate-900 dark:text-white leading-tight">
+                          {user.name}
+                        </span>
+                        <span className="text-xs text-slate-500 truncate max-w-37.5">
+                          {user.email}
+                        </span>
                       </div>
-                      <ChevronRight className="h-4 w-4 opacity-50" />
+                    </div>
+
+                    <Button
+                      asChild
+                      variant="secondary"
+                      className="h-11 w-full justify-between rounded-xl border border-transparent transition-all hover:border-emerald-200 hover:bg-emerald-50 dark:hover:border-emerald-900 dark:hover:bg-emerald-900/20"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Link href={`${dashboardLink}`}>
+                        <div className="flex items-center">
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          Dashboard
+                        </div>
+                        <ChevronRight className="h-4 w-4 opacity-50" />
+                      </Link>
+                    </Button>
+                  </div>
+                )}
+
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-2">
+                    Navigation
+                  </p>
+
+                  {menu.map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.url}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "group flex items-center justify-between rounded-xl px-4 py-3 font-semibold transition-all duration-300",
+                        isActive(item.url)
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : "text-slate-700 hover:bg-emerald-50 hover:pl-6 hover:text-emerald-600 dark:text-slate-300 dark:hover:bg-emerald-900/20 dark:hover:text-emerald-400",
+                      )}
+                    >
+                      {item.title}
+                      <ChevronRight className="h-4 w-4 opacity-30 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
-                  </Button>
+                  ))}
                 </div>
-              )}
-
-              <div className="space-y-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-2">
-                  Navigation
-                </p>
-
-                {menu.map((item) => (
-                  <Link
-                    key={item.title}
-                    href={item.url}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-                  >
-                    {item.title}
-                    <ChevronRight className="h-4 w-4 opacity-20" />
-                  </Link>
-                ))}
               </div>
-            </div>
 
-            <div className="p-6 border-t border-slate-100 dark:border-slate-900 space-y-3">
-              {user ? (
-                <Button
-                  onClick={handleLogout}
-                  variant="destructive"
-                  className="w-full h-12 rounded-xl font-bold cursor-pointer"
-                >
-                  <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full h-12 rounded-xl font-bold"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href={auth.login.url}>{auth.login.title}</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    className="w-full h-12 rounded-xl font-bold bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href={auth.signup.url}>{auth.signup.title}</Link>
-                  </Button>
-                </>
-              )}
-            </div>
-          </SheetContent>
-        </Sheet>
+              <SheetFooter>
+                <div className="p-6 border-t border-slate-100 dark:border-slate-900 space-y-3">
+                  {user ? (
+                    <Button
+                      variant="ghost"
+                      onClick={handleLogout}
+                      className="group h-12 w-full justify-between rounded-xl px-4 font-semibold text-rose-600 transition-all duration-300 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-900/20 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <LogOut className="mr-3 h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                        <span>Sign Out</span>
+                      </div>
+
+                      <ChevronRight className="h-4 w-4 opacity-40 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Button>
+                  ) : (
+                    <>
+                      <Button
+                        asChild
+                        variant="ghost"
+                        size="lg"
+                        className="rounded-full border-slate-200 font-semibold transition-all hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-800 dark:hover:border-emerald-800 dark:hover:bg-emerald-900/20"
+                      >
+                        <Link href={auth.login.url}>{auth.login.title}</Link>
+                      </Button>
+
+                      <Button
+                        asChild
+                        form="register-form"
+                        type="submit"
+                        className="rounded-full bg-emerald-600 px-6 font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-300 hover:scale-105 hover:bg-emerald-700 active:scale-95"
+                      >
+                        <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+
+          <div className="flex items-center rounded-full border border-slate-200/70 p-1 dark:border-slate-800">
+            <ModeToggle />
+          </div>
+        </div>
       </div>
     </section>
   );

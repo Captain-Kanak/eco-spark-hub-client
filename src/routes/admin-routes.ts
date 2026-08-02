@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { ADMIN_ROUTE_PATHS } from "./routes-constant";
 
-export const ADMIN_ROUTES: Route[] = [
+export const AdminRoutes: Route[] = [
   {
     title: "Account",
     items: [

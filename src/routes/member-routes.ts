@@ -2,9 +2,7 @@ import { Route } from "@/types";
 import { DollarSign, LayoutDashboard, Lightbulb, User } from "lucide-react";
 import { MEMBER_ROUTE_PATHS } from "./routes-constant";
 
-export const MEMBER_ROUTE_PREFIX = "/dashboard";
-
-export const MEMBER_ROUTES: Route[] = [
+export const MemberRoutes: Route[] = [
   {
     title: "Account",
     items: [
