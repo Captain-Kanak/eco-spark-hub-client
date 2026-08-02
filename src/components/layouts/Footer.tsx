@@ -48,7 +48,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 py-16 lg:py-20">
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-7xl">
         <div className="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr]">
           {/* Brand Column */}
           <div className="space-y-6">
@@ -132,28 +132,34 @@ export default function Footer() {
           </div>
 
           {/* Newsletter / CTA */}
-          <div className="rounded-2xl border border-emerald-100 bg-linear-to-br from-emerald-50 to-white p-8 dark:border-emerald-900/40 dark:from-emerald-950/20 dark:to-slate-900">
-            <h4 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">
-              Stay in the loop
-            </h4>
-
-            <div className="bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-4 relative overflow-hidden group">
-              <p className="mb-6 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                Get the latest eco-innovation news, featured projects, and
-                funding updates.
+          <div className="rounded-3xl border border-emerald-200/90 bg-linear-to-br from-emerald-50 via-white to-white p-8 shadow-sm dark:border-emerald-900/40 dark:from-emerald-950/20 dark:via-slate-950 dark:to-slate-900">
+            <div className="mb-6">
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.25em] text-emerald-600">
+                Newsletter
               </p>
-              <div className="space-y-2">
-                <Input
-                  placeholder="Enter your email"
-                  className="h-12 rounded-full border-slate-200 bg-white px-5 dark:border-slate-800 dark:bg-slate-950"
-                />
-                <Button
-                  onClick={handleSubscribe}
-                  className="h-12 w-full rounded-full bg-emerald-600 font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-300 hover:scale-[1.02] hover:bg-emerald-700 active:scale-95 cursor-pointer"
-                >
-                  Subscribe
-                </Button>
-              </div>
+
+              <h4 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+                Stay in the loop
+              </h4>
+
+              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                Get the latest eco-innovation news, featured projects, funding
+                updates, and community stories delivered to your inbox.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <Input
+                placeholder="Enter your email"
+                className="h-12 rounded-full border-slate-200 bg-white px-5 dark:border-slate-800 dark:bg-slate-950"
+              />
+
+              <Button
+                onClick={handleSubscribe}
+                className="h-12 w-full rounded-full bg-emerald-600 font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-300 hover:scale-[1.02] hover:bg-emerald-700 active:scale-95 cursor-pointer"
+              >
+                Subscribe
+              </Button>
             </div>
           </div>
         </div>
