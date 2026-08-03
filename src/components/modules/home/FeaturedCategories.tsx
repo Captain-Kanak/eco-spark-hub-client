@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { Category } from "@/types";
 
-export default function Categories({ categories }: { categories: Category[] }) {
+export default function FeaturedCategories({ categories }: { categories: Category[] }) {
   return (
     <section className="relative overflow-hidden bg-background py-12 lg:py-18">
       {/* Background */}

@@ -52,6 +52,19 @@ A modern and responsive frontend for **EcoSpark Hub**, a crowdfunding platform t
 
 ---
 
+## 📁 Project Highlights
+
+- Premium responsive landing page.
+- Category-based idea discovery.
+- Authentication and authorization.
+- Stripe payment integration.
+- Dashboards for Admin, Innovator, and Supporter.
+- Cloudinary image uploads.
+- Reusable component architecture.
+- Optimized performance with Next.js App Router.
+
+---
+
 ## 🛠 Tech Stack
 
 | Category         | Technology              |
@@ -103,19 +116,6 @@ The application will be available at:
 ```text
 http://localhost:3000
 ```
-
----
-
-## 📁 Project Highlights
-
-- Premium responsive landing page.
-- Category-based idea discovery.
-- Authentication and authorization.
-- Stripe payment integration.
-- Dashboards for Admin, Innovator, and Supporter.
-- Cloudinary image uploads.
-- Reusable component architecture.
-- Optimized performance with Next.js App Router.
 
 ---
 

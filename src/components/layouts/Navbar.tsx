@@ -122,7 +122,7 @@ const Navbar = ({
         className,
       )}
     >
-      <div className="container mx-auto max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-4 lg:px-0">
         {/* Desktop */}
         <nav className="hidden lg:flex items-center justify-between">
           {/* Logo */}

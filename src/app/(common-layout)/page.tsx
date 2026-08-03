@@ -1,15 +1,21 @@
-import Categories from "@/components/modules/home/Categories";
 import Banner from "@/components/modules/home/Banner";
 import Stats from "@/components/modules/home/Stats";
-import HowItWorks from "@/components/modules/home/HowItWorks";
+import FeaturedCategories from "@/components/modules/home/FeaturedCategories";
+import FeaturedIdeas from "@/components/modules/home/FeaturedIdeas";
 import { getCategories } from "@/actions/category";
+import { getIdeas } from "@/actions/idea";
+import HowItWorks from "@/components/modules/home/HowItWorks";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const { data: categories } = await getCategories({
-    limit: "3",
-  });
+  const [categoriesPromise, ideasPromise] = await Promise.all([
+    getCategories({ limit: "3" }),
+    getIdeas({ limit: "3" }),
+  ]);
+
+  const categories = categoriesPromise.data || [];
+  const ideas = ideasPromise.data || [];
 
   return (
     <>
@@ -17,7 +23,9 @@ export default async function HomePage() {
 
       <Stats />
 
-      <Categories categories={categories || []} />
+      <FeaturedCategories categories={categories} />
+
+      <FeaturedIdeas ideas={ideas} />
 
       <HowItWorks />
     </>
