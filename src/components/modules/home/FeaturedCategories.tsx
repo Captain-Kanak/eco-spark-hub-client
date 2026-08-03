@@ -2,10 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { Category } from "@/types";
+import CategoryCard from "./CategoryCard";
+import { Button } from "@/components/ui/button";
 
-export default function FeaturedCategories({ categories }: { categories: Category[] }) {
+export default function FeaturedCategories({
+  categories,
+}: {
+  categories: Category[];
+}) {
   return (
     <section className="relative overflow-hidden bg-background py-12 lg:py-18">
       {/* Background */}
@@ -32,61 +38,38 @@ export default function FeaturedCategories({ categories }: { categories: Categor
         </div>
 
         {/* Categories */}
-        <div className="space-y-5">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/ideas?categoryId=${cat.id}`}
-              className="group block"
+        {categories.length > 0 ? (
+          <div className="space-y-5">
+            {categories.map((cat) => (
+              <CategoryCard key={cat.id} category={cat} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-slate-300 bg-slate-50/60 px-8 py-20 text-center dark:border-slate-700 dark:bg-slate-900/40">
+            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
+              <Sparkles className="h-10 w-10 text-emerald-600" />
+            </div>
+
+            <h3 className="text-3xl font-black text-slate-900 dark:text-white">
+              No Categories Available
+            </h3>
+
+            <p className="mt-4 max-w-xl text-slate-600 dark:text-slate-400">
+              Categories help organize environmental innovations into meaningful
+              sectors. New categories will appear here as the platform grows.
+            </p>
+
+            <Button
+              asChild
+              className="mt-8 rounded-full bg-emerald-600 px-8 hover:bg-emerald-700"
             >
-              <div className="flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-2xl hover:shadow-emerald-500/10 dark:border-slate-800 dark:bg-slate-900 md:flex-row">
-                {/* Image */}
-                <div className="relative h-56 md:h-auto md:w-80 shrink-0 overflow-hidden">
-                  <Image
-                    src={cat.icon || "/category-placeholder.jpg"}
-                    alt={cat.name}
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 380px"
-                    className="object-cover transition-all duration-700 group-hover:scale-110"
-                  />
-
-                  <div className="absolute inset-0 bg-black/20" />
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col justify-between p-8">
-                  <div>
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="text-sm text-slate-400">
-                        {cat._count?.ideas || 0} Ideas
-                      </span>
-                    </div>
-
-                    <h3 className="text-4xl font-black tracking-tight">
-                      {cat.name}
-                    </h3>
-
-                    <p className="mt-5 max-w-2xl leading-8 text-slate-500">
-                      {cat.description ||
-                        "Discover innovative environmental projects, funding opportunities, and real-world sustainable solutions from creators around the globe."}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-6 dark:border-slate-800">
-                    <span className="font-semibold text-emerald-600">
-                      Explore Ideas
-                    </span>
-
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 transition duration-300 group-hover:bg-emerald-500 dark:bg-slate-800">
-                      <ArrowUpRight className="h-5 w-5 transition duration-300 group-hover:rotate-45 group-hover:text-white" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              <Link href="/categories">
+                Browse Categories
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="mt-16 text-center">

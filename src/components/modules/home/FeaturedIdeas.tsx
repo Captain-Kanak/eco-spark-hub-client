@@ -18,7 +18,6 @@ export default function FeaturedIdeas({ ideas }: { ideas: Idea[] }) {
 
       <div className="container relative mx-auto max-w-7xl px-4 lg:px-0">
         {/* Header */}
-
         <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 dark:border-emerald-900/40 dark:bg-emerald-950/30">
@@ -55,15 +54,40 @@ export default function FeaturedIdeas({ ideas }: { ideas: Idea[] }) {
         </div>
 
         {/* Cards */}
+        {ideas.length > 0 ? (
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {ideas.map((idea) => (
+              <IdeaCard key={idea.id} idea={idea} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-slate-300 bg-slate-50/60 px-8 py-24 text-center dark:border-slate-700 dark:bg-slate-900/40">
+            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
+              <Sparkles className="h-10 w-10 text-emerald-600" />
+            </div>
 
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {ideas.slice(0, 3).map((idea) => (
-            <IdeaCard key={idea.id} idea={idea} />
-          ))}
-        </div>
+            <h3 className="text-3xl font-black text-slate-900 dark:text-white">
+              No Ideas Available Yet
+            </h3>
+
+            <p className="mt-4 max-w-xl text-slate-600 dark:text-slate-400">
+              The community is just getting started. Be the first innovator to
+              publish an environmental idea and inspire people around the world.
+            </p>
+
+            <Button
+              asChild
+              className="mt-8 rounded-full bg-emerald-600 px-8 hover:bg-emerald-700"
+            >
+              <Link href="/dashboard/create-idea">
+                Submit the First Idea
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
 
         {/* Bottom CTA */}
-
         <div className="mt-20 rounded-[2rem] border border-slate-200 bg-white/80 p-8 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/60">
           <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
             <div>
