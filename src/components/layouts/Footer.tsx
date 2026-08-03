@@ -19,24 +19,29 @@ export default function Footer() {
     },
     {
       id: 2,
-      name: "About",
-      href: "/about",
+      name: "All Categories",
+      href: "/categories",
     },
     {
       id: 3,
-      name: "Contact",
-      href: "/contact",
+      name: "About",
+      href: "/about",
     },
   ];
 
   const importantLinks = [
     {
       id: 1,
+      name: "Contact",
+      href: "/contact",
+    },
+    {
+      id: 2,
       name: "Privacy Policy",
       href: "/privacy-policy",
     },
     {
-      id: 2,
+      id: 3,
       name: "Terms of Service",
       href: "/terms-of-service",
     },
