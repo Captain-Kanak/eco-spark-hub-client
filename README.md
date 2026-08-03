@@ -1,86 +1,138 @@
-## 🌱 EcoSpark-Hub | Environmental Innovation Marketplace
+# 🌱 EcoSpark Hub | Frontend
 
-EcoSpark-Hub is a high-performance, full-stack incubator and marketplace designed to bridge the gap between green visionaries and global supporters. It features a triple-tier ecosystem (Admin, Innovator, Supporter) built to accelerate the transition to a sustainable future through transparent funding and community-voted innovation.
-
----
-
-### 🚀 Key Features
-
-## 🛡️ Global Admin Suite
-
-- Project Audit Log: Monitor every interaction, idea creation, and transaction across the entire environmental network.
-- Category Governance: Full CRUD operations for environmental sectors (e.g., Carbon Capture, Reforestation) with optimized state handling.
-- Impact Analytics: Real-time monitoring of total carbon-offset potential, funding growth, and user engagement.
-- User Orchestration: Admin can delete any user if needed.
-
-## 💡 Innovator Dashboard
-
-- Idea Incubation: Specialized tools for visionaries to submit project blueprints, including problem statements, solutions, and pricing models.
-- Media Integration: Integrated Cloudinary API for high-resolution project renders and profile branding.
-- Tracking: Monitor community analytics, total sales and spended.
-
-## 🌍 Supporter Experience
-
-- Innovation Discovery: Advanced filtering by eco-category and real-time search across global green initiatives.
-- Impact Checkout: A snapshot-based funding system that preserves project details at the moment of contribution.
-- Green Profile: Personalized dashboard to track "Sparked" projects and manage supporter identity.
+A modern and responsive frontend for **EcoSpark Hub**, a crowdfunding platform that empowers environmental innovators to share impactful ideas and connect with supporters worldwide. Built with **Next.js 16**, the application delivers a premium user experience with responsive layouts, smooth animations, and an intuitive interface for discovering, funding, and managing sustainability projects.
 
 ---
 
-### 🛠 Tech Stack
+## ✨ Features
 
-- Framework: Next.js 16 (App Router)
-- Language: TypeScript
-- Styling: Tailwind CSS + Framer Motion (for premium animations)
-- Database/ORM: PostgreSQL + Prisma
-- State & Forms: Optimized React Hooks with Server Actions
-- Icons & UI: Lucide React, Shadcn UI, Sonner (Toasts)
-- Image Hosting: Cloudinary API
-- Deployment: Vercel
+### 🌍 Public Experience
+
+- Modern landing page with premium UI and animations.
+- Browse environmental ideas by category.
+- Search, filter, and sort ideas effortlessly.
+- View detailed project pages with funding progress.
+- Fully responsive design for desktop, tablet, and mobile.
+- Light and dark mode support.
+
+### 💚 Supporter Features
+
+- Secure authentication and profile management.
+- Discover and fund environmental projects.
+- Stripe-powered checkout experience.
+- View funding history and supported ideas.
+- Personalized supporter dashboard.
+
+### 💡 Innovator Features
+
+- Submit environmental ideas with detailed information.
+- Upload project images using Cloudinary.
+- Manage created ideas.
+- Track funding progress and project performance.
+- Update or archive projects anytime.
+
+### 🛡️ Admin Features
+
+- Dashboard overview with platform analytics.
+- Manage users.
+- Manage categories.
+- Moderate submitted projects.
+- Monitor platform activity.
 
 ---
 
-### 🔧 Installation & Setup
+## 🎨 User Experience
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Captain-Kanak/eco-spark-hub-client
-   cd eco-spark-hub-client
-   ```
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-3. Environment Variables: Create a .env file and add your credentials:
-   ```bash
-   API_URL="http://localhost:5000"
-   NEXT_PUBLIC_API_URL="http://localhost:5000"
-   NEXT_PUBLIC_APP_URL="http://localhost:3000"
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="stripe_publishable_key_here"
-   ```
-4. Start the development server:
-   ```bash
-   pnpm dev
-   ```
+- Premium glassmorphism-inspired interface.
+- Smooth animations powered by Framer Motion.
+- Responsive layouts across all devices.
+- Accessible UI built with Shadcn UI.
+- Optimized image loading using Next.js Image.
+- Consistent design system and reusable components.
 
 ---
 
-### 🔒 Core Business Logic
+## 🛠 Tech Stack
 
-- **Idea Snapshot Integrity:** When a supporter backs an idea, the system takes a "Data Snapshot." This ensures the specific version of the solution and the pricing are locked in the `SupportItems` table, preventing discrepancies if the innovator updates the project later.
-- **Community Vetting:** Uses a custom voting logic that influences project visibility on the global feed, ensuring high-impact ideas gain the most traction.
-- **Responsive "Eco" UI:** A mobile-first design using a 12-column grid, featuring custom `rounded-[3rem]` geometries and dark-mode support to reflect a modern, sustainable brand identity.
+| Category         | Technology              |
+| ---------------- | ----------------------- |
+| Framework        | Next.js 16 (App Router) |
+| Language         | TypeScript              |
+| Styling          | Tailwind CSS            |
+| UI Components    | Shadcn UI               |
+| Icons            | Lucide React            |
+| Animations       | Framer Motion           |
+| Forms            | React Hook Form + Zod   |
+| State Management | Zustand                 |
+| Data Fetching    | TanStack Query          |
+| Notifications    | Sonner                  |
+| Image Hosting    | Cloudinary              |
+| Payments         | Stripe                  |
+| Deployment       | Vercel                  |
+
+---
+
+## ⚙️ Installation & Setup
+
+Clone Repository:
+
+```bash
+git clone https://github.com/Captain-Kanak/eco-spark-hub-client.git
+cd eco-spark-hub-client
+```
+
+Install Dependencies:
+
+```bash
+pnpm install
+```
+
+Environment Variables:
+Create a `.env` file in the root of your project and add the following:
+
+- **[.env](https://github.com/Captain-Kanak/eco-spark-hub-client/blob/main/.env.example)**
+
+Start Server:
+
+```bash
+pnpm dev
+```
+
+The application will be available at:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## 📁 Project Highlights
+
+- Premium responsive landing page.
+- Category-based idea discovery.
+- Authentication and authorization.
+- Stripe payment integration.
+- Dashboards for Admin, Innovator, and Supporter.
+- Cloudinary image uploads.
+- Reusable component architecture.
+- Optimized performance with Next.js App Router.
 
 ---
 
 ## 👤 Author
 
-- Kanak Ray
-- Full Stack Developer
-- (Node.js · Express.js · TypeScript · PostgreSQL · Prisma)
+### Kanak Ray
+
+Full Stack Developer
+
+**Tech Stack**
+
+TypeScript • Express.js • PostgreSQL • Prisma • Docker • Go • Next.js • React.js
 
 ---
 
 ## 📄 License
 
 This project is intended for educational and demonstration purposes.
+
+> This README file was initially generated with AI assistance and has been reviewed, customized, and modified by me to accurately reflect the project's implementation, features, and documentation.

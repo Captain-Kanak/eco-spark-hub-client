@@ -47,7 +47,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 py-16 lg:py-20">
+    <footer className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 py-14 lg:py-18">
       <div className="container mx-auto max-w-7xl">
         <div className="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr]">
           {/* Brand Column */}
