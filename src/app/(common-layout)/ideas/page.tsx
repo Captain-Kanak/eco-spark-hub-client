@@ -58,47 +58,6 @@ export default async function IdeaPage({
           </div>
         </div>
 
-        {/* ================= STATS ================= */}
-        <div className="mb-16 grid grid-cols-2 gap-5 lg:grid-cols-4">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-4xl font-black text-slate-900 dark:text-white">
-              {meta?.total ?? 0}
-            </p>
-
-            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Ideas
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-4xl font-black text-slate-900 dark:text-white">
-              {meta?.totalPages ?? 0}
-            </p>
-
-            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Pages
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-4xl font-black text-slate-900 dark:text-white">
-              12+
-            </p>
-
-            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Categories
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-4xl font-black text-emerald-600">🌱</p>
-
-            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Eco Impact
-            </p>
-          </div>
-        </div>
-
         <PublicIdeasClient ideas={ideasResult || []} />
 
         {meta && <Pagination meta={meta} />}
