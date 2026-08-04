@@ -72,22 +72,22 @@ export default function IdeaFilter() {
           </SelectItem>
 
           <SelectItem
-            value="price:asc"
+            value="fundingGoal:asc"
             className="rounded-xl focus:bg-emerald-50 focus:text-emerald-700 dark:text-slate-200 dark:focus:bg-slate-800 dark:focus:text-emerald-400 cursor-pointer"
           >
             <div className="flex items-center gap-2 py-1">
               <ArrowUpNarrowWide className="h-4 w-4" />
-              <span className="font-medium">Price: Low to High</span>
+              <span className="font-medium">Budget: Low to High</span>
             </div>
           </SelectItem>
 
           <SelectItem
-            value="price:desc"
+            value="fundingGoal:desc"
             className="rounded-xl focus:bg-emerald-50 focus:text-emerald-700 dark:text-slate-200 dark:focus:bg-slate-800 dark:focus:text-emerald-400 cursor-pointer"
           >
             <div className="flex items-center gap-2 py-1">
               <ArrowDownWideNarrow className="h-4 w-4" />
-              <span className="font-medium">Price: High to Low</span>
+              <span className="font-medium">Budget: High to Low</span>
             </div>
           </SelectItem>
 
