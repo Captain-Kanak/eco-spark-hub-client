@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Banner() {
   return (
-    <section className="relative overflow-hidden bg-background py-12 lg:py-16">
+    <section className="relative overflow-hidden bg-background py-14">
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#22c55e08_1px,transparent_1px),linear-gradient(to_bottom,#22c55e08_1px,transparent_1px)] bg-size[90px_90px]" />

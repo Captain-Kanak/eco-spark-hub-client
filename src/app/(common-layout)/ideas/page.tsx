@@ -31,7 +31,7 @@ export default async function IdeaPage({
     <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen py-8">
       <div className="container mx-auto max-w-7xl px-4 lg:px-0">
         {/* ================= HERO ================= */}
-        <div className="relative mb-16 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-16">
+        <div className="relative mb-16 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-12">
           {/* Background */}
 
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.12),transparent_45%)]" />
