@@ -1,6 +1,6 @@
 import { getCategories } from "@/actions/category";
 import { getIdeas } from "@/actions/idea";
-import AppPagination from "@/components/layouts/AppPagination";
+import AppPagination from "@/components/layouts/Pagination";
 import MyIdeasClient from "@/components/modules/dashboard/member/MyIdeasClient";
 import { SearchQueryParams } from "@/types";
 

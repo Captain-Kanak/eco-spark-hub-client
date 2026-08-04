@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { Idea, SearchQueryParams } from "@/types";
 import IdeaActions from "@/components/modules/dashboard/admin/IdeaActions";
-import AppPagination from "@/components/layouts/AppPagination";
+import AppPagination from "@/components/layouts/Pagination";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
 

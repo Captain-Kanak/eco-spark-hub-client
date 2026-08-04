@@ -1,12 +1,26 @@
 import { getCategories } from "@/actions/category";
+import Pagination from "@/components/layouts/Pagination";
 import CategoryCard from "@/components/modules/home/CategoryCard";
 import { Button } from "@/components/ui/button";
+import { SearchQueryParams } from "@/types";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-export default async function CategoriesPage() {
-  const { data: categories } = await getCategories({
-    limit: "5",
+export default async function CategoriesPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchQueryParams>;
+}) {
+  const params = await searchParams;
+
+  const page = params.page || "1";
+  const limit = "5";
+  const searchTerm = params.searchTerm || "";
+
+  const { data: categories, meta } = await getCategories({
+    page,
+    limit,
+    searchTerm,
   });
 
   return (
@@ -71,6 +85,8 @@ export default async function CategoriesPage() {
           </div>
         )}
       </div>
+
+      {meta && <Pagination meta={meta} />}
     </section>
   );
 }

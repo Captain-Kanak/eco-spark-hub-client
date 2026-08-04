@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Loader2, Sparkles } from "lucide-react";
-// import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
-
 import { toast } from "sonner";
 
 export default function ContactPage() {

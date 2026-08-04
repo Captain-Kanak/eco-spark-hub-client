@@ -1,5 +1,5 @@
 import { getIdeas } from "@/actions/idea";
-import AppPagination from "@/components/layouts/AppPagination";
+import AppPagination from "@/components/layouts/Pagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
 import { SearchQueryParams } from "@/types";
 import { PackageOpen } from "lucide-react";

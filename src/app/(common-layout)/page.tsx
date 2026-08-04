@@ -11,7 +11,9 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const [categoriesPromise, ideasPromise] = await Promise.all([
-    getCategories({ limit: "3" }),
+    getCategories({
+      limit: "3",
+    }),
     getIdeas({
       limit: "3",
       status: IdeaStatus.PUBLISHED,

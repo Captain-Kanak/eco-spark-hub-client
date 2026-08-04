@@ -1,5 +1,5 @@
 import { getUsers } from "@/actions/user";
-import AppPagination from "@/components/layouts/AppPagination";
+import AppPagination from "@/components/layouts/Pagination";
 import DeleteUserButton from "@/components/modules/dashboard/admin/DeleteUserButton";
 import { cn } from "@/lib/utils";
 import { Mail, ShieldCheck } from "lucide-react";
