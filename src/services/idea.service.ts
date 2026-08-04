@@ -29,8 +29,8 @@ const updateStatusById = async (id: string, status: IdeaStatus) => {
   return api.patch<Idea>(`${API_URL}/${id}`, { status }, { auth: true });
 };
 
-const getById = async (id: string) => {
-  return api.get<Idea>(`${API_URL}/${id}`);
+const getBySlug = async (slug: string) => {
+  return api.get<Idea>(`${API_URL}/${slug}`);
 };
 
 const updateById = async (id: string, payload: FormData) => {
@@ -45,7 +45,7 @@ export const ideaService = {
   create,
   getAll,
   updateStatusById,
-  getById,
+  getBySlug,
   updateById,
   deleteById,
 };

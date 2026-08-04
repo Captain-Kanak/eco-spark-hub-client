@@ -16,8 +16,8 @@ export const updateIdeaStatusById = async (id: string, status: IdeaStatus) => {
   return await ideaService.updateStatusById(id, status);
 };
 
-export const getIdeaById = async (id: string) => {
-  return await ideaService.getById(id);
+export const getIdeaBySlug = async (slug: string) => {
+  return await ideaService.getBySlug(slug);
 };
 
 export const updateIdeaById = async (id: string, payload: FormData) => {
