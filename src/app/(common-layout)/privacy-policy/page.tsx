@@ -10,6 +10,7 @@ import {
   FileText,
   Clock,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -162,11 +163,15 @@ export default function PrivacyPolicyPage() {
                 Our legal team is available to discuss your privacy concerns.
                 Reach out to our Data Protection Officer.
               </p>
+
               <Button
                 asChild
-                className="mt-8 h-14 rounded-2xl bg-white px-8 text-base font-bold text-emerald-700 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-slate-100"
+                className="group mt-8 h-14 rounded-2xl bg-white px-8 text-base font-bold text-emerald-700 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-slate-100"
               >
-                <Link href="/contact">Contact Privacy Team</Link>
+                <Link href="/contact">
+                  Contact Privacy Team
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
               </Button>
             </div>
           </div>
