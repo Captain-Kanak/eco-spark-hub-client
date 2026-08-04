@@ -67,7 +67,7 @@ export default function Pagination({ meta }: { meta: PaginationMeta }) {
       </p>
 
       {/* Pagination */}
-      <div className="relative z-999 mt-16 flex items-center gap-6">
+      <div className="relative z-999 mt-16 flex items-center gap-4">
         <Button
           variant="outline"
           size="icon"

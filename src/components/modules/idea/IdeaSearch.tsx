@@ -20,7 +20,7 @@ export default function IdeaSearch() {
 
   return (
     <form onSubmit={handleSubmit} className="flex-1">
-      <div className="flex items-center gap-2 p-1 pl-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full shadow-sm">
+      <div className="flex items-center gap-3 rounded-xl bg-slate-100 px-4 py-2 dark:bg-slate-800">
         <Search className="h-4 w-4 text-slate-400 shrink-0" />
         <Input
           placeholder="Search innovative ideas..."
@@ -31,7 +31,7 @@ export default function IdeaSearch() {
         <Button
           type="submit"
           size="sm"
-          className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all h-9 px-5 cursor-pointer"
+          className="h-10 rounded-lg bg-emerald-600 px-6 hover:bg-emerald-700 cursor-pointer"
         >
           Search
         </Button>

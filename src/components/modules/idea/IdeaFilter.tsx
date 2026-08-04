@@ -38,13 +38,7 @@ export default function IdeaFilter() {
   return (
     <div className="flex items-center gap-3">
       <Select value={current} onValueChange={onChange}>
-        <SelectTrigger
-          className={cn(
-            "w-50 h-12 rounded-2xl border-none shadow-sm",
-            "bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100",
-            "transition-all hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer",
-          )}
-        >
+        <SelectTrigger className="h-12 w-52 rounded-xl border-slate-200 dark:border-slate-700 cursor-pointer">
           <div className="flex items-center gap-2">
             <ListFilter className="h-4 w-4 text-emerald-600" />
             <SelectValue placeholder="Sort ideas" />

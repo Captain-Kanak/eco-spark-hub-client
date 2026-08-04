@@ -42,40 +42,37 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
             </div>
           )}
 
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-black/30 to-transparent" />
+
+          <div className="absolute inset-0 bg-linear-to-br from-emerald-500/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100" />
 
           {/* Category */}
-
           {idea.category && (
-            <Badge className="absolute left-5 top-5 rounded-full bg-white/90 text-slate-900 backdrop-blur">
+            <Badge className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/40 px-4 py-1 text-white backdrop-blur-xl">
               {idea.category.name}
             </Badge>
           )}
 
           {/* Status */}
-
           <Badge className="absolute right-5 top-5 rounded-full bg-emerald-500 text-white">
             {idea.status}
           </Badge>
 
           {/* Title */}
-
-          <div className="absolute bottom-5 left-5 right-5">
-            <h3 className="line-clamp-2 text-2xl font-bold text-white">
+          <div className="absolute bottom-6 left-6 right-6 space-y-2">
+            <h3 className="line-clamp-2 text-3xl font-black leading-tight text-white">
               {idea.title}
             </h3>
           </div>
         </div>
 
         {/* ================= CONTENT ================= */}
-
         <div className="space-y-6 p-6">
           <p className="line-clamp-2 text-sm leading-7 text-slate-600 dark:text-slate-400">
             {idea.description}
           </p>
 
           {/* Funding */}
-
           <div className="space-y-3">
             <div className="flex justify-between text-sm font-semibold">
               <span>Funding Progress</span>
@@ -103,7 +100,6 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
           </div>
 
           {/* Stats */}
-
           <div className="flex items-center justify-between border-y border-slate-100 py-4 dark:border-slate-800">
             <div className="flex items-center gap-1 text-sm text-slate-500">
               <Heart className="h-4 w-4 text-rose-500" />
@@ -122,7 +118,6 @@ export default function IdeaCard({ idea }: { idea: Idea }) {
           </div>
 
           {/* Footer */}
-
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold">

@@ -1,6 +1,6 @@
 import { getMe } from "@/actions/auth";
 import { getIdeas } from "@/actions/idea";
-import AppPagination from "@/components/layouts/Pagination";
+import Pagination from "@/components/layouts/Pagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { SearchQueryParams } from "@/types";
 
@@ -18,43 +18,90 @@ export default async function IdeaPage({
   const sortOrder = params.sortOrder || "desc";
   const categoryId = params.categoryId || "";
 
-  const [ideasResult, userResult] = await Promise.all([
-    getIdeas({
-      page,
-      limit,
-      searchTerm,
-      sortBy,
-      sortOrder,
-      categoryId,
-    }),
-    getMe(),
-  ]);
-
-  const user = userResult?.data;
-  const meta = ideasResult?.meta;
+  const { data: ideasResult, meta } = await getIdeas({
+    page,
+    limit,
+    searchTerm,
+    sortBy,
+    sortOrder,
+    categoryId,
+  });
 
   return (
-    <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen pb-20">
-      <div className="">
-        <div className="text-center mb-8 space-y-4">
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-            Explore <span className="text-emerald-600">Sustainable</span> Ideas
-          </h1>
-          <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-            Join the community in sharing and discovering solutions for a
-            greener future.
-          </p>
+    <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen py-8">
+      <div className="container mx-auto max-w-7xl px-4 lg:px-0">
+        {/* ================= HERO ================= */}
+        <div className="relative mb-16 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-16">
+          {/* Background */}
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.12),transparent_45%)]" />
+
+          <div className="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl" />
+
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/20 dark:text-emerald-400">
+              🌱 Innovation Marketplace
+            </div>
+
+            <h1 className="mt-8 max-w-4xl text-5xl font-black leading-tight tracking-tight text-slate-900 dark:text-white md:text-7xl">
+              Discover Ideas That
+              <span className="block text-emerald-500">
+                Make Our Planet Better.
+              </span>
+            </h1>
+
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">
+              Explore sustainable innovations from passionate creators around
+              the world. Support impactful ideas, discover breakthrough
+              solutions, and help shape a greener future.
+            </p>
+          </div>
         </div>
 
-        <PublicIdeasClient
-          ideas={ideasResult.data || []}
-          userId={user?.id || ""}
-        />
+        {/* ================= STATS ================= */}
+        <div className="mb-16 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <p className="text-4xl font-black text-slate-900 dark:text-white">
+              {meta?.total ?? 0}
+            </p>
 
-        <AppPagination
-          totalPages={meta?.totalPages || 1}
-          currentPage={meta?.currentPage || 1}
-        />
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Ideas
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <p className="text-4xl font-black text-slate-900 dark:text-white">
+              {meta?.totalPages ?? 0}
+            </p>
+
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Pages
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <p className="text-4xl font-black text-slate-900 dark:text-white">
+              12+
+            </p>
+
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Categories
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <p className="text-4xl font-black text-emerald-600">🌱</p>
+
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Eco Impact
+            </p>
+          </div>
+        </div>
+
+        <PublicIdeasClient ideas={ideasResult || []} />
+
+        {meta && <Pagination meta={meta} />}
       </div>
     </div>
   );

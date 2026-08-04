@@ -24,7 +24,7 @@ export default function FeaturedIdeas({ ideas }: { ideas: Idea[] }) {
               <Sparkles className="h-4 w-4 text-emerald-600" />
 
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-600">
-                Featured Projects
+                Featured Ideas
               </span>
             </div>
 
