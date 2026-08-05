@@ -16,7 +16,13 @@ const getAll = async (params: SearchQueryParams) => {
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
-      if (value != null && value !== "") {
+      if (value == null || value === "") return;
+
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          url.searchParams.append(key, item.toString());
+        });
+      } else {
         url.searchParams.append(key, value.toString());
       }
     });

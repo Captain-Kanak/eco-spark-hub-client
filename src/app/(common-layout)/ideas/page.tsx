@@ -3,6 +3,7 @@ import { getIdeas } from "@/actions/idea";
 import Pagination from "@/components/layouts/Pagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { SearchQueryParams } from "@/types";
+import { IdeaStatus } from "@/types/enums";
 
 export default async function IdeaPage({
   searchParams,
@@ -25,6 +26,7 @@ export default async function IdeaPage({
     sortBy,
     sortOrder,
     categoryId,
+    status: [IdeaStatus.PUBLISHED, IdeaStatus.IN_PROGRESS],
   });
 
   return (

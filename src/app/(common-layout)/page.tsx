@@ -16,7 +16,7 @@ export default async function HomePage() {
     }),
     getIdeas({
       limit: "3",
-      status: IdeaStatus.PUBLISHED,
+      status: [IdeaStatus.PUBLISHED, IdeaStatus.IN_PROGRESS],
     }),
   ]);
 
