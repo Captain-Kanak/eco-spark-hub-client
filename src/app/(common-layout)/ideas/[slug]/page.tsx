@@ -8,10 +8,12 @@ import {
   BadgeCheck,
   Calendar,
   CheckCircle2,
+  Compass,
   Eye,
   Heart,
   Leaf,
   Lightbulb,
+  LightbulbOff,
   MapPin,
   Quote,
   Target,
@@ -29,6 +31,57 @@ export default async function IdeaDetailsPage({
   const { slug } = await params;
 
   const { data: idea } = await getIdeaBySlug(slug);
+
+  if (!idea) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center px-6">
+        <div className="relative max-w-2xl text-center">
+          {/* Background Glow */}
+          <div className="absolute inset-0 -z-10">
+            <div className="mx-auto h-72 w-72 rounded-full bg-emerald-500/10 blur-[120px]" />
+          </div>
+
+          {/* Icon */}
+          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 dark:border-emerald-900/30 dark:bg-emerald-950/20">
+            <LightbulbOff className="h-14 w-14 text-emerald-500" />
+          </div>
+
+          <h1 className="mt-10 text-4xl font-black tracking-tight text-slate-900 dark:text-white md:text-5xl">
+            This idea couldn't be found
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-slate-500 dark:text-slate-400">
+            The project may have been removed, is no longer available, or the
+            link you followed is incorrect.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Button
+              asChild
+              className="rounded-full bg-emerald-600 px-7 hover:bg-emerald-700"
+            >
+              <Link href="/ideas">
+                <Compass className="mr-2 h-4 w-4" />
+                Explore Ideas
+              </Link>
+            </Button>
+
+            <Button asChild variant="outline" className="rounded-full px-7">
+              <Link href="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back Home
+              </Link>
+            </Button>
+          </div>
+
+          <p className="mt-8 text-sm text-slate-400">
+            Looking for inspiration? Browse hundreds of sustainability projects
+            created by innovators around the world.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto max-w-7xl px-4 lg:px-0 py-8">
