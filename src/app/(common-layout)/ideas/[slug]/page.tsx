@@ -382,7 +382,7 @@ export default async function IdeaDetailsPage({
         </div>
 
         {/* ================= IMPACT ================= */}
-        <section className="space-y-10">
+        <section className="space-y-10 pt-14">
           <div className="text-center">
             <p className="text-xs font-black uppercase tracking-[0.35em] text-emerald-600">
               Expected Impact

@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { authValidations } from "@/validations/auth.validation";
+import { AuthValidation } from "@/validations/auth";
 import {
   CheckCircle2,
   Eye,
@@ -47,7 +47,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       email: "",
       password: "",
     },
-    validators: { onSubmit: authValidations.registerFormSchema },
+    validators: { onSubmit: AuthValidation.registerSchema },
     onSubmit: async ({ value }) => {
       setIsUploading(true);
       const toastId = toast.loading("Creating your account...");
@@ -77,30 +77,33 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
     <div>
       <Card
         {...props}
-        className="overflow-hidden border-slate-200 dark:border-slate-800 shadow-xl"
+        className="overflow-hidden rounded-[36px] border border-slate-200/70 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_30px_80px_rgba(15,23,42,0.08)] dark:shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
       >
-        {/* Sustainability Gradient Top Bar */}
-        <div className="h-1.5 bg-linear-to-r from-emerald-400 via-emerald-600 to-teal-500" />
-
-        <CardHeader className="text-center pt-8 space-y-2">
-          <div className="mx-auto bg-emerald-50 dark:bg-emerald-900/20 w-12 h-12 rounded-2xl flex items-center justify-center mb-2">
-            <CheckCircle2 className="text-emerald-600 dark:text-emerald-400 w-6 h-6" />
+        <CardHeader className="px-10 pt-10 pb-8 text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-emerald-100 dark:bg-emerald-900/20">
+            <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
-          <CardTitle className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-            Join EcoSpark
-          </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400 max-w-62.5 mx-auto">
-            Securely share and discover sustainable ideas
-          </CardDescription>
+
+          <div className="mt-6 space-y-3">
+            <CardTitle className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+              Join EcoSpark
+            </CardTitle>
+
+            <CardDescription className="mx-auto max-w-sm text-base leading-7 text-slate-500 dark:text-slate-400">
+              Create your account and start sharing sustainable innovations with
+              a global community.
+            </CardDescription>
+          </div>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="px-10 pb-2">
           <form
             id="register-form"
             onSubmit={(e) => {
               e.preventDefault();
               form.handleSubmit();
             }}
+            className="px-8 pt-2"
           >
             <FieldGroup className="space-y-4">
               <form.Field
@@ -183,7 +186,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
           </form>
         </CardContent>
 
-        <CardFooter className="flex flex-col px-8 pb-10">
+        <CardFooter className="flex flex-col px-10 pb-10 pt-4">
           <Button
             form="register-form"
             type="submit"
@@ -199,9 +202,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
               "Create Account"
             )}
           </Button>
-
           <SocialLogin className="mt-2" isLoading={isUploading} />
-
           <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
             Already have an account?{" "}
             <Link

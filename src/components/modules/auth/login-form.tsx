@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
-import { authValidations } from "@/validations/auth.validation";
+import { authValidations } from "@/validations/auth";
 import { toast } from "sonner";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
