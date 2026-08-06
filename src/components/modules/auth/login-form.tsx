@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,14 +18,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
-import { authValidations } from "@/validations/auth";
 import { toast } from "sonner";
-import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Key, Loader2, Lock, Mail, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SocialLogin } from "./SocialLogin";
 import Link from "next/link";
 import { EmailVerificationModal } from "./EmailVerificationModal";
 import { login } from "@/actions/auth";
+import { AuthValidation } from "@/validations/auth";
 
 export function LoginForm({
   redirect,
@@ -45,13 +44,15 @@ export function LoginForm({
       email: "",
       password: "",
     },
-    validators: { onSubmit: authValidations.loginFormSchema },
+    validators: { onSubmit: AuthValidation.loginSchema },
     onSubmit: async ({ value }) => {
       setIsUploading(true);
       const toastId = toast.loading("Logging in...");
 
       try {
         const result = await login(value);
+
+        console.log(result);
 
         if (!result.success && result.message === "Email not verified") {
           setVerificationEmail(value.email);
@@ -66,7 +67,7 @@ export function LoginForm({
           return;
         }
 
-        toast.success(`Welcome Back Mr. ${result.data?.name}!`, {
+        toast.success(`Welcome Back Mr. ${result.data?.user.name}!`, {
           id: toastId,
         });
         setIsUploading(false);
@@ -79,18 +80,45 @@ export function LoginForm({
   });
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
+    <div className="relative">
+      <div className="absolute inset-0 rounded-[40px] bg-linear-to-br from-emerald-500/20 via-cyan-500/10 to-teal-500/20 blur-3xl" />
+
+      <Card className="relative overflow-hidden rounded-[36px] border border-white/30 bg-white/70 dark:bg-slate-900/70 backdrop-blur-3xl shadow-2xl">
+        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-cyan-500/10 blur-3xl" />
+
+        <CardHeader className="px-10 pt-8 pb-6 text-center space-y-6">
+          <div className="mx-auto flex flex-col items-center gap-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 dark:border-emerald-900 dark:bg-emerald-950/20">
+              <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]">
+                Secure Login
+              </span>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-xl" />
+
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-[28px] bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 text-white shadow-xl shadow-emerald-500/30">
+                <Key className="h-9 w-9" />
+              </div>
+            </div>
+          </div>
+
+          <CardTitle className="text-3xl font-black tracking-tight">
+            Welcome Back
+          </CardTitle>
+
+          <CardDescription className="mx-auto max-w-xs text-base leading-7 text-slate-500">
+            Sign in to continue building
+            ideas that make an impact.
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="px-10">
           <form
             id="login-form"
+            className="pt-2"
             onSubmit={(e) => {
               e.preventDefault();
               form.handleSubmit(e);
@@ -101,12 +129,14 @@ export function LoginForm({
                 name="email"
                 children={(field) => (
                   <Field>
-                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <FieldLabel className="text-slate-700 dark:text-slate-300">
+                      Email
+                    </FieldLabel>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
-                        className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
-                        placeholder="m@example.com"
+                        className="h-14 rounded-2xl pl-12 border-transparent bg-slate-100/70 dark:bg-slate-800/60 shadow-inner transition-all duration-300 focus:bg-whitedark:focus:bg-slate-800 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500"
+                        placeholder="name@example.com"
                         type="email"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
@@ -121,22 +151,22 @@ export function LoginForm({
                 name="password"
                 children={(field) => (
                   <Field>
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
+                    <FieldLabel className="text-slate-700 dark:text-slate-300">
+                      Password
+                    </FieldLabel>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
                         type={showPassword ? "text" : "password"}
-                        className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-blue-500 rounded-xl"
-                        placeholder="••••••••"
+                        className="h-14 rounded-2xl pl-12 border-transparent bg-slate-100/70 dark:bg-slate-800/60 shadow-inner transition-all duration-300 focus:bg-whitedark:focus:bg-slate-800 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500"
+                        placeholder="********"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
-
-                      {/* Eye Button */}
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer outline-none"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors cursor-pointer"
                         tabIndex={-1}
                       >
                         {showPassword ? (
@@ -150,11 +180,20 @@ export function LoginForm({
                   </Field>
                 )}
               />
+
+              <div className="flex justify-end">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+                >
+                  Forgot password?
+                </Link>
+              </div>
             </FieldGroup>
           </form>
         </CardContent>
 
-        <CardFooter className="flex flex-col px-8 pb-10">
+        <CardFooter className="flex flex-col px-10 pb-10 pt-4">
           <Button
             form="login-form"
             type="submit"
@@ -164,22 +203,20 @@ export function LoginForm({
             {isUploading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Logging in...
+                Logging...
               </>
             ) : (
               "Login"
             )}
           </Button>
-
-          <SocialLogin isLoading={isUploading} />
-
-          <p className="mt-4 text-center text-sm text-slate-500">
-            Don&apos;t have an account?{" "}
+          <SocialLogin className="mt-2" isLoading={isUploading} />
+          <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
+            Already have an account?{" "}
             <Link
-              href="/register"
-              className="text-emerald-600 font-bold hover:underline"
+              href="/login"
+              className="text-emerald-600 font-bold hover:underline transition-all"
             >
-              Sign up
+              Log in
             </Link>
           </p>
         </CardFooter>

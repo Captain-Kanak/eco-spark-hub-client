@@ -116,7 +116,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
-                        className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
+                        className="h-14 rounded-2xl pl-12 border-transparent bg-slate-100/70 dark:bg-slate-800/60 shadow-inner transition-all duration-300 focus:bg-whitedark:focus:bg-slate-800 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500"
                         placeholder="John Doe"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
@@ -137,7 +137,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
-                        className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
+                        className="h-14 rounded-2xl pl-12 border-transparent bg-slate-100/70 dark:bg-slate-800/60 shadow-inner transition-all duration-300 focus:bg-whitedark:focus:bg-slate-800 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500"
                         placeholder="name@example.com"
                         type="email"
                         value={field.state.value}
@@ -160,8 +160,8 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
                         type={showPassword ? "text" : "password"}
-                        className="pl-10 h-11 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 focus:ring-emerald-500 rounded-xl"
-                        placeholder="••••••••"
+                        className="h-14 rounded-2xl pl-12 border-transparent bg-slate-100/70 dark:bg-slate-800/60 shadow-inner transition-all duration-300 focus:bg-whitedark:focus:bg-slate-800 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500"
+                        placeholder="********"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />

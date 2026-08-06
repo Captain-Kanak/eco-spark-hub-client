@@ -9,8 +9,11 @@ export default async function LoginPage({
   const redirect = params.redirect || "/";
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 px-4 lg:px-0 py-6">
+      <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="absolute right-0 bottom-0 h-125 w-125 rounded-full bg-cyan-500/10 blur-3xl" />
+
+      <div className="relative w-full max-w-md">
         <LoginForm redirect={redirect} />
       </div>
     </div>
