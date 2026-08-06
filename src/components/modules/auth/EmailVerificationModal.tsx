@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -31,13 +31,18 @@ export const EmailVerificationModal = ({
   onOpenChange,
   email,
 }: EmailVerificationModalProps) => {
-  const [otp, setOtp] = useState("");
+  const OTP_LENGTH = 6;
+  const [otp, setOtp] = useState<string[]>(
+    new Array(OTP_LENGTH).fill("")
+  );
   const [isVerifying, setIsVerifying] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const router = useRouter();
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const otpCode = otp.join("");
 
   const handleVerify = async () => {
-    if (otp.length < 6) {
+    if (otpCode.length !== OTP_LENGTH) {
       return toast.error("Please enter the full 6-digit code.");
     }
 
@@ -45,7 +50,10 @@ export const EmailVerificationModal = ({
     const toastId = toast.loading("Verifying security code...");
 
     try {
-      const result = await verifyEmail({ email, otp });
+      const result = await verifyEmail({
+        email,
+        otp: otpCode,
+      });
 
       if (result.success) {
         toast.success("Identity confirmed! Please log in.", { id: toastId });
@@ -66,7 +74,11 @@ export const EmailVerificationModal = ({
   const handleResend = async () => {
     setIsResending(true);
     try {
-      const result = await verifyEmail({ email, otp });
+      const result = await verifyEmail({
+        email,
+        otp: otpCode,
+      });
+
       if (result.success) {
         toast.success("Fresh code sent to your inbox.");
       } else {
@@ -79,95 +91,186 @@ export const EmailVerificationModal = ({
     }
   };
 
+  const handleChange = (
+    value: string,
+    index: number,
+  ) => {
+    if (!/^[a-zA-Z0-9]?$/.test(value)) return;
+
+    const next = [...otp];
+    next[index] = value;
+    setOtp(next);
+
+    if (value && index < OTP_LENGTH - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    if (e.key === "Backspace") {
+      if (otp[index] === "" && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+
+      const next = [...otp];
+      next[index] = "";
+      setOtp(next);
+    }
+
+    if (e.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+
+    if (
+      e.key === "ArrowRight" &&
+      index < OTP_LENGTH - 1
+    ) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handlePaste = (
+    e: React.ClipboardEvent<HTMLInputElement>,
+  ) => {
+    e.preventDefault();
+
+    const pasted = e.clipboardData
+      .getData("text")
+      .trim()
+      .slice(0, OTP_LENGTH)
+      .split("");
+
+    if (pasted.length === 0) return;
+
+    const next = [...otp];
+
+    pasted.forEach((char, i) => {
+      next[i] = char;
+    });
+
+    setOtp(next);
+
+    const last =
+      Math.min(pasted.length, OTP_LENGTH) - 1;
+
+    inputRefs.current[last]?.focus();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-110 p-0 overflow-hidden border-none bg-white dark:bg-slate-950 rounded-3xl shadow-2xl [&>button]:cursor-pointer">
-        {/* Decorative Header Background */}
-        <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-br from-emerald-500/10 via-emerald-500/5 to-transparent -z-10" />
+      <DialogContent
+        className="w-170 max-w-[calc(100vw-32px)] rounded-[32px] p-0 border overflow-hidden"
+      >
+        {/* Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-28 -right-20 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+          <div className="absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+          <div className="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/5 blur-3xl" />
+        </div>
 
-        <div className="px-6 pt-10 pb-8">
-          <DialogHeader className="flex flex-col items-center justify-center space-y-4">
+        <div className="relative px-10 py-10">
+          <DialogHeader className="items-center space-y-6">
+            {/* Icon */}
             <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full animate-pulse" />
-              <div className="relative bg-white dark:bg-slate-900 border-4 border-emerald-50 dark:border-emerald-950/30 p-4 rounded-2xl shadow-sm">
-                <ShieldCheck className="h-10 w-10 text-emerald-600 dark:text-emerald-500" />
+              <div className="absolute inset-0 rounded-full bg-emerald-500/25 blur-2xl animate-pulse" />
+              <div
+                className="relative flex h-24 w-24 items-center justify-center rounded-[30px] bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 shadow-2xl shadow-emerald-500/40"
+              >
+                <ShieldCheck className="h-11 w-11 text-white" />
               </div>
             </div>
 
-            <div className="text-center space-y-1">
-              <DialogTitle className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-                Check Your Inbox
+            {/* Title */}
+            <div className="space-y-3 text-center">
+              <DialogTitle className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+                Verify your email
               </DialogTitle>
-              <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">
-                We sent a secure verification code to <br />
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 break-all">
-                  {email}
-                </span>
+
+              <DialogDescription className="mx-auto max-w-md text-base leading-7 text-slate-500 dark:text-slate-400">
+                Enter the verification code we just sent to
               </DialogDescription>
+
+              <div className="max-w-75 truncate rounded-full bg-emerald-50 px-4 py-2">
+                {email}
+              </div>
             </div>
           </DialogHeader>
 
-          <div className="flex flex-col items-center justify-center space-y-8 mt-8">
-            <InputOTP
-              maxLength={6}
-              value={otp}
-              onChange={(value) => setOtp(value)}
-              disabled={isVerifying}
-              autoFocus
-            >
-              <InputOTPGroup className="gap-2 sm:gap-3">
-                {[0, 1, 2].map((index) => (
-                  <InputOTPSlot
+          {/* OTP */}
+          <div className="mt-10 flex justify-center overflow-x-auto py-2">
+            <div className="flex justify-center">
+              <div className="grid grid-cols-6 gap-3">
+                {otp.map((digit, index) => (
+                  <input
                     key={index}
-                    index={index}
-                    className="h-14 w-11 sm:h-16 sm:w-14 rounded-2xl border-2 border-slate-100 dark:border-slate-800 focus:border-emerald-500 focus:ring-0 text-xl font-bold bg-slate-50/50 dark:bg-slate-900/50 transition-all"
+                    ref={(el) => {
+                      inputRefs.current[index] = el;
+                    }}
+                    value={digit}
+                    maxLength={1}
+                    disabled={isVerifying}
+                    onPaste={handlePaste}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.toUpperCase(),
+                        index,
+                      )
+                    }
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, index)
+                    }
+                    className="aspect-square w-full max-w-16 border border-emerald-200 bg-slate-50 text-center text-2xl font-bold text-slate-900 dark:border-emerald-800 dark:bg-slate-950 dark:text-white focus:border-emerald-500 focus:outline-none focus:ring-0"
                   />
                 ))}
-                <InputOTPSeparator className="text-slate-300 dark:text-slate-700" />
-                {[3, 4, 5].map((index) => (
-                  <InputOTPSlot
-                    key={index}
-                    index={index}
-                    className="h-14 w-11 sm:h-16 sm:w-14 rounded-2xl border-2 border-slate-100 dark:border-slate-800 focus:border-emerald-500 focus:ring-0 text-xl font-bold bg-slate-50/50 dark:bg-slate-900/50 transition-all"
-                  />
-                ))}
-              </InputOTPGroup>
-            </InputOTP>
-
-            <div className="w-full space-y-4">
-              <Button
-                onClick={handleVerify}
-                disabled={isVerifying || otp.length !== 6}
-                className="w-full h-14 bg-slate-900 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-black text-base rounded-2xl transition-all shadow-xl shadow-emerald-500/10 active:scale-[0.98] cursor-pointer"
-              >
-                {isVerifying ? (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Verifying...</span>
-                  </div>
-                ) : (
-                  "Complete Verification"
-                )}
-              </Button>
-
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">
-                  Didn&apos;t get the email?
-                </p>
-                <button
-                  onClick={handleResend}
-                  disabled={isResending}
-                  className="group flex items-center text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors disabled:opacity-50 cursor-pointer"
-                >
-                  {isResending ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <RefreshCcw className="mr-2 h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
-                  )}
-                  Send me another code
-                </button>
               </div>
             </div>
+          </div>
+
+          <p className="mt-6 text-center text-sm text-slate-500">
+            The code expires in
+            <span className="mx-1 font-semibold text-emerald-600">
+              10 minutes
+            </span>
+          </p>
+
+          {/* Verify */}
+          <Button
+            onClick={handleVerify}
+            disabled={otpCode.length !== OTP_LENGTH}
+            className="mt-8 h-14 w-full rounded-2xl bg-linear-to-r from-emerald-500 to-teal-500 text-base font-bold shadow-xl shadow-emerald-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-emerald-500/40 active:scale-[0.98]"
+          >
+            {isVerifying ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Verifying...
+              </>
+            ) : (
+              "Verify Email"
+            )}
+          </Button>
+
+          {/* Footer */}
+          <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 text-center backdrop-blur dark:border-slate-800 dark:bg-slate-900/40">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-slate-400">
+              Didn't receive the code?
+            </p>
+
+            <button
+              onClick={handleResend}
+              disabled={isResending}
+              className="mt-4 inline-flex items-center font-semibold text-emerald-600 transition-colors hover:text-emerald-700"
+            >
+              {isResending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <RefreshCcw className="mr-2 h-4 w-4 transition-transform duration-500 hover:rotate-180" />
+              )}
+
+              Resend verification code
+            </button>
           </div>
         </div>
       </DialogContent>

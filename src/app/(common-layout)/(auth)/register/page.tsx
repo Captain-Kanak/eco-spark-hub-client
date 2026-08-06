@@ -4,14 +4,16 @@ import Link from "next/link";
 
 export default function RegisterPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 py-2 lg:py-12">
+    <div className="relative min-h-screen w-full overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-950">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute left-20 top-20 h-80 w-80 rounded-full bg-emerald-500/10 blur-[120px]" />
         <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-[140px]" />
       </div>
 
-      <div className="container mx-auto max-w-7xl relative grid gap-30 min-h-screen lg:grid-cols-2 px-4 lg:px-0">
+      <div
+        className="relative mx-auto max-w-7xl min-h-screen grid lg:grid-cols-2 gap-16 px-6 lg:px-8 overflow-x-hidden"
+      >
         {/* LEFT SIDE */}
         <div className="hidden lg:flex flex-col justify-between">
           <div>

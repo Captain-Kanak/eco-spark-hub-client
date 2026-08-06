@@ -13,7 +13,7 @@ export default async function LoginPage({
       <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
       <div className="absolute right-0 bottom-0 h-125 w-125 rounded-full bg-cyan-500/10 blur-3xl" />
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-lg">
         <LoginForm redirect={redirect} />
       </div>
     </div>

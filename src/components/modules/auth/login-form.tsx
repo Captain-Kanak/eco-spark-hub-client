@@ -52,8 +52,6 @@ export function LoginForm({
       try {
         const result = await login(value);
 
-        console.log(result);
-
         if (!result.success && result.message === "Email not verified") {
           setVerificationEmail(value.email);
           toast.error(result.message, { id: toastId });
@@ -70,10 +68,10 @@ export function LoginForm({
         toast.success(`Welcome Back Mr. ${result.data?.user.name}!`, {
           id: toastId,
         });
-        setIsUploading(false);
         router.push(redirect);
       } catch (error) {
         toast.error("An unexpected error occurred", { id: toastId });
+      } finally {
         setIsUploading(false);
       }
     },
@@ -210,13 +208,14 @@ export function LoginForm({
             )}
           </Button>
           <SocialLogin className="mt-2" isLoading={isUploading} />
+
           <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-            Already have an account?{" "}
+            New to EcoSpark?{" "}
             <Link
-              href="/login"
+              href="/register"
               className="text-emerald-600 font-bold hover:underline transition-all"
             >
-              Log in
+              Create an account
             </Link>
           </p>
         </CardFooter>

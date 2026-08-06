@@ -65,9 +65,10 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         toast.success(`Verification email sent to ${result.data?.email}`, {
           id: toastId,
         });
-        setIsUploading(false);
       } catch (error) {
         toast.error("An unexpected error occurred", { id: toastId });
+      }
+      finally {
         setIsUploading(false);
       }
     },
@@ -203,6 +204,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
             )}
           </Button>
           <SocialLogin className="mt-2" isLoading={isUploading} />
+
           <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
             Already have an account?{" "}
             <Link
