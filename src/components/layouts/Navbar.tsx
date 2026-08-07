@@ -16,10 +16,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import Logo from "./Logo";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ModeToggle } from "./ThemeToggle";
 import { useEffect, useState } from "react";
 import { User } from "@/types";
 import {
@@ -40,6 +38,8 @@ import {
   ADMIN_ROUTE_PATHS,
   MEMBER_ROUTE_PATHS,
 } from "@/routes/routes-constant";
+import Logo from "../common/Logo";
+import { ModeToggle } from "../common/ThemeToggle";
 
 interface MenuItem {
   title: string;

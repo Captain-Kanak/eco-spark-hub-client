@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Globe, Sparkles } from "lucide-react";
+import { Mail } from "lucide-react";
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Logo from "./Logo";
 import { toast } from "sonner";
+import Logo from "../common/Logo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

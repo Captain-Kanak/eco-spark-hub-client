@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Category } from "@/types";
-import CategoriesTable from "./category/CategoriesTable";
-import { UpdateCategoryModal } from "./category/dialogs/UpdateCategoryModal";
-import { DeleteCategoryModal } from "./category/dialogs/DeleteCategoryModal";
+import CategoriesTable from "./CategoriesTable";
+import { UpdateCategoryModal } from "./dialogs/UpdateCategoryModal";
+import { DeleteCategoryModal } from "./dialogs/DeleteCategoryModal";
 
 export default function ManageCategoriesClient({
   categories,

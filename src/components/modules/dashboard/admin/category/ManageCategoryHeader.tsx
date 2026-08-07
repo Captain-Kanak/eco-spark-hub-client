@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FolderTree, Plus } from "lucide-react";
-import { CreateCategoryModal } from "./category/dialogs/CreateCategoryModal";
+import { CreateCategoryModal } from "./dialogs/CreateCategoryModal";
 
 export default function ManageCategoryHeader() {
   const [open, setOpen] = useState(false);

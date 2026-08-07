@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, X, UploadCloud, FolderTree } from "lucide-react";
+import { Loader2, X, UploadCloud, Plus } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -93,8 +93,8 @@ export const CreateCategoryModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="w-full max-w-2xl p-0 overflow-hidden rounded-3xl border-0 bg-white dark:bg-slate-950 
-        shadow-[0_30px_100px_rgba(0,0,0,0.18)]"
+        className="max-h-[90vh] overflow-y-auto sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 
+      [&>button]:cursor-pointer"
       >
         <div className="flex max-h-[90vh] flex-col">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -109,15 +109,11 @@ export const CreateCategoryModal = ({
                   <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-2xl" />
 
                   <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 shadow-xl shadow-emerald-500/30">
-                    <FolderTree className="h-8 w-8 text-white" />
+                    <Plus className="h-8 w-8 text-white" />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-400">
-                    NEW CATEGORY
-                  </div>
-
                   <DialogTitle className="text-[32px] leading-none font-black tracking-tight">
                     Create Category
                   </DialogTitle>
@@ -189,9 +185,10 @@ export const CreateCategoryModal = ({
                       <FieldLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                         Category Icon
                       </FieldLabel>
+
                       <input
-                        ref={fileInputRef}
                         type="file"
+                        ref={fileInputRef}
                         accept="image/*"
                         className="hidden"
                         onChange={(e) => handleImageChange(e, field)}
@@ -227,7 +224,7 @@ export const CreateCategoryModal = ({
                             alt="Preview"
                             width={700}
                             height={400}
-                            className="h-56 w-full object-cover"
+                            className="h-80 w-full object-cover"
                           />
 
                           <div className="absolute inset-0 bg-black/20 opacity-0 transition group-hover:opacity-100" />
@@ -271,10 +268,10 @@ export const CreateCategoryModal = ({
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Saving...
+                      Creating...
                     </>
                   ) : (
-                    "Create Category"
+                    "Create"
                   )}
                 </Button>
               </div>
