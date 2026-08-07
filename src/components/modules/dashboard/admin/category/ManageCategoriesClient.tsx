@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 import { Category } from "@/types";
-import CategoriesTable from "./CategoriesTable";
-import { UpdateCategoryModal } from "./UpdateCategoryModal";
-import { DeleteCategoryModal } from "./DeleteCategoryModal";
-
-interface ManageCategoriesClientProps {
-  categories: Category[];
-}
+import CategoriesTable from "./category/CategoriesTable";
+import { UpdateCategoryModal } from "./category/dialogs/UpdateCategoryModal";
+import { DeleteCategoryModal } from "./category/dialogs/DeleteCategoryModal";
 
 export default function ManageCategoriesClient({
   categories,
-}: ManageCategoriesClientProps) {
+}: {
+  categories: Category[];
+}) {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(

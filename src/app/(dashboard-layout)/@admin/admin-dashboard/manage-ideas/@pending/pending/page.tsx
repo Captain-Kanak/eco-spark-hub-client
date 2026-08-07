@@ -2,8 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { Idea, SearchQueryParams } from "@/types";
-import IdeaActions from "@/components/modules/dashboard/admin/IdeaActions";
-import AppPagination from "@/components/layouts/Pagination";
+import IdeaActions from "@/components/modules/dashboard/admin/idea/IdeaActions";
+import AppPagination from "@/components/common/Pagination";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
 

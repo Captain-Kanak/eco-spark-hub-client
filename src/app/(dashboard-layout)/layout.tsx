@@ -1,5 +1,5 @@
 import React from "react";
-import { AppSidebar } from "@/components/layouts/app-sidebar";
+import { AppSidebar } from "@/components/common/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,7 +15,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { UserRole } from "@/types/enums";
-import { ModeToggle } from "@/components/layouts/ThemeToggle";
+import { ModeToggle } from "@/components/common/ThemeToggle";
 import { getMe } from "@/actions/auth";
 
 export default async function DashboardLayout({

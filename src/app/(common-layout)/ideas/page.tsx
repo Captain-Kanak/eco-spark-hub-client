@@ -1,6 +1,6 @@
 import { getMe } from "@/actions/auth";
 import { getIdeas } from "@/actions/idea";
-import Pagination from "@/components/layouts/Pagination";
+import Pagination from "@/components/common/Pagination";
 import PublicIdeasClient from "@/components/modules/idea/PublicIdeasClient";
 import { SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";

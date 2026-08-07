@@ -17,7 +17,7 @@ const createCategorySchema = z.object({
   icon: iconSchema,
 });
 
-const updateCategorySchema = createCategorySchema.partial();
+const updateCategorySchema = createCategorySchema;
 
 export const CategoryValidation = {
   createCategorySchema,

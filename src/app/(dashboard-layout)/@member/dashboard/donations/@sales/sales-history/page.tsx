@@ -1,4 +1,4 @@
-import AppPagination from "@/components/layouts/Pagination";
+import AppPagination from "@/components/common/Pagination";
 import { cn } from "@/lib/utils";
 import { SearchQueryParams } from "@/types";
 import {

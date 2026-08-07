@@ -4,14 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -19,14 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Calendar,
-  Edit,
-  Eye,
-  Lightbulb,
-  MoreHorizontal,
-  Trash2,
-} from "lucide-react";
+import { Calendar, Edit, Eye, Lightbulb, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { Category } from "@/types";
 
@@ -71,7 +56,9 @@ export default function CategoriesTable({
             <TableCell>
               <Avatar className="h-11 w-11 border border-slate-200 shadow-sm">
                 <AvatarImage src={category.icon || ""} />
-                <AvatarFallback className="bg-linear-to-br from-emerald-500 to-teal-500 text-white font-bold">                  {category.name.charAt(0)}
+                <AvatarFallback className="bg-linear-to-br from-emerald-500 to-teal-500 text-white font-bold">
+                  {" "}
+                  {category.name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
             </TableCell>
@@ -83,9 +70,7 @@ export default function CategoriesTable({
               </div>
             </TableCell>
             <TableCell>
-              <Badge
-                className="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 px-3 py-3 font-semibold gap-2"
-              >
+              <Badge className="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 px-3 py-3 font-semibold gap-2">
                 <Lightbulb className="h-3 w-3" />
                 {category._count?.ideas || 0}
               </Badge>

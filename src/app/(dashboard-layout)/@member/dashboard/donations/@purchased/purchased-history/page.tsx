@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import AppPagination from "@/components/layouts/Pagination";
+import AppPagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 
 export default async function PurchasedHistoryPage({

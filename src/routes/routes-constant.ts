@@ -21,9 +21,6 @@ export const MEMBER_ROUTE_PATHS = {
 export const AUTH_ROUTE_PATHS = {
   LOGIN: "/login",
   REGISTER: "/register",
-  VERIFY_EMAIL: "/verify-email",
-  FORGOT_PASSWORD: "/forgot-password",
-  RESET_PASSWORD: "/reset-password",
 } as const;
 
 export const PUBLIC_ROUTE_PATHS = {

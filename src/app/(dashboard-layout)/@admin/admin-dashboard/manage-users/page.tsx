@@ -1,6 +1,6 @@
 import { getUsers } from "@/actions/user";
-import AppPagination from "@/components/layouts/Pagination";
-import DeleteUserButton from "@/components/modules/dashboard/admin/DeleteUserButton";
+import AppPagination from "@/components/common/Pagination";
+import DeleteUserButton from "@/components/modules/dashboard/admin/user/DeleteUserButton";
 import { cn } from "@/lib/utils";
 import { Mail, ShieldCheck } from "lucide-react";
 import Image from "next/image";

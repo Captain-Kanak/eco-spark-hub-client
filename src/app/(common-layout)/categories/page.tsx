@@ -1,5 +1,5 @@
 import { getCategories } from "@/actions/category";
-import Pagination from "@/components/layouts/Pagination";
+import Pagination from "@/components/common/Pagination";
 import CategoryCard from "@/components/modules/home/CategoryCard";
 import { Button } from "@/components/ui/button";
 import { SearchQueryParams } from "@/types";

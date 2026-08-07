@@ -1,7 +1,7 @@
 import { FolderTree } from "lucide-react";
 import ManageCategoryHeader from "@/components/modules/dashboard/admin/ManageCategoryHeader";
 import ManageCategoriesClient from "@/components/modules/dashboard/admin/ManageCategoriesClient";
-import AppPagination from "@/components/layouts/Pagination";
+import AppPagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 import { getCategories } from "@/actions/category";
 

@@ -1,5 +1,5 @@
 import { getMe } from "@/actions/auth";
-import ProfileForm from "@/components/modules/dashboard/ProfileForm";
+import ProfileForm from "@/components/modules/dashboard/shared/ProfileForm";
 import { ShieldCheck, Mail, Camera, Calendar } from "lucide-react";
 
 export default async function MemberProfilePage() {

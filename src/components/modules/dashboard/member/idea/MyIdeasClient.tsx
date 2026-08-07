@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Lightbulb } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import UpdateIdeaModal from "./UpdateIdeaModal";
+import UpdateIdeaModal from "./dialogs/UpdateIdeaModal";
 import MyIdeaCard from "./MyIdeaCard";
-import DeleteIdeaModal from "./DeleteIdeaModal";
+import DeleteIdeaModal from "./dialogs/DeleteIdeaModal";
 
 export default function MyIdeasClient({
   ideas,

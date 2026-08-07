@@ -1,7 +1,7 @@
 import { getCategories } from "@/actions/category";
 import { getIdeas } from "@/actions/idea";
-import AppPagination from "@/components/layouts/Pagination";
-import MyIdeasClient from "@/components/modules/dashboard/member/MyIdeasClient";
+import AppPagination from "@/components/common/Pagination";
+import MyIdeasClient from "@/components/modules/dashboard/member/idea/MyIdeasClient";
 import { SearchQueryParams } from "@/types";
 
 export default async function SharedIdeasPage({

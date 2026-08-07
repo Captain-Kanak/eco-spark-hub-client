@@ -18,25 +18,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, X, UploadCloud } from "lucide-react";
+import { Loader2, X, UploadCloud, Edit3 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
-import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { Category } from "@/types";
 import { updateCategoryById } from "@/actions/category";
+import { CategoryValidation } from "@/validations/category";
 
 interface UpdateCategoryModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   category: Category;
 }
-
-const UpdateCategorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string(),
-  icon: z.any().nullable(),
-});
 
 export const UpdateCategoryModal = ({
   isOpen,
@@ -60,7 +54,7 @@ export const UpdateCategoryModal = ({
       description: category?.description || "",
       icon: null as File | null,
     },
-    validators: { onSubmit: UpdateCategorySchema },
+    validators: { onSubmit: CategoryValidation.updateCategorySchema },
     onSubmit: async ({ value }) => {
       if (!category?.id) return;
 
@@ -109,21 +103,28 @@ export const UpdateCategoryModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 [&>button]:cursor-pointer">
+      <DialogContent
+        className="max-h-[90vh] overflow-y-auto sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 
+      [&>button]:cursor-pointer"
+      >
         <div className="h-1.5 bg-amber-500" />{" "}
         {/* Changed color to amber for "Update" feel */}
         <div className="p-8">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white">
-              Update Category
-            </DialogTitle>
-            <DialogDescription>
-              Modify the details for{" "}
-              <span className="font-bold text-emerald-600">
-                {category?.name}
-              </span>
-              .
-            </DialogDescription>
+          <DialogHeader className="space-y-6 pb-8">
+            <div className="mx-auto flex h-18 w-18 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
+              <Edit3 className="h-9 w-9 text-white" />
+            </div>
+
+            <div className="text-center space-y-2">
+              <DialogTitle className="text-3xl font-black tracking-tight">
+                Update Category
+              </DialogTitle>
+
+              <DialogDescription className="mx-auto max-w-md text-base leading-7 text-slate-500">
+                Modify the category information. Changes will immediately be
+                visible across the platform.
+              </DialogDescription>
+            </div>
           </DialogHeader>
 
           <form
@@ -137,10 +138,13 @@ export const UpdateCategoryModal = ({
               <form.Field
                 name="name"
                 children={(field) => (
-                  <Field>
+                  <Field
+                    className="rounded-2xl border border-slate-200/70 bg-slate-50/60 p-5 dark:border-slate-800
+                   dark:bg-slate-900/40"
+                  >
                     <FieldLabel>Category Name</FieldLabel>
                     <Input
-                      className="h-11 rounded-xl border-slate-200"
+                      className="h-13 rounded-xl border-transparent bg-white dark:bg-slate-950 shadow-inner focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 transition-all"
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -153,14 +157,23 @@ export const UpdateCategoryModal = ({
               <form.Field
                 name="description"
                 children={(field) => (
-                  <Field>
+                  <Field
+                    className="rounded-2xl border border-slate-200/70 bg-slate-50/60 p-5 dark:border-slate-800
+                   dark:bg-slate-900/40"
+                  >
                     <FieldLabel>Category Description</FieldLabel>
                     <Textarea
-                      className="min-h-24 rounded-xl border-slate-200 resize-none"
+                      className="min-h-32 rounded-bl-xl border-transparent bg-white dark:bg-slate-950 resize-none shadow-inner      focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500"
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
+
+                    <div className="mt-2 flex justify-end">
+                      <span className="text-xs text-slate-400">
+                        {field.state.value.length}/1000
+                      </span>
+                    </div>
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
                 )}
@@ -169,11 +182,16 @@ export const UpdateCategoryModal = ({
               <form.Field
                 name="icon"
                 children={(field) => (
-                  <Field>
+                  <Field
+                    className="rounded-2xl border border-slate-200/70 bg-slate-50/60 p-5 dark:border-slate-800
+                   dark:bg-slate-900/40"
+                  >
                     <FieldLabel>Category Icon</FieldLabel>
                     <div
                       onClick={() => fileInputRef.current?.click()}
-                      className="relative group cursor-pointer border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 transition-all hover:border-amber-500 hover:bg-amber-50/30 overflow-hidden"
+                      className="relative rounded-3xl border-2 border-dashed border-slate-300 bg-linear-to-br from-white
+                       to-slate-50 dark:from-slate-900 dark:to-slate-950 hover:border-amber-500 hover:bg-amber-50/30 
+                       transition-all duration-300 p-5"
                     >
                       <input
                         type="file"
@@ -191,6 +209,11 @@ export const UpdateCategoryModal = ({
                             fill
                             className="object-cover"
                           />
+
+                          <p className="mt-3 text-center font-semibold">
+                            Current Category Icon
+                          </p>
+
                           <button
                             type="button"
                             onClick={(e) => {
@@ -216,11 +239,11 @@ export const UpdateCategoryModal = ({
               />
             </FieldGroup>
 
-            <div className="flex gap-3 pt-2">
+            <div className="mt-8 flex items-center justify-end gap-4 border-t border-slate-200 pt-6 dark:border-slate-800">
               <Button
                 type="button"
                 variant="outline"
-                className="flex-1 h-12 rounded-xl font-bold cursor-pointer"
+                className="h-12 rounded-xl border-slate-300 px-8 font-semibold hover:bg-slate-100 cursor-pointer"
                 onClick={() => onOpenChange(false)}
               >
                 Cancel
@@ -228,7 +251,9 @@ export const UpdateCategoryModal = ({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-2 h-12 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-lg shadow-amber-500/20 cursor-pointer transition-colors"
+                className="h-12 px-10 rounded-xl bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600
+                 hover:to-orange-600 text-white font-bold shadow-xl shadow-amber-500/20 transition-all hover:scale-[1.02] 
+                 active:scale-95 cursor-pointer"
               >
                 {isSubmitting ? (
                   <Loader2 className="animate-spin" />

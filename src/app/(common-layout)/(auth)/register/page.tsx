@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/components/modules/auth/register-form";
+import { RegisterForm } from "@/components/modules/auth/forms/RegisterForm";
 import { ArrowRight, CheckCircle2, Globe, Leaf, Sparkles } from "lucide-react";
 import Link from "next/link";
 
