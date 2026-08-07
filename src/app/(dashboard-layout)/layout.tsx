@@ -71,8 +71,8 @@ export default async function DashboardLayout({
           </div>
         </header>
 
-        <main className="flex flex-1 flex-col p-4 animate-in fade-in duration-500">
-          <div className="mx-auto w-full max-w-7xl">
+        <main className="flex flex-1 flex-col p-6 animate-in fade-in duration-500">
+          <div className="mx-auto w-full">
             {user?.role === UserRole.ADMIN ? admin : member}
           </div>
         </main>

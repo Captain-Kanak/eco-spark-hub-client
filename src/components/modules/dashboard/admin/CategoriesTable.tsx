@@ -22,6 +22,7 @@ import {
 import {
   Calendar,
   Edit,
+  Eye,
   Lightbulb,
   MoreHorizontal,
   Trash2,
@@ -44,84 +45,92 @@ export default function CategoriesTable({
     <Table>
       <TableHeader className="bg-slate-50/50 dark:bg-slate-900/50">
         <TableRow>
-          <TableHead className="font-bold">Icon</TableHead>
-          <TableHead className="font-bold">Category Name</TableHead>
-          <TableHead className="font-bold">Total Ideas</TableHead>
-          <TableHead className="font-bold">Created At</TableHead>
-          <TableHead className="font-bold text-right">Actions</TableHead>
+          <TableHead className="h-14 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+            Icon
+          </TableHead>
+          <TableHead className="h-14 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+            Category Name
+          </TableHead>
+          <TableHead className="h-14 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+            Total Ideas
+          </TableHead>
+          <TableHead className="h-14 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+            Created At
+          </TableHead>
+          <TableHead className="h-14 w-35 text-right text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+            Actions
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {categories.map((category) => (
           <TableRow
             key={category.id}
-            className="hover:bg-slate-50/50 transition-colors"
+            className="group transition-all duration-200 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20"
           >
             <TableCell>
-              <Avatar className="h-8 w-8 border shadow-sm">
+              <Avatar className="h-11 w-11 border border-slate-200 shadow-sm">
                 <AvatarImage src={category.icon || ""} />
-                <AvatarFallback className="bg-emerald-600 text-white font-bold">
-                  {category.name.charAt(0)}
+                <AvatarFallback className="bg-linear-to-br from-emerald-500 to-teal-500 text-white font-bold">                  {category.name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
             </TableCell>
             <TableCell>
-              <div className="flex flex-col">
-                <span className="font-bold text-slate-900 dark:text-slate-100 capitalize">
+              <div className="space-y-1">
+                <span className="text-sm font-bold tracking-tight capitalize">
                   {category.name}
-                </span>
-                <span className="text-xs text-slate-500 truncate max-w-50">
-                  {category.description || "No description provided."}
                 </span>
               </div>
             </TableCell>
             <TableCell>
               <Badge
-                variant="secondary"
-                className="bg-emerald-50 text-emerald-700 border-none gap-1.5"
+                className="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 px-3 py-3 font-semibold gap-2"
               >
                 <Lightbulb className="h-3 w-3" />
                 {category._count?.ideas || 0}
               </Badge>
             </TableCell>
             <TableCell className="text-slate-600 text-sm">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-3.5 w-3.5" />
-                {format(new Date(category.createdAt), "MMM dd, yyyy")}
+              <div className="flex items-center gap-2 text-slate-500">
+                <Calendar className="h-4 w-4 opacity-60" />
+
+                <span className="text-sm">
+                  {format(new Date(category.createdAt), "MMM dd, yyyy")}
+                </span>
               </div>
             </TableCell>
-            <TableCell className="text-right">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="h-8 w-8 p-0 cursor-pointer"
-                  >
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-40 rounded-xl shadow-xl"
+
+            <TableCell className="max-w-35">
+              <div className="flex justify-end items-center gap-2">
+                {/* View */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30 cursor-pointer"
                 >
-                  <DropdownMenuLabel>Options</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => onEdit(category)}
-                    className="flex items-center gap-2 cursor-pointer"
-                  >
-                    <Edit className="h-4 w-4" />
-                    Edit Category
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => onDelete(category)}
-                    className="flex items-center gap-2 cursor-pointer text-rose-600 focus:text-rose-600"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  <Eye className="h-4 w-4" />
+                </Button>
+
+                {/* Edit */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => onEdit(category)}
+                  className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-800 dark:hover:bg-emerald-950/30 cursor-pointer"
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
+
+                {/* Delete */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => onDelete(category)}
+                  className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all hover:border-red-200 hover:bg-red-50 hover:text-red-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-red-800 dark:hover:bg-red-950/30 cursor-pointer"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
             </TableCell>
           </TableRow>
         ))}

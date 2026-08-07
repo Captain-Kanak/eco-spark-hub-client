@@ -13,28 +13,26 @@ export default async function ManageCategoriesPage({
   const params = await searchParams;
 
   const page = params.page || "1";
-  const limit = "12";
+  const limit = "6";
 
-  const { data: categories, meta } = await getCategories({
+  const result = await getCategories({
     page,
     limit,
   });
 
-  if (!categories) return null;
+  const categories = result.data || [];
+  const meta = result.meta;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <ManageCategoryHeader />
 
-      <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div className="rounded-3xl bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/80">
         {categories.length > 0 ? (
           <div>
             <ManageCategoriesClient categories={categories} />
 
-            <AppPagination
-              totalPages={meta?.totalPages || 1}
-              currentPage={meta?.currentPage || 1}
-            />
+            {meta && <AppPagination meta={meta} />}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">

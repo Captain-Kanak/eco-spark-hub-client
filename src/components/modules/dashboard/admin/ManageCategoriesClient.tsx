@@ -31,11 +31,13 @@ export default function ManageCategoriesClient({
 
   return (
     <>
-      <CategoriesTable
-        categories={categories}
-        onEdit={handleEditInitiated}
-        onDelete={handleDeleteTrigger}
-      />
+      <div className="overflow-hidden rounded-3xl border border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/80 shadow-sm">
+        <CategoriesTable
+          categories={categories}
+          onEdit={handleEditInitiated}
+          onDelete={handleDeleteTrigger}
+        />
+      </div>
 
       {selectedCategory && (
         <>
