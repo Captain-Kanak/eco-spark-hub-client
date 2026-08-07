@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { deleteCategoryById } from "@/actions/category";
 
@@ -56,60 +55,82 @@ export const DeleteCategoryModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-100 rounded-[2rem] p-0 overflow-hidden border-none shadow-2xl [&>button]:cursor-pointer">
-        {/* Fancy Top Decorative Bar */}
-        <div className="h-2 w-full bg-rose-500" />
-
+      <DialogContent
+        className="sm:max-w-110 rounded-[2rem] border border-slate-200/70 bg-white p-0 shadow-2xl
+       dark:border-slate-800 dark:bg-slate-950 overflow-hidden [&>button]:cursor-pointer"
+      >
         <div className="p-8">
           <DialogHeader className="items-center text-center">
-            {/* Animated Warning Icon */}
-            <div className="mb-4 relative">
-              <div className="absolute inset-0 bg-rose-100 dark:bg-rose-900/30 rounded-full animate-ping opacity-20" />
-              <div className="relative flex items-center justify-center w-16 h-16 bg-rose-50 dark:bg-rose-950/40 rounded-full">
-                <AlertTriangle className="h-8 w-8 text-rose-600" />
-              </div>
+            {/* Warning Icon */}
+            <div
+              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 ring-8 ring-rose-50/60
+             dark:bg-rose-950/40 dark:ring-rose-950/20"
+            >
+              <Trash2 className="h-8 w-8 text-rose-500" />
             </div>
 
-            <DialogTitle className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <DialogTitle className="mt-6 text-2xl font-black tracking-tight text-slate-900  dark:text-white">
               Delete Category?
             </DialogTitle>
 
-            <DialogDescription className="text-slate-500 dark:text-slate-400 text-base mt-2">
-              You are about to delete{" "}
-              <span className="font-semibold text-rose-600">
+            <DialogDescription className="mt-3 max-w-sm text-center text-sm leading-6 text-slate-500 dark:text-slate-400">
+              You are about to permanently delete{" "}
+              <span className="font-bold text-slate-800 dark:text-slate-200">
                 "{categoryName}"
               </span>
-              . This action is permanent and cannot be undone.
+              .
+              <span className="mt-1 block text-xs text-slate-400 dark:text-slate-500">
+                This action cannot be undone.
+              </span>
             </DialogDescription>
           </DialogHeader>
 
-          <DialogFooter className="mt-8 flex flex-col sm:flex-row gap-3">
+          {/* Warning Box */}
+          <div
+            className="mt-6 rounded-2xl border border-rose-100 bg-rose-50/70 px-4 py-3 dark:border-rose-900/40
+           dark:bg-rose-950/20"
+          >
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
+
+              <p className="text-xs leading-5 text-rose-700 dark:text-rose-400">
+                Deleting this category may affect the ideas associated with it.
+                Make sure you want to continue.
+              </p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <DialogFooter className="mt-7 flex flex-col-reverse gap-3 sm:flex-row">
             <Button
-              variant="ghost"
+              type="button"
+              variant="outline"
               onClick={() => onOpenChange(false)}
-              className="flex-1 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 font-medium transition-all cursor-pointer"
+              disabled={isDeleting}
+              className="h-12 flex-1 rounded-xl border-slate-200 bg-white font-bold text-slate-700 transition-all
+               hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300
+                dark:hover:bg-slate-800 cursor-pointer"
             >
-              Keep it
+              Cancel
             </Button>
+
             <Button
+              type="button"
               variant="destructive"
               onClick={handleDelete}
               disabled={isDeleting}
-              className={cn(
-                "flex-1 rounded-2xl bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 dark:shadow-none font-bold transition-all active:scale-95 cursor-pointer",
-                isDeleting && "opacity-80",
-              )}
+              className="h-12 flex-1 rounded-xl bg-rose-600 font-bold text-white shadow-lg shadow-rose-500/20 transition-all hover:bg-rose-700 active:scale-[0.98] cursor-pointer"
             >
               {isDeleting ? (
-                <div className="flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Deleting...</span>
-                </div>
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
               ) : (
-                <div className="flex items-center gap-2">
-                  <Trash2 className="h-4 w-4" />
-                  <span>Yes, Delete</span>
-                </div>
+                <>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete Category
+                </>
               )}
             </Button>
           </DialogFooter>
