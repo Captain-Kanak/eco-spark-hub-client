@@ -8,17 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  InputOTPSeparator,
-} from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCcw, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { verifyEmail } from "@/actions/auth";
+import { resendVerification, verifyEmail } from "@/actions/auth";
 
 interface EmailVerificationModalProps {
   isOpen: boolean;
@@ -58,7 +52,7 @@ export const EmailVerificationModal = ({
       if (result.success) {
         toast.success("Identity confirmed! Please log in.", { id: toastId });
         onOpenChange(false);
-        router.push("/login");
+        router.push("/");
       } else {
         toast.error(result.message || "That code doesn't look right.", {
           id: toastId,
@@ -74,12 +68,9 @@ export const EmailVerificationModal = ({
   const handleResend = async () => {
     setIsResending(true);
     try {
-      const result = await verifyEmail({
-        email,
-        otp: otpCode,
-      });
+      const result = await resendVerification(email);
 
-      if (result.success) {
+      if (result.data?.success) {
         toast.success("Fresh code sent to your inbox.");
       } else {
         toast.error(result.message || "Couldn't resend code.");
@@ -193,7 +184,7 @@ export const EmailVerificationModal = ({
                 Enter the verification code we just sent to
               </DialogDescription>
 
-              <div className="max-w-75 truncate rounded-full bg-emerald-50 px-4 py-2">
+              <div className="max-w-75 truncate rounded-full bg-emerald-50 dark:text-slate-700 px-4 py-2">
                 {email}
               </div>
             </div>
@@ -232,7 +223,7 @@ export const EmailVerificationModal = ({
           <p className="mt-6 text-center text-sm text-slate-500">
             The code expires in
             <span className="mx-1 font-semibold text-emerald-600">
-              10 minutes
+              5 minutes
             </span>
           </p>
 
@@ -240,7 +231,7 @@ export const EmailVerificationModal = ({
           <Button
             onClick={handleVerify}
             disabled={otpCode.length !== OTP_LENGTH}
-            className="mt-8 h-14 w-full rounded-2xl bg-linear-to-r from-emerald-500 to-teal-500 text-base font-bold shadow-xl shadow-emerald-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-emerald-500/40 active:scale-[0.98]"
+            className="mt-8 h-14 w-full rounded-2xl bg-linear-to-r from-emerald-500 to-teal-500 text-base font-bold shadow-xl shadow-emerald-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-emerald-500/40 active:scale-[0.98] cursor-pointer"
           >
             {isVerifying ? (
               <>
@@ -261,7 +252,7 @@ export const EmailVerificationModal = ({
             <button
               onClick={handleResend}
               disabled={isResending}
-              className="mt-4 inline-flex items-center font-semibold text-emerald-600 transition-colors hover:text-emerald-700"
+              className="mt-4 inline-flex items-center font-semibold text-emerald-600 transition-colors hover:text-emerald-700 cursor-pointer"
             >
               {isResending ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

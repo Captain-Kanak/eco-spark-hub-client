@@ -53,14 +53,15 @@ export function LoginForm({
         const result = await login(value);
 
         if (!result.success && result.message === "Email not verified") {
-          setVerificationEmail(value.email);
           toast.error(result.message, { id: toastId });
+          setVerificationEmail(value.email);
           setIsUploading(false);
           return;
         }
 
         if (!result.success) {
           toast.error(result.message, { id: toastId });
+          setVerificationEmail(value.email);
           setIsUploading(false);
           return;
         }

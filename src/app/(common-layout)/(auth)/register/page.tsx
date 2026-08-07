@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function RegisterPage() {
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-950">
+    <div className="relative min-h-screen w-full overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-950 py-8">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute left-20 top-20 h-80 w-80 rounded-full bg-emerald-500/10 blur-[120px]" />
@@ -12,7 +12,7 @@ export default function RegisterPage() {
       </div>
 
       <div
-        className="relative mx-auto max-w-7xl min-h-screen grid lg:grid-cols-2 gap-16 px-6 lg:px-8 overflow-x-hidden"
+        className="relative mx-auto max-w-7xl min-h-screen grid lg:grid-cols-2 gap-16 px-4 lg:px-0 overflow-x-hidden"
       >
         {/* LEFT SIDE */}
         <div className="hidden lg:flex flex-col justify-between">

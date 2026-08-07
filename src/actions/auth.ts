@@ -11,6 +11,10 @@ export const verifyEmail = async (payload: VerifyEmail) => {
   return await authService.verifyEmail(payload);
 };
 
+export const resendVerification = async (email: string) => {
+  return await authService.resendVerification(email);
+};
+
 export const login = async (payload: LoginUser) => {
   return await authService.login(payload);
 };

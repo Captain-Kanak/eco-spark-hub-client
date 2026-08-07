@@ -10,7 +10,21 @@ const register = async (payload: RegisterUser) => {
 };
 
 const verifyEmail = async (payload: VerifyEmail) => {
-  return api.post<null>(`${API_URL}/verify-email`, payload);
+  const result = api.post<{
+    status: boolean;
+    token: string | null;
+    user: User;
+  }>(`${API_URL}/verify-email`, payload);
+
+  await setBetterAuthTokenInCookie((await result).data?.token || "");
+
+  return result;
+};
+
+const resendVerification = async (email: string) => {
+  return api.post<{ success: boolean }>(`${API_URL}/resend-verification`, {
+    email,
+  });
 };
 
 const login = async (payload: LoginUser) => {
@@ -34,6 +48,7 @@ const getMe = async () => {
 export const authService = {
   register,
   verifyEmail,
+  resendVerification,
   login,
   getMe,
 };
