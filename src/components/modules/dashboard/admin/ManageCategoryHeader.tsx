@@ -28,6 +28,7 @@ export default function ManageCategoryHeader() {
         </div>
 
         <Button
+          onClick={() => setOpen(true)}
           className="h-12 rounded-2xl px-6 bg-emerald-600 hover:bg-emerald-700 shadow-lg 
           shadow-emerald-600/20 cursor-pointer text-white"
         >

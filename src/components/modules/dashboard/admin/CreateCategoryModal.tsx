@@ -18,23 +18,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, X, UploadCloud } from "lucide-react";
+import { Loader2, X, UploadCloud, FolderTree } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
-import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { createCategory } from "@/actions/category";
+import { CategoryValidation } from "@/validations/category";
 
 interface CreateCategoryModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 }
-
-const CreateCategorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string(),
-  icon: z.instanceof(File).nullable(),
-});
 
 export const CreateCategoryModal = ({
   isOpen,
@@ -51,7 +45,7 @@ export const CreateCategoryModal = ({
       description: "",
       icon: null as File | null,
     },
-    validators: { onSubmit: CreateCategorySchema },
+    validators: { onSubmit: CategoryValidation.createCategorySchema },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
       const toastId = toast.loading("Creating category...");
@@ -59,7 +53,8 @@ export const CreateCategoryModal = ({
       try {
         const formData = new FormData();
         formData.append("name", value.name);
-        formData.append("description", value.description);
+        if (value.description)
+          formData.append("description", value.description);
         if (value.icon) formData.append("file", value.icon);
 
         const result = await createCategory(formData);
@@ -97,146 +92,194 @@ export const CreateCategoryModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg border-slate-200 dark:border-slate-800 rounded-3xl p-0 [&>button]:cursor-pointer">
-        <div className="h-1.5 bg-emerald-500" />
+      <DialogContent
+        className="w-full max-w-2xl p-0 overflow-hidden rounded-3xl border-0 bg-white dark:bg-slate-950 
+        shadow-[0_30px_100px_rgba(0,0,0,0.18)]"
+      >
+        <div className="flex max-h-[90vh] flex-col">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-24 -right-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+            <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+          </div>
 
-        <div className="p-8">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white">
-              Add New Category
-            </DialogTitle>
-            <DialogDescription>
-              Create a new topic to group sustainable ideas and innovations.
-            </DialogDescription>
-          </DialogHeader>
+          <div className="overflow-y-auto px-8 py-8">
+            <div className="border-b border-slate-200 pb-8 dark:border-slate-800">
+              <DialogHeader className="items-center text-center space-y-3">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-2xl" />
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.handleSubmit();
-            }}
-            className="mt-6 space-y-6"
-          >
-            <FieldGroup className="space-y-4">
-              {/* Name Field */}
-              <form.Field
-                name="name"
-                children={(field) => (
-                  <Field>
-                    <FieldLabel>Category Name</FieldLabel>
-                    <Input
-                      placeholder="e.g. Solar Energy"
-                      className="h-11 rounded-xl border-slate-200 focus:ring-emerald-500"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                )}
-              />
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 shadow-xl shadow-emerald-500/30">
+                    <FolderTree className="h-8 w-8 text-white" />
+                  </div>
+                </div>
 
-              {/* Description Field */}
-              <form.Field
-                name="description"
-                children={(field) => (
-                  <Field>
-                    <FieldLabel>Category Description</FieldLabel>
-                    <Textarea
-                      placeholder="Describe what this category covers..."
-                      className="min-h-24 rounded-xl border-slate-200 focus:ring-emerald-500 resize-none"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                )}
-              />
+                <div className="space-y-1.5">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-400">
+                    NEW CATEGORY
+                  </div>
 
-              {/* Image Upload Field */}
-              <form.Field
-                name="icon"
-                children={(field) => (
-                  <Field>
-                    <FieldLabel>Category Icon</FieldLabel>
-                    <div
-                      onClick={() => fileInputRef.current?.click()}
-                      className="relative group cursor-pointer border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 transition-all hover:border-emerald-500 hover:bg-emerald-50/30 overflow-hidden"
-                    >
+                  <DialogTitle className="text-[32px] leading-none font-black tracking-tight">
+                    Create Category
+                  </DialogTitle>
+
+                  <DialogDescription className="max-w-sm text-sm leading-6 text-slate-500">
+                    Organize sustainable ideas into categories for your
+                    community.
+                  </DialogDescription>
+                </div>
+              </DialogHeader>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit();
+              }}
+              className="mt-6 space-y-6"
+            >
+              <FieldGroup className="space-y-7">
+                {/* Name Field */}
+                <form.Field
+                  name="name"
+                  children={(field) => (
+                    <Field>
+                      <FieldLabel className="mb-2.5 text-sm font-semibold tracking-tight text-slate-800 dark:text-slate-200">
+                        Category Name
+                      </FieldLabel>
+                      <Input
+                        placeholder="Enter category name..."
+                        className="h-12 rounded-xl border border-slate-200 bg-white px-4 shadow-sm transition-all duration-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:border-slate-700 dark:bg-slate-900"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      <FieldError errors={field.state.meta.errors} />
+                    </Field>
+                  )}
+                />
+
+                {/* Description Field */}
+                <form.Field
+                  name="description"
+                  children={(field) => (
+                    <Field>
+                      <FieldLabel className="mb-2.5 text-sm font-semibold tracking-tight text-slate-800 dark:text-slate-200">
+                        Category Description
+                      </FieldLabel>
+                      <Textarea
+                        placeholder="Describe what this category covers..."
+                        className="min-h-36 resize-none rounded-xl border border-slate-200 bg-white px-4 shadow-sm transition-all duration-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:border-slate-700 dark:bg-slate-900"
+                        onBlur={field.handleBlur}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      <div className="mt-2 text-right text-xs text-slate-400">
+                        {field.state.value?.length ?? 0}/1000
+                      </div>
+                      <FieldError errors={field.state.meta.errors} />
+                    </Field>
+                  )}
+                />
+
+                {/* Image Upload Field */}
+                <form.Field
+                  name="icon"
+                  children={(field) => (
+                    <Field className="space-y-3">
+                      <FieldLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        Category Icon
+                      </FieldLabel>
                       <input
-                        type="file"
                         ref={fileInputRef}
-                        className="hidden"
+                        type="file"
                         accept="image/*"
+                        className="hidden"
                         onChange={(e) => handleImageChange(e, field)}
                       />
 
-                      {preview ? (
-                        <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-inner">
+                      {!preview ? (
+                        <div
+                          onClick={() => fileInputRef.current?.click()}
+                          className="group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50/80 p-8 transition-all duration-300 hover:border-emerald-500 hover:bg-emerald-50/60 dark:border-slate-700 dark:bg-slate-900/50 dark:hover:bg-slate-900"
+                        >
+                          <div className="flex flex-col items-center text-center">
+                            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-emerald-100 transition-all duration-300 group-hover:scale-110 dark:bg-emerald-900/30">
+                              <UploadCloud className="h-8 w-8 text-emerald-600" />
+                            </div>
+
+                            <h4 className="mt-5 font-bold text-slate-900 dark:text-white">
+                              Upload Category Icon
+                            </h4>
+
+                            <p className="mt-2 text-sm text-slate-500">
+                              Click to browse or drag & drop
+                            </p>
+
+                            <span className="mt-4 rounded-full bg-white px-4 py-1 text-xs font-semibold shadow dark:bg-slate-800">
+                              PNG • JPG • WEBP
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700">
                           <Image
                             src={preview}
                             alt="Preview"
-                            fill
-                            className="object-cover"
+                            width={700}
+                            height={400}
+                            className="h-56 w-full object-cover"
                           />
+
+                          <div className="absolute inset-0 bg-black/20 opacity-0 transition group-hover:opacity-100" />
+
                           <button
                             type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
+                            onClick={() => {
                               setPreview(null);
                               field.handleChange(null);
+
+                              if (fileInputRef.current) {
+                                fileInputRef.current.value = "";
+                              }
                             }}
-                            className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-slate-900/90 rounded-full text-rose-500 shadow-md hover:scale-110 transition-transform cursor-pointer"
+                            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg transition hover:scale-110 cursor-pointer"
                           >
-                            <X className="h-4 w-4" />
+                            <X className="h-5 w-5 text-rose-500" />
                           </button>
                         </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center py-6 text-slate-500">
-                          <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-full mb-3 group-hover:text-emerald-600 transition-colors">
-                            <UploadCloud className="h-6 w-6" />
-                          </div>
-                          <p className="text-sm font-bold">
-                            Click to upload image
-                          </p>
-                          <p className="text-xs text-slate-400 mt-1">
-                            PNG, JPG or WebP (max. 2MB)
-                          </p>
-                        </div>
                       )}
-                    </div>
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                )}
-              />
-            </FieldGroup>
+                      <FieldError errors={field.state.meta.errors} />
+                    </Field>
+                  )}
+                />
+              </FieldGroup>
 
-            <div className="flex gap-3 pt-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="flex-1 h-12 rounded-xl font-bold cursor-pointer"
-                onClick={() => onOpenChange(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-2 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  "Create Category"
-                )}
-              </Button>
-            </div>
-          </form>
+              <div className="flex gap-3 pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1 h-12 rounded-xl font-bold cursor-pointer"
+                  onClick={() => onOpenChange(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-2 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    "Create Category"
+                  )}
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
