@@ -28,7 +28,14 @@ const loginSchema = z.object({
   password: passwordSchema,
 });
 
+const updateProfileSchema = z.object({
+  name: nameSchema,
+  email: emailSchema,
+  password: passwordSchema,
+});
+
 export const AuthValidation = {
   registerSchema,
   loginSchema,
+  updateProfileSchema,
 };

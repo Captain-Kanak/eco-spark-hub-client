@@ -7,7 +7,7 @@ export const getUsers = async (params: SearchQueryParams) => {
   return await userService.getAll(params);
 };
 
-export const updateUserById = async (payload: FormData) => {
+export const updateUser = async (payload: FormData) => {
   return await userService.updateById(payload);
 };
 
