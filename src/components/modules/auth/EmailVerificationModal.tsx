@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +34,13 @@ export const EmailVerificationModal = ({
   const router = useRouter();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const otpCode = otp.join("");
+  const OTP_EXPIRE_TIME = 5 * 60;
+  const [timeLeft, setTimeLeft] = useState(OTP_EXPIRE_TIME);
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const formattedTime = `${minutes}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
 
   const handleVerify = async () => {
     if (otpCode.length !== OTP_LENGTH) {
@@ -50,7 +57,7 @@ export const EmailVerificationModal = ({
       });
 
       if (result.success) {
-        toast.success("Identity confirmed! Please log in.", { id: toastId });
+        toast.success("Verification successful!", { id: toastId });
         onOpenChange(false);
         router.push("/");
       } else {
@@ -71,7 +78,9 @@ export const EmailVerificationModal = ({
       const result = await resendVerification(email);
 
       if (result.data?.success) {
-        toast.success("Fresh code sent to your inbox.");
+        toast.success("A new verification code has been sent.");
+
+        setTimeLeft(OTP_EXPIRE_TIME);
       } else {
         toast.error(result.message || "Couldn't resend code.");
       }
@@ -150,10 +159,29 @@ export const EmailVerificationModal = ({
     inputRefs.current[last]?.focus();
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setTimeLeft(OTP_EXPIRE_TIME);
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isOpen]);
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange} >
       <DialogContent
-        className="w-170 max-w-[calc(100vw-32px)] rounded-[32px] p-0 border overflow-hidden"
+        className="w-170 max-w-[calc(100vw-32px)] rounded-[32px] p-0 border overflow-hidden [&>button]:cursor-pointer [&>button]:rounded-xl [&>button]:transition-all [&>button]:duration-200 [&>button:hover]:bg-emerald-100 [&>button:hover]:text-emerald-600 dark:[&>button:hover]:bg-emerald-900/30 dark:[&>button:hover]:text-emerald-400"
       >
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -244,24 +272,35 @@ export const EmailVerificationModal = ({
           </Button>
 
           {/* Footer */}
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 text-center backdrop-blur dark:border-slate-800 dark:bg-slate-900/40">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-slate-400">
-              Didn't receive the code?
-            </p>
-
-            <button
-              onClick={handleResend}
-              disabled={isResending}
-              className="mt-4 inline-flex items-center font-semibold text-emerald-600 transition-colors hover:text-emerald-700 cursor-pointer"
-            >
-              {isResending ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <RefreshCcw className="mr-2 h-4 w-4 transition-transform duration-500 hover:rotate-180" />
-              )}
-
-              Resend verification code
-            </button>
+          <div className="text-center py-2">
+            {timeLeft > 0 ? (
+              <p className="text-sm text-slate-500">
+                Didn't receive the code?
+                <br />
+                <span className="font-semibold text-emerald-600">
+                  You can request a new code in {formattedTime}
+                </span>
+              </p>
+            ) : (
+              <Button
+                variant="ghost"
+                onClick={handleResend}
+                disabled={isResending}
+                className="font-semibold text-emerald-600"
+              >
+                {isResending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <RefreshCcw className="mr-2 h-4 w-4" />
+                    Resend verification code
+                  </>
+                )}
+              </Button>
+            )}
           </div>
         </div>
       </DialogContent>
