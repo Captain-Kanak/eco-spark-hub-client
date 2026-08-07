@@ -24,6 +24,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createCategory } from "@/actions/category";
 import { CategoryValidation } from "@/validations/category";
+import { IMAGE_ACCEPT } from "@/validations/file";
 
 interface CreateCategoryModalProps {
   isOpen: boolean;
@@ -189,7 +190,7 @@ export const CreateCategoryModal = ({
                       <input
                         type="file"
                         ref={fileInputRef}
-                        accept="image/*"
+                        accept={IMAGE_ACCEPT}
                         className="hidden"
                         onChange={(e) => handleImageChange(e, field)}
                       />

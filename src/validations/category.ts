@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { ALLOWED_FILE_EXTENSIONS, MAX_FILE_SIZE } from "./file";
 
 const nameSchema = z
   .string("Name is required")
@@ -9,7 +10,22 @@ const descriptionSchema = z
   .string()
   .max(1000, "Description can't be more than 1000 characters long");
 
-const iconSchema = z.instanceof(File).nullable();
+const iconSchema = z
+  .instanceof(File)
+  .nullable()
+  .refine(
+    (file) =>
+      !file ||
+      ALLOWED_FILE_EXTENSIONS.includes(
+        `.${file.name.split(".").pop()?.toLowerCase()}`,
+      ),
+    {
+      message: "Only JPG, JPEG, PNG, GIF, and WEBP files are allowed.",
+    },
+  )
+  .refine((file) => !file || file.size <= MAX_FILE_SIZE, {
+    message: "Image size cannot exceed 2MB.",
+  });
 
 const createCategorySchema = z.object({
   name: nameSchema,
