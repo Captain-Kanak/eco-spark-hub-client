@@ -46,7 +46,10 @@ export function AppSidebar({
   }
 
   return (
-    <Sidebar {...props}>
+    <Sidebar
+      {...props}
+      className="border-r border-emerald-100 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/80"
+    >
       <SidebarHeader>
         <Logo />
       </SidebarHeader>
@@ -66,20 +69,20 @@ export function AppSidebar({
                         asChild
                         isActive={isActive(item.url)}
                         className={cn(
-                          "relative flex items-center gap-3 px-3 py-5 transition-all duration-200 rounded-xl group",
+                          "relative flex items-center gap-3 rounded-2xl px-3 py-5 transition-all duration-300",
                           isActive(item.url)
-                            ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:bg-blue-600 hover:text-white"
-                            : "text-slate-500 hover:bg-slate-100 hover:text-slate-900",
+                            ? "bg-linear-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/30"
+                            : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/60"
                         )}
                       >
                         <Link href={item.url}>
                           {item.icon && (
                             <item.icon
                               className={cn(
-                                "h-5 w-5 shrink-0 transition-transform duration-200 group-hover:scale-110",
+                                "h-5 w-5 shrink-0 transition-all duration-300",
                                 isActive(item.url)
                                   ? "text-white"
-                                  : "text-slate-400 group-hover:text-slate-600",
+                                  : "text-slate-400"
                               )}
                             />
                           )}
@@ -88,7 +91,7 @@ export function AppSidebar({
                           </span>
 
                           {isActive(item.url) && (
-                            <div className="absolute right-2 h-1.5 w-1.5 rounded-full bg-white/40" />
+                            <div className="absolute right-3 h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(16,185,129,.8)]" />
                           )}
                         </Link>
                       </SidebarMenuButton>

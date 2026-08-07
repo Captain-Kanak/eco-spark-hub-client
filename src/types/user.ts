@@ -22,6 +22,7 @@ export interface User {
   phone: string | null;
   address: string | null;
   dateOfBirth: string | null;
+  ecoPoints: number;
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
