@@ -17,12 +17,14 @@ import { Category } from "@/types";
 
 interface CategoriesTableProps {
   categories: Category[];
+  onView: (category: Category) => void;
   onEdit: (category: Category) => void;
   onDelete: (category: Category) => void;
 }
 
 export default function CategoriesTable({
   categories,
+  onView,
   onEdit,
   onDelete,
 }: CategoriesTableProps) {
@@ -91,6 +93,7 @@ export default function CategoriesTable({
                 <Button
                   variant="ghost"
                   size="icon"
+                  onClick={() => onView(category)}
                   className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30 cursor-pointer"
                 >
                   <Eye className="h-4 w-4" />
