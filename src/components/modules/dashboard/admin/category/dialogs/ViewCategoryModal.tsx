@@ -42,9 +42,6 @@ export function ViewCategoryModal({
        border-slate-200/80 bg-white p-0 shadow-[0_30px_100px_rgba(15,23,42,0.18)] dark:border-slate-800
         dark:bg-slate-950 sm:max-w-xl [&>button]:cursor-pointer"
       >
-        {/* Top Accent */}
-        <div className="h-1.5 w-full bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500" />
-
         <div className="p-6 sm:p-8">
           {/* Header */}
           <DialogHeader className="mb-7">
@@ -64,10 +61,6 @@ export function ViewCategoryModal({
                   </DialogDescription>
                 </div>
               </div>
-
-              <span className="hidden rounded-full bg-emerald-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-700 sm:inline-flex dark:bg-emerald-500/10 dark:text-emerald-400">
-                Category
-              </span>
             </div>
           </DialogHeader>
 
