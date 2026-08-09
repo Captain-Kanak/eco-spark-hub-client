@@ -23,7 +23,7 @@ import { Category } from "@/types";
 interface ViewCategoryModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  category: Category | null;
+  category: Category;
 }
 
 export function ViewCategoryModal({

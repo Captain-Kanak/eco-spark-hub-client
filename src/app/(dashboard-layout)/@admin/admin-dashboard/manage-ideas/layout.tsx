@@ -14,29 +14,37 @@ export default function ManageIdeasLayout({
 }>) {
   const pathname = usePathname();
 
-  const isPending = pathname.endsWith("/manage-ideas/review");
-  const isPublished = pathname.endsWith("/manage-ideas/active");
-  const isCompleted = pathname.endsWith("/manage-ideas/completed");
-  const isArchived = pathname.endsWith("/manage-ideas/archived");
+  const isReview = pathname.endsWith(
+    `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/review`,
+  );
+  const isActive = pathname.endsWith(
+    `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/active`,
+  );
+  const isCompleted = pathname.endsWith(
+    `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/completed`,
+  );
+  const isArchived = pathname.endsWith(
+    `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/archived`,
+  );
 
   const tabs = [
     {
-      title: "Pending",
-      description: "Ideas waiting for review",
+      title: "Review",
+      description: "Ideas waiting for review or rejected",
       href: `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/review`,
       icon: ClipboardList,
-      active: isPending,
+      active: isReview,
       activeClass:
         "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
       iconClass:
         "bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400",
     },
     {
-      title: "Published",
-      description: "Active and completed ideas",
+      title: "Active",
+      description: "Published and ongoing ideas",
       href: `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/active`,
       icon: Lightbulb,
-      active: isPublished,
+      active: isActive,
       activeClass:
         "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
       iconClass:
@@ -44,14 +52,14 @@ export default function ManageIdeasLayout({
     },
     {
       title: "Completed",
-      description: "Ideas that have been completed",
+      description: "Ideas with completed projects",
       href: `${ADMIN_ROUTE_PATHS.MANAGE_IDEAS}/completed`,
       icon: CheckCircle2,
       active: isCompleted,
       activeClass:
-        "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-white",
+        "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
       iconClass:
-        "bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-300",
+        "bg-blue-100 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400",
     },
     {
       title: "Archived",
@@ -60,7 +68,7 @@ export default function ManageIdeasLayout({
       icon: Archive,
       active: isArchived,
       activeClass:
-        "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-white",
+        "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200",
       iconClass:
         "bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-300",
     },
