@@ -1,11 +1,19 @@
 "use client";
 
-import { Idea } from "@/types";
+import { Category, Idea } from "@/types";
 import React, { useState } from "react";
 import IdeasTable from "./IdeasTable";
 import ViewIdeaModal from "./dialogs/ViewIdeaModal";
+import DeleteIdeaModal from "./dialogs/DeleteIdeaModal";
+import UpdateIdeaModal from "../../member/idea/dialogs/UpdateIdeaModal";
 
-export default function ManageIdeasClient({ ideas }: { ideas: Idea[] }) {
+export default function ManageIdeasClient({
+  ideas,
+  categories,
+}: {
+  ideas: Idea[];
+  categories: Category[];
+}) {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -43,6 +51,21 @@ export default function ManageIdeasClient({ ideas }: { ideas: Idea[] }) {
             key={`view-${selectedIdea.id}`}
             isOpen={isViewModalOpen}
             onOpenChange={setIsViewModalOpen}
+            idea={selectedIdea}
+          />
+
+          <UpdateIdeaModal
+            key={`update-${selectedIdea.id}`}
+            isOpen={isUpdateModalOpen}
+            onOpenChange={setIsUpdateModalOpen}
+            categories={categories}
+            idea={selectedIdea}
+          />
+
+          <DeleteIdeaModal
+            key={`delete-${selectedIdea.id}`}
+            isOpen={isDeleteModalOpen}
+            onOpenChange={setIsDeleteModalOpen}
             idea={selectedIdea}
           />
         </>

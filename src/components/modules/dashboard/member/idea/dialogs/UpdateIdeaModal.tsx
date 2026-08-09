@@ -37,8 +37,8 @@ import { updateIdeaById } from "@/actions/idea";
 interface UpdateIdeaModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  idea: Idea;
   categories: Category[];
+  idea: Idea;
 }
 
 const updateIdeaSchema = z.object({
@@ -53,8 +53,8 @@ const updateIdeaSchema = z.object({
 export default function UpdateIdeaModal({
   isOpen,
   onOpenChange,
-  idea,
   categories,
+  idea,
 }: UpdateIdeaModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [preview, setPreview] = useState<string | null>(

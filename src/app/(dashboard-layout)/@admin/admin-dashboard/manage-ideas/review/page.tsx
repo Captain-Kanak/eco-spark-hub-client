@@ -4,6 +4,7 @@ import AppPagination from "@/components/common/Pagination";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
 import ManageIdeasClient from "@/components/modules/dashboard/admin/idea/ManageIdeasClient";
+import { getCategories } from "@/actions/category";
 
 export default async function ReviewIdeasPage({
   searchParams,
@@ -15,11 +16,20 @@ export default async function ReviewIdeasPage({
   const page = params.page || "1";
   // const limit = "10";
 
-  const { data: reviewIdeas, meta } = await getIdeas({
-    page,
-    // limit,
-    status: [IdeaStatus.ON_REVIEW, IdeaStatus.REJECTED],
-  });
+  const [categoriesResult, ideasResult] = await Promise.all([
+    getCategories({
+      limit: "100",
+    }),
+    getIdeas({
+      page,
+      // limit,
+      status: [IdeaStatus.ON_REVIEW, IdeaStatus.REJECTED],
+    }),
+  ]);
+
+  const reviewIdeas = ideasResult.data || [];
+  const meta = ideasResult.meta;
+  const categories = categoriesResult.data || [];
 
   return (
     <div className="space-y-6">
@@ -56,7 +66,7 @@ export default async function ReviewIdeasPage({
       {/* Ideas Content */}
       {reviewIdeas && reviewIdeas.length > 0 ? (
         <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <ManageIdeasClient ideas={reviewIdeas} />
+          <ManageIdeasClient ideas={reviewIdeas} categories={categories} />
 
           {meta && (
             <div className="border-t border-slate-100 dark:border-slate-800">
