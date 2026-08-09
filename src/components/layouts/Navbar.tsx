@@ -83,7 +83,7 @@ const Navbar = ({
       ? ADMIN_ROUTE_PATHS.OVERVIEW
       : MEMBER_ROUTE_PATHS.OVERVIEW;
 
-  const isActive = (url: string) => {
+  const isActive = (url: string): boolean => {
     if (url === "/") return pathname === "/";
     return pathname.startsWith(url);
   };

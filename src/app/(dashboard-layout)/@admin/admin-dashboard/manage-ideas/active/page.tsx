@@ -8,7 +8,7 @@ import { SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
 
-export default async function ManageApprovedIdeasPage({
+export default async function ApprovedIdeasPage({
   searchParams,
 }: {
   searchParams: Promise<SearchQueryParams>;
@@ -111,10 +111,7 @@ export default async function ManageApprovedIdeasPage({
         ))}
       </div>
 
-      <AppPagination
-        totalPages={meta?.totalPages || 1}
-        currentPage={meta?.currentPage || 1}
-      />
+      {meta && <AppPagination meta={meta} />}
     </div>
   );
 }

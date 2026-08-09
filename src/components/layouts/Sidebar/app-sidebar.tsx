@@ -23,6 +23,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Logo from "@/components/common/Logo";
 import { NavUser } from "@/components/modules/dashboard/shared/NavUser";
+import {
+  ADMIN_ROUTE_PREFIX,
+  MEMBER_ROUTE_PREFIX,
+} from "@/routes/routes-constant";
 
 export function AppSidebar({
   user,
@@ -32,7 +36,13 @@ export function AppSidebar({
   let routes: Route[] = [];
 
   const isActive = (url: string): boolean => {
-    return pathname === url;
+    if (url === ADMIN_ROUTE_PREFIX) {
+      return pathname === ADMIN_ROUTE_PREFIX;
+    } else if (url === MEMBER_ROUTE_PREFIX) {
+      return pathname === MEMBER_ROUTE_PREFIX;
+    }
+
+    return pathname.startsWith(url);
   };
 
   switch (user?.role) {
@@ -72,7 +82,7 @@ export function AppSidebar({
                           "relative flex items-center gap-3 rounded-2xl px-3 py-5 transition-all duration-300",
                           isActive(item.url)
                             ? "bg-linear-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/30"
-                            : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/60"
+                            : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/60",
                         )}
                       >
                         <Link href={item.url}>
@@ -82,7 +92,7 @@ export function AppSidebar({
                                 "h-5 w-5 shrink-0 transition-all duration-300",
                                 isActive(item.url)
                                   ? "text-white"
-                                  : "text-slate-400"
+                                  : "text-slate-400",
                               )}
                             />
                           )}
