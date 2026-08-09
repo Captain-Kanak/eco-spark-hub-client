@@ -2,15 +2,18 @@
 
 import { Category, Idea } from "@/types";
 import React, { useState } from "react";
-import IdeasTable from "./IdeasTable";
-import ViewIdeaModal from "./dialogs/ViewIdeaModal";
-import DeleteIdeaModal from "./dialogs/DeleteIdeaModal";
-import UpdateIdeaModal from "../../member/idea/dialogs/UpdateIdeaModal";
+import IdeasTable from "../admin/idea/IdeasTable";
+import ViewIdeaModal from "../admin/idea/dialogs/ViewIdeaModal";
+import DeleteIdeaModal from "../admin/idea/dialogs/DeleteIdeaModal";
+import UpdateIdeaModal from "../member/idea/dialogs/UpdateIdeaModal";
+import { UserRole } from "@/types/enums";
 
 export default function ManageIdeasClient({
+  role,
   ideas,
   categories,
 }: {
+  role: UserRole;
   ideas: Idea[];
   categories: Category[];
 }) {
@@ -40,8 +43,8 @@ export default function ManageIdeasClient({
         <IdeasTable
           ideas={ideas}
           onView={handleViewInitiated}
-          onEdit={handleEditInitiated}
-          onDelete={handleDeleteTrigger}
+          onEdit={role === UserRole.MEMBER ? handleEditInitiated : undefined}
+          onDelete={role === UserRole.MEMBER ? handleDeleteTrigger : undefined}
         />
       </div>
 

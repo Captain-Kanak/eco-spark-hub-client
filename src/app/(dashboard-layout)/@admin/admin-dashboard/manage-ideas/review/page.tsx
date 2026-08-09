@@ -1,10 +1,11 @@
 import { ClipboardList, Clock } from "lucide-react";
 import { SearchQueryParams } from "@/types";
 import AppPagination from "@/components/common/Pagination";
-import { IdeaStatus } from "@/types/enums";
+import { IdeaStatus, UserRole } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
-import ManageIdeasClient from "@/components/modules/dashboard/admin/idea/ManageIdeasClient";
+import ManageIdeasClient from "@/components/modules/dashboard/shared/ManageIdeasClient";
 import { getCategories } from "@/actions/category";
+import { getMe } from "@/actions/auth";
 
 export default async function ReviewIdeasPage({
   searchParams,
@@ -16,7 +17,7 @@ export default async function ReviewIdeasPage({
   const page = params.page || "1";
   // const limit = "10";
 
-  const [categoriesResult, ideasResult] = await Promise.all([
+  const [categoriesResult, ideasResult, userResult] = await Promise.all([
     getCategories({
       limit: "100",
     }),
@@ -25,11 +26,13 @@ export default async function ReviewIdeasPage({
       // limit,
       status: [IdeaStatus.ON_REVIEW, IdeaStatus.REJECTED],
     }),
+    getMe(),
   ]);
 
   const reviewIdeas = ideasResult.data || [];
   const meta = ideasResult.meta;
   const categories = categoriesResult.data || [];
+  const user = userResult.data;
 
   return (
     <div className="space-y-6">
@@ -66,7 +69,11 @@ export default async function ReviewIdeasPage({
       {/* Ideas Content */}
       {reviewIdeas && reviewIdeas.length > 0 ? (
         <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <ManageIdeasClient ideas={reviewIdeas} categories={categories} />
+          <ManageIdeasClient
+            role={user?.role || UserRole.MEMBER}
+            ideas={reviewIdeas}
+            categories={categories}
+          />
 
           {meta && (
             <div className="border-t border-slate-100 dark:border-slate-800">
