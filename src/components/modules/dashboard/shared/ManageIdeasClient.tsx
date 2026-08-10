@@ -7,6 +7,7 @@ import IdeasTable from "../admin/idea/IdeasTable";
 import ViewIdeaModal from "./ViewIdeaModal";
 import UpdateIdeaModal from "../member/idea/dialogs/UpdateIdeaModal";
 import DeleteIdeaModal from "../member/idea/dialogs/DeleteIdeaModal";
+import { toast } from "sonner";
 
 interface ManageIdeasClientProps {
   role: UserRole;
@@ -46,6 +47,20 @@ export default function ManageIdeasClient({
     setIsDeleteModalOpen(true);
   };
 
+  const handleApprove = async (idea: Idea) => {
+    // API call to change status
+    console.log("Approve:", idea.id);
+
+    toast.info("Approve button clicked");
+  };
+
+  const handleReject = async (idea: Idea) => {
+    // API call to change status
+    console.log("Reject:", idea.id);
+
+    toast.info("Reject button clicked");
+  };
+
   return (
     <>
       <IdeasTable
@@ -60,9 +75,12 @@ export default function ManageIdeasClient({
           {/* View - available for both Admin and Member */}
           <ViewIdeaModal
             key={`view-${selectedIdea.id}`}
+            role={role}
             isOpen={isViewModalOpen}
             onOpenChange={setIsViewModalOpen}
             idea={selectedIdea}
+            onApprove={handleApprove}
+            onReject={handleReject}
           />
 
           {/* Edit - Member only */}
