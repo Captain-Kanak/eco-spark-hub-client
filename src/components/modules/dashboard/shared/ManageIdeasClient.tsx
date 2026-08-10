@@ -4,9 +4,9 @@ import { Category, Idea } from "@/types";
 import React, { useState } from "react";
 import { UserRole } from "@/types/enums";
 import IdeasTable from "../admin/idea/IdeasTable";
-import ViewIdeaModal from "../admin/idea/dialogs/ViewIdeaModal";
-import DeleteIdeaModal from "../admin/idea/dialogs/DeleteIdeaModal";
+import ViewIdeaModal from "./ViewIdeaModal";
 import UpdateIdeaModal from "../member/idea/dialogs/UpdateIdeaModal";
+import DeleteIdeaModal from "../member/idea/dialogs/DeleteIdeaModal";
 
 interface ManageIdeasClientProps {
   role: UserRole;
@@ -82,7 +82,8 @@ export default function ManageIdeasClient({
               key={`delete-${selectedIdea.id}`}
               isOpen={isDeleteModalOpen}
               onOpenChange={setIsDeleteModalOpen}
-              idea={selectedIdea}
+              ideaId={selectedIdea.id}
+              ideaTitle={selectedIdea.title}
             />
           )}
         </>
