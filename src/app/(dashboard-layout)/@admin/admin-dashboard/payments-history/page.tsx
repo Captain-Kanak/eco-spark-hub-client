@@ -52,7 +52,7 @@ export default async function PaymentsHistoryPage({
         </div>
       </div>
 
-      {/* <AppPagination
+      {/* <Pagination
         totalPages={meta?.totalPages || 1}
         currentPage={Number(page)}
       /> */}

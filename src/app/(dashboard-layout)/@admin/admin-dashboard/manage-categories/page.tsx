@@ -1,5 +1,5 @@
 import { FolderTree } from "lucide-react";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 import { getCategories } from "@/actions/category";
 import ManageCategoryHeader from "@/components/modules/dashboard/admin/category/ManageCategoryHeader";
@@ -32,7 +32,7 @@ export default async function ManageCategoriesPage({
           <div>
             <ManageCategoriesClient categories={categories} />
 
-            {meta && <AppPagination meta={meta} />}
+            {meta && <Pagination meta={meta} />}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">

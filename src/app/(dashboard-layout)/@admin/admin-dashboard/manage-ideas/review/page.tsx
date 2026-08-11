@@ -1,6 +1,6 @@
 import { ClipboardList, Clock } from "lucide-react";
 import { SearchQueryParams } from "@/types";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import { IdeaStatus, UserRole } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
 import ManageIdeasClient from "@/components/modules/dashboard/shared/ManageIdeasClient";
@@ -77,7 +77,7 @@ export default async function ReviewIdeasPage({
 
           {meta && (
             <div className="border-t border-slate-100 dark:border-slate-800">
-              <AppPagination meta={meta} />
+              <Pagination meta={meta} />
             </div>
           )}
         </div>

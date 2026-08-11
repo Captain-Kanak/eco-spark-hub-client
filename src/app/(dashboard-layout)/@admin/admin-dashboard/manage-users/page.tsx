@@ -1,5 +1,5 @@
 import { getUsers } from "@/actions/user";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import DeleteUserButton from "@/components/modules/dashboard/admin/user/DeleteUserButton";
 import { cn } from "@/lib/utils";
 import { Mail, ShieldCheck } from "lucide-react";
@@ -154,10 +154,7 @@ export default async function ManageUsersPage({
         </div>
       </div>
 
-      <AppPagination
-        totalPages={meta?.totalPages || 1}
-        currentPage={Number(page)}
-      />
+      {meta && <Pagination meta={meta} />}
     </div>
   );
 }

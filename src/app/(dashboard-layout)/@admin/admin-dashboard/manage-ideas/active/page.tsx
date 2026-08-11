@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Globe, User, MessageSquare } from "lucide-react";
 import DeleteIdeaButton from "@/components/modules/dashboard/admin/idea/DeleteIdeaButton";
 import { Idea } from "@/types/idea";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
@@ -111,7 +111,7 @@ export default async function ApprovedIdeasPage({
         ))}
       </div>
 
-      {meta && <AppPagination meta={meta} />}
+      {meta && <Pagination meta={meta} />}
     </div>
   );
 }

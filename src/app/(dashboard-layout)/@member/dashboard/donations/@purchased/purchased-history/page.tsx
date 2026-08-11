@@ -1,15 +1,4 @@
-import React from "react";
-
-import {
-  Calendar,
-  ExternalLink,
-  FileText,
-  CheckCircle2,
-  Clock,
-} from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 
 export default async function PurchasedHistoryPage({
@@ -52,7 +41,7 @@ export default async function PurchasedHistoryPage({
       </div>
 
       {/* Pagination */}
-      {/* <AppPagination
+      {/* <Pagination
         currentPage={meta?.currentPage || 1}
         totalPages={meta?.totalPages || 1}
       /> */}

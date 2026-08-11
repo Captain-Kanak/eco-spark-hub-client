@@ -1,5 +1,5 @@
 import { getIdeas } from "@/actions/idea";
-import AppPagination from "@/components/common/Pagination";
+import Pagination from "@/components/common/Pagination";
 import PurchasedIdeaCard from "@/components/modules/idea/PurchasedIdeaCard";
 import { SearchQueryParams } from "@/types";
 import { PackageOpen } from "lucide-react";
@@ -37,10 +37,7 @@ export default async function PurchasedIdeasPage({
             ))}
           </div>
 
-          <AppPagination
-            totalPages={meta?.totalPages || 1}
-            currentPage={meta?.currentPage || 1}
-          />
+          {meta && <Pagination meta={meta} />}
         </div>
       )}
     </div>
