@@ -5,12 +5,7 @@ import { Mail, Phone, MapPin, Send, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useForm } from "@tanstack/react-form";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -56,7 +51,9 @@ export default function ContactPage() {
     validators: { onSubmit: ContactSchema },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
-      const toastId = toast.loading("Sending message...");
+      // const toastId = toast.loading("Sending message...");
+
+      const toastId = toast.info("This feature is not available yet.");
 
       try {
         const payload = {
@@ -65,6 +62,10 @@ export default function ContactPage() {
           subject: value.subject,
           message: value.message,
         };
+
+        // API call to send email
+
+        // toast.success("Message sent successfully", { id: toastId });
       } catch (error) {
         toast.error("Failed to send message", { id: toastId });
       } finally {

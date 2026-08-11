@@ -151,7 +151,11 @@ export default function ViewIdeaModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-[2rem] border border-slate-200 bg-white p-0 shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:max-w-3xl [&>button]:cursor-pointer z-101">
+      <DialogContent
+        className="max-h-[90vh] overflow-y-auto rounded-[2rem] border border-slate-200
+       bg-white p-0 shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:max-w-3xl
+        [&>button]:cursor-pointer z-101"
+      >
         <div className="p-6 sm:p-8">
           {/* ================= HEADER ================= */}
           <DialogHeader className="text-left">
@@ -309,14 +313,18 @@ export default function ViewIdeaModal({
           </div>
 
           {/* ================= ACTIONS ================= */}
-          <DialogFooter className="mt-8 border-t border-slate-100 pt-6 dark:border-slate-800 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+          <DialogFooter
+            className="mt-8 border-t border-slate-100 pt-6 dark:border-slate-800 flex
+           flex-col gap-3 sm:flex-row sm:items-center sm:justify-end"
+          >
             {/* Close */}
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={action !== null}
-              className="h-11 rounded-xl border-slate-200 px-6 font-bold text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 cursor-pointer"
+              className="h-11 rounded-xl border-slate-200 px-6 font-bold text-slate-600 hover:bg-slate-100
+               dark:border-slate-700 dark:text-slate-300 cursor-pointer"
             >
               <X className="mr-2 h-4 w-4" />
               Close
@@ -329,8 +337,9 @@ export default function ViewIdeaModal({
                 variant="outline"
                 onClick={handleReject}
                 disabled={action !== null}
-                className="h-11 rounded-xl border-rose-200 bg-rose-50 px-6 font-bold text-rose-600 hover:bg-rose-100
-                 hover:text-rose-700 dark:border-rose-900/50 dark:bg-rose-950/20 cursor-pointer"
+                className="h-11 rounded-xl border-rose-200 bg-rose-50 px-6 font-bold text-rose-600
+                 hover:bg-rose-100 hover:text-rose-700 dark:border-rose-900/50 dark:bg-rose-950/20
+                  cursor-pointer"
               >
                 {action === "reject" ? (
                   <>
