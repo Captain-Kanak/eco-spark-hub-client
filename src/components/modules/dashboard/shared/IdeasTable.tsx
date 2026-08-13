@@ -122,6 +122,12 @@ export default function IdeasTable({
                   <Heart className="h-3.5 w-3.5" />
                   <span>{idea._count?.likes || 0}</span>
                 </div>
+
+                {/* Views */}
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                  <Eye className="h-3.5 w-3.5" />
+                  <span>{idea.views || 0}</span>
+                </div>
               </div>
             </TableCell>
 

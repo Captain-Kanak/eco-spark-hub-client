@@ -3,7 +3,7 @@
 import { Category, Idea } from "@/types";
 import React, { useState } from "react";
 import { IdeaStatus, UserRole } from "@/types/enums";
-import IdeasTable from "../admin/idea/IdeasTable";
+import IdeasTable from "./IdeasTable";
 import ViewIdeaModal from "./ViewIdeaModal";
 import UpdateIdeaModal from "../member/idea/dialogs/UpdateIdeaModal";
 import DeleteIdeaModal from "../member/idea/dialogs/DeleteIdeaModal";

@@ -1,14 +1,15 @@
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Globe, User, MessageSquare } from "lucide-react";
-import DeleteIdeaButton from "@/components/modules/dashboard/admin/idea/DeleteIdeaButton";
+import { Eye, Globe2, Lightbulb, MessageSquare } from "lucide-react";
 import { Idea } from "@/types/idea";
-import Pagination from "@/components/common/Pagination";
 import { SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";
 import { getIdeas } from "@/actions/idea";
+import Pagination from "@/components/common/Pagination";
+import ManageIdeasClient from "@/components/modules/dashboard/shared/ManageIdeasClient";
+import { getCategories } from "@/actions/category";
+import { getMe } from "@/actions/auth";
+import { UserRole } from "@/types/enums";
 
-export default async function ApprovedIdeasPage({
+export default async function ActiveIdeasPage({
   searchParams,
 }: {
   searchParams: Promise<SearchQueryParams>;
@@ -18,100 +19,158 @@ export default async function ApprovedIdeasPage({
   const page = params.page || "1";
   const limit = "10";
 
-  const { data: approvedIdeas, meta } = await getIdeas({
-    page,
-    limit,
-    status: IdeaStatus.PUBLISHED,
-  });
+  const [ideasResult, categoriesResult, userResult] = await Promise.all([
+    getIdeas({
+      page,
+      limit,
+      status: [IdeaStatus.PUBLISHED, IdeaStatus.IN_PROGRESS],
+    }),
+    getCategories({
+      limit: "100",
+    }),
+    getMe(),
+  ]);
 
-  if (!approvedIdeas?.length) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-200 rounded-[3rem] text-slate-400">
-        <Globe className="mb-4 opacity-20" size={48} />
-        <p className="font-bold">No approved ideas found.</p>
-      </div>
-    );
-  }
+  const activeIdeas = ideasResult.data || [];
+  const meta = ideasResult.meta;
+  const categories = categoriesResult.data || [];
+  const user = userResult.data;
 
   return (
-    <div>
-      <div className="mb-5">
-        <h2 className="text-2xl font-bold">
-          {approvedIdeas.length} - Approved Ideas
-        </h2>
-      </div>
+    <div className="space-y-6">
+      {/* ========================================================= */}
+      {/* PAGE HEADER */}
+      {/* ========================================================= */}
+      <div
+        className="
+          relative overflow-hidden rounded-[2rem]
+          border border-emerald-100
+          bg-linear-to-br from-emerald-50 via-white to-white
+          p-6
+          dark:border-emerald-500/10
+          dark:from-emerald-500/5
+          dark:via-slate-950
+          dark:to-slate-950
+        "
+      >
+        {/* Decorative glow */}
+        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-emerald-400/10 blur-3xl" />
 
-      <div className="space-y-4">
-        {approvedIdeas.map((idea: Idea) => (
-          <Card
-            key={idea.id}
-            className="group relative p-8 rounded-[3rem] bg-white dark:bg-slate-950 border-slate-100 dark:border-slate-900 shadow-sm hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+        <div className="relative flex items-start gap-4">
+          {/* Icon */}
+          <div
+            className="
+              flex h-14 w-14 shrink-0 items-center justify-center
+              rounded-2xl
+              bg-emerald-100
+              text-emerald-600
+              shadow-sm
+              dark:bg-emerald-500/10
+              dark:text-emerald-400
+            "
           >
-            {/* Background Decorative Gradient Glow */}
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors duration-500" />
+            <Globe2 className="h-6 w-6" />
+          </div>
 
-            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="space-y-4 flex-1">
-                {/* Header Info */}
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-2xl bg-linear-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
-                    <CheckCircle2 size={20} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">
-                      {idea.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                      <User size={12} className="text-emerald-500" />
-                      {idea.user?.name || "Unknown Creator"}
-                    </div>
-                  </div>
-                </div>
+          {/* Content */}
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                Active Ideas
+              </h1>
 
-                {/* Description with "Quote" styling */}
-                <div className="relative">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-slate-100 dark:bg-slate-800 rounded-full" />
-                  <p className="pl-4 text-sm leading-relaxed text-slate-500 dark:text-slate-400 line-clamp-2 italic">
-                    "{idea.description}"
-                  </p>
-                </div>
-
-                {/* Stats Section */}
-                <div className="flex flex-wrap items-center gap-2 pt-2">
-                  <Badge
-                    variant="secondary"
-                    className="rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-none px-4 py-1.5 font-bold flex items-center gap-2"
-                  >
-                    <MessageSquare size={14} className="text-blue-500" />
-                    {idea._count.comments}{" "}
-                    <span className="font-medium opacity-60">Comments</span>
-                  </Badge>
-
-                  <Badge
-                    variant="secondary"
-                    className="rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-none px-4 py-1.5 font-bold flex items-center gap-2"
-                  >
-                    <span className="h-5 w-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">
-                      $
-                    </span>
-                    {idea._count.donations}{" "}
-                    <span className="font-medium opacity-60">Purchases</span>
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Right Side Action Area */}
-              <div className="flex items-center gap-4 self-end md:self-center bg-slate-50 dark:bg-slate-900/50 p-2 rounded-2xl border border-slate-100 dark:border-slate-800">
-                <div className="px-3">
-                  <DeleteIdeaButton ideaId={idea.id} />
-                </div>
-              </div>
+              <span
+                className="
+                  rounded-full
+                  bg-emerald-100
+                  px-2.5 py-1
+                  text-xs font-bold
+                  text-emerald-700
+                  dark:bg-emerald-500/10
+                  dark:text-emerald-400
+                "
+              >
+                {meta?.total ?? 0} ideas
+              </span>
             </div>
-          </Card>
-        ))}
+
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+              Manage ideas that have been approved and published to the
+              community. Monitor engagement and review their current progress.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {meta && <Pagination meta={meta} />}
+      {/* ========================================================= */}
+      {/* IDEAS TABLE */}
+      {/* ========================================================= */}
+
+      {activeIdeas.length > 0 ? (
+        <div
+          className="
+            overflow-hidden
+            rounded-[2rem]
+            border border-slate-200
+            bg-white
+            shadow-sm
+            dark:border-slate-800
+            dark:bg-slate-950
+          "
+        >
+          <ManageIdeasClient
+            role={user?.role || UserRole.MEMBER}
+            ideas={activeIdeas}
+            categories={categories}
+          />
+
+          {meta && (
+            <div className="border-t border-slate-100 dark:border-slate-800 pb-6">
+              <Pagination meta={meta} />
+            </div>
+          )}
+        </div>
+      ) : (
+        /* ========================================================= */
+        /* EMPTY STATE */
+        /* ========================================================= */
+
+        <div
+          className="
+            flex min-h-80
+            flex-col items-center justify-center
+            rounded-[2rem]
+            border-2 border-dashed
+            border-emerald-200
+            bg-emerald-50/30
+            p-12
+            text-center
+            dark:border-emerald-500/10
+            dark:bg-emerald-500/3
+          "
+        >
+          <div
+            className="
+              mb-5 flex h-16 w-16
+              items-center justify-center
+              rounded-2xl
+              bg-emerald-100
+              dark:bg-emerald-500/10
+            "
+          >
+            <Globe2 className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
+          </div>
+
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
+            No active ideas yet
+          </h3>
+
+          <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">
+            Ideas that are approved and published by administrators will appear
+            here.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -90,7 +90,7 @@ export default async function ReviewIdeasPage({
             />
 
             {reviewMeta && (
-              <div className="border-t border-slate-100 dark:border-slate-800">
+              <div className="border-t border-slate-100 dark:border-slate-800 pb-6">
                 <Pagination meta={reviewMeta} />
               </div>
             )}
@@ -158,7 +158,7 @@ export default async function ReviewIdeasPage({
             />
 
             {rejectedMeta && (
-              <div className="border-t border-slate-100 dark:border-slate-800">
+              <div className="border-t border-slate-100 dark:border-slate-800 pb-6">
                 <Pagination meta={rejectedMeta} />
               </div>
             )}
