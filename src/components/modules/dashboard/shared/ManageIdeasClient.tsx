@@ -2,12 +2,14 @@
 
 import { Category, Idea } from "@/types";
 import React, { useState } from "react";
-import { UserRole } from "@/types/enums";
+import { IdeaStatus, UserRole } from "@/types/enums";
 import IdeasTable from "../admin/idea/IdeasTable";
 import ViewIdeaModal from "./ViewIdeaModal";
 import UpdateIdeaModal from "../member/idea/dialogs/UpdateIdeaModal";
 import DeleteIdeaModal from "../member/idea/dialogs/DeleteIdeaModal";
 import { toast } from "sonner";
+import { updateIdeaStatusById } from "@/actions/idea";
+import { useRouter } from "next/navigation";
 
 interface ManageIdeasClientProps {
   role: UserRole;
@@ -27,6 +29,8 @@ export default function ManageIdeasClient({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const isMember = role === UserRole.MEMBER;
+
+  const router = useRouter();
 
   const handleView = (idea: Idea) => {
     setSelectedIdea(idea);
@@ -48,17 +52,35 @@ export default function ManageIdeasClient({
   };
 
   const handleApprove = async (idea: Idea) => {
-    // API call to change status
-    console.log("Approve:", idea.id);
+    try {
+      const result = await updateIdeaStatusById(idea.id, IdeaStatus.PUBLISHED);
 
-    toast.info("Approve button clicked");
+      if (result.success) {
+        toast.success("Idea approved successfully");
+        setIsViewModalOpen(false);
+        setIsUpdateModalOpen(false);
+        setIsDeleteModalOpen(false);
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Failed to approve idea");
+    }
   };
 
   const handleReject = async (idea: Idea) => {
-    // API call to change status
-    console.log("Reject:", idea.id);
+    try {
+      const result = await updateIdeaStatusById(idea.id, IdeaStatus.REJECTED);
 
-    toast.info("Reject button clicked");
+      if (result.success) {
+        toast.success("Idea rejected successfully");
+        setIsViewModalOpen(false);
+        setIsUpdateModalOpen(false);
+        setIsDeleteModalOpen(false);
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Failed to reject idea");
+    }
   };
 
   return (

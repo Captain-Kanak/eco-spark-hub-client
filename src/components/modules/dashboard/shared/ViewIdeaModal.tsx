@@ -1,7 +1,7 @@
 "use client";
 
 import { Idea } from "@/types";
-import { UserRole } from "@/types/enums";
+import { IdeaStatus, UserRole } from "@/types/enums";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -40,77 +40,6 @@ interface ViewIdeaModalProps {
 
   onApprove?: (idea: Idea) => Promise<void> | void;
   onReject?: (idea: Idea) => Promise<void> | void;
-}
-
-function DetailSection({
-  icon: Icon,
-  title,
-  children,
-}: {
-  icon: React.ElementType;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="space-y-3">
-      <div className="flex items-center gap-2">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-500/10">
-          <Icon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-        </div>
-
-        <h3 className="text-sm font-black uppercase tracking-[0.14em] text-slate-700 dark:text-slate-300">
-          {title}
-        </h3>
-      </div>
-
-      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 text-sm leading-7 text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300">
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function InfoItem({
-  icon: Icon,
-  label,
-  value,
-  color = "emerald",
-}: {
-  icon: React.ElementType;
-  label: string;
-  value: string;
-  color?: "emerald" | "blue" | "amber" | "violet";
-}) {
-  const colors = {
-    emerald:
-      "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
-    blue: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-    amber:
-      "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
-    violet:
-      "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
-  };
-
-  return (
-    <div
-      className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4
-     dark:border-slate-800 dark:bg-slate-900/50"
-    >
-      <div
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${colors[color]}`}
-      >
-        <Icon className="h-4 w-4" />
-      </div>
-
-      <div className="min-w-0">
-        <p className="text-xs font-medium text-slate-400">{label}</p>
-
-        <p className="truncate font-bold text-slate-900 dark:text-white">
-          {value || "Not provided"}
-        </p>
-      </div>
-    </div>
-  );
 }
 
 export default function ViewIdeaModal({
@@ -331,7 +260,7 @@ export default function ViewIdeaModal({
             </Button>
 
             {/* Admin Actions */}
-            {isAdmin && onReject && (
+            {isAdmin && onReject && idea.status !== IdeaStatus.REJECTED && (
               <Button
                 type="button"
                 variant="outline"
@@ -380,5 +309,76 @@ export default function ViewIdeaModal({
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function DetailSection({
+  icon: Icon,
+  title,
+  children,
+}: {
+  icon: React.ElementType;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="space-y-3">
+      <div className="flex items-center gap-2">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-500/10">
+          <Icon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+        </div>
+
+        <h3 className="text-sm font-black uppercase tracking-[0.14em] text-slate-700 dark:text-slate-300">
+          {title}
+        </h3>
+      </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 text-sm leading-7 text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function InfoItem({
+  icon: Icon,
+  label,
+  value,
+  color = "emerald",
+}: {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+  color?: "emerald" | "blue" | "amber" | "violet";
+}) {
+  const colors = {
+    emerald:
+      "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
+    blue: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
+    amber:
+      "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
+    violet:
+      "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
+  };
+
+  return (
+    <div
+      className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4
+     dark:border-slate-800 dark:bg-slate-900/50"
+    >
+      <div
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${colors[color]}`}
+      >
+        <Icon className="h-4 w-4" />
+      </div>
+
+      <div className="min-w-0">
+        <p className="text-xs font-medium text-slate-400">{label}</p>
+
+        <p className="truncate font-bold text-slate-900 dark:text-white">
+          {value || "Not provided"}
+        </p>
+      </div>
+    </div>
   );
 }

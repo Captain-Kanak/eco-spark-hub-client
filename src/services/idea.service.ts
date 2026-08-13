@@ -32,7 +32,11 @@ const getAll = async (params: SearchQueryParams) => {
 };
 
 const updateStatusById = async (id: string, status: IdeaStatus) => {
-  return api.patch<Idea>(`${API_URL}/${id}`, { status }, { auth: true });
+  return api.patch<Idea>(
+    `${API_URL}/update-status/${id}`,
+    { status },
+    { auth: true },
+  );
 };
 
 const getBySlug = async (slug: string) => {
