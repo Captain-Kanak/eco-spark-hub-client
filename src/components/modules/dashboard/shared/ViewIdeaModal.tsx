@@ -284,7 +284,7 @@ export default function ViewIdeaModal({
               </Button>
             )}
 
-            {isAdmin && onApprove && (
+            {isAdmin && onApprove && idea.status === IdeaStatus.ON_REVIEW && (
               <Button
                 type="button"
                 onClick={handleApprove}

@@ -15,12 +15,14 @@ interface ManageIdeasClientProps {
   role: UserRole;
   ideas: Idea[];
   categories: Category[];
+  viewAsLink?: boolean;
 }
 
 export default function ManageIdeasClient({
   role,
   ideas,
   categories,
+  viewAsLink = false,
 }: ManageIdeasClientProps) {
   const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
 
@@ -90,6 +92,7 @@ export default function ManageIdeasClient({
         onView={handleView}
         onEdit={isMember ? handleEdit : undefined}
         onDelete={isMember ? handleDelete : undefined}
+        viewAsLink={viewAsLink}
       />
 
       {selectedIdea && (

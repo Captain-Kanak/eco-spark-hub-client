@@ -21,6 +21,7 @@ import {
   MessageCircle,
   Trash2,
 } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 interface IdeasTableProps {
@@ -28,6 +29,7 @@ interface IdeasTableProps {
   onView: (idea: Idea) => void;
   onEdit?: (idea: Idea) => void;
   onDelete?: (idea: Idea) => void;
+  viewAsLink?: boolean;
 }
 
 export default function IdeasTable({
@@ -35,6 +37,7 @@ export default function IdeasTable({
   onView,
   onEdit,
   onDelete,
+  viewAsLink,
 }: IdeasTableProps) {
   return (
     <Table>
@@ -146,16 +149,34 @@ export default function IdeasTable({
             <TableCell>
               <div className="flex items-center justify-end gap-2">
                 {/* View */}
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onView(idea)}
-                  className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
-                   hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30 cursor-pointer"
-                >
-                  <Eye className="h-4 w-4" />
-                </Button>
+                {viewAsLink ? (
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
+                     hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30"
+                  >
+                    <Link
+                      href={`/ideas/${idea.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="View idea"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onView?.(idea)}
+                    className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
+                     hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                )}
 
                 {/* Edit - only rendered when provided */}
                 {onEdit && (
