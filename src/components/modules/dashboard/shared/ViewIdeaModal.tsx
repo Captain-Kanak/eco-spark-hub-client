@@ -284,27 +284,30 @@ export default function ViewIdeaModal({
               </Button>
             )}
 
-            {isAdmin && onApprove && idea.status === IdeaStatus.ON_REVIEW && (
-              <Button
-                type="button"
-                onClick={handleApprove}
-                disabled={action !== null}
-                className="h-11 rounded-xl bg-emerald-600 px-6 font-bold text-white shadow-lg shadow-emerald-500/20
+            {isAdmin &&
+              onApprove &&
+              (idea.status === IdeaStatus.ON_REVIEW ||
+                idea.status === IdeaStatus.REJECTED) && (
+                <Button
+                  type="button"
+                  onClick={handleApprove}
+                  disabled={action !== null}
+                  className="h-11 rounded-xl bg-emerald-600 px-6 font-bold text-white shadow-lg shadow-emerald-500/20
                  hover:bg-emerald-700 cursor-pointer"
-              >
-                {action === "approve" ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Approving...
-                  </>
-                ) : (
-                  <>
-                    <Check className="mr-2 h-4 w-4" />
-                    Approve
-                  </>
-                )}
-              </Button>
-            )}
+                >
+                  {action === "approve" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Approving...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Approve
+                    </>
+                  )}
+                </Button>
+              )}
           </DialogFooter>
         </div>
       </DialogContent>

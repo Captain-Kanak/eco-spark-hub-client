@@ -14,6 +14,7 @@ import {
 import { Idea } from "@/types";
 import { format } from "date-fns";
 import {
+  Archive,
   Calendar,
   Edit,
   Eye,
@@ -29,6 +30,7 @@ interface IdeasTableProps {
   onView: (idea: Idea) => void;
   onEdit?: (idea: Idea) => void;
   onDelete?: (idea: Idea) => void;
+  onArchive?: (idea: Idea) => void;
   viewAsLink?: boolean;
 }
 
@@ -37,6 +39,7 @@ export default function IdeasTable({
   onView,
   onEdit,
   onDelete,
+  onArchive,
   viewAsLink,
 }: IdeasTableProps) {
   return (
@@ -172,9 +175,25 @@ export default function IdeasTable({
                     size="icon"
                     onClick={() => onView?.(idea)}
                     className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
-                     hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30"
+                     hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-blue-800 dark:hover:bg-blue-950/30 cursor-pointer"
                   >
                     <Eye className="h-4 w-4" />
+                  </Button>
+                )}
+
+                {/* Archive */}
+                {onArchive && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onArchive(idea)}
+                    title="Archive idea"
+                    className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
+                     hover:border-violet-200 hover:bg-violet-50 hover:text-violet-600 dark:border-slate-700
+                      dark:bg-slate-900 dark:hover:border-violet-800 dark:hover:bg-violet-950/30 cursor-pointer"
+                  >
+                    <Archive className="h-4 w-4" />
                   </Button>
                 )}
 

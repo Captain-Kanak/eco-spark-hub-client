@@ -30,6 +30,7 @@ export default function ManageIdeasClient({
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const isAdmin = role === UserRole.ADMIN;
   const isMember = role === UserRole.MEMBER;
 
   const router = useRouter();
@@ -85,6 +86,22 @@ export default function ManageIdeasClient({
     }
   };
 
+  const handleArchive = async (idea: Idea) => {
+    try {
+      const result = await updateIdeaStatusById(idea.id, IdeaStatus.ARCHIVED);
+
+      if (result.success) {
+        toast.success("Idea archived successfully");
+        setIsViewModalOpen(false);
+        setIsUpdateModalOpen(false);
+        setIsDeleteModalOpen(false);
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Failed to archive idea");
+    }
+  };
+
   return (
     <>
       <IdeasTable
@@ -92,6 +109,7 @@ export default function ManageIdeasClient({
         onView={handleView}
         onEdit={isMember ? handleEdit : undefined}
         onDelete={isMember ? handleDelete : undefined}
+        onArchive={isAdmin ? handleArchive : undefined}
         viewAsLink={viewAsLink}
       />
 

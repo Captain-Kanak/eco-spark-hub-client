@@ -98,7 +98,7 @@ export default async function CompletedIdeasPage({
           />
 
           {meta && (
-            <div className="border-t border-slate-100 dark:border-slate-800">
+            <div className="border-t border-slate-100 dark:border-slate-800 pb-6">
               <Pagination meta={meta} />
             </div>
           )}

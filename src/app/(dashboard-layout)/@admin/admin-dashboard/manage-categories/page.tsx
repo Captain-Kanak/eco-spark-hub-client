@@ -29,7 +29,7 @@ export default async function ManageCategoriesPage({
 
       <div className="rounded-3xl bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/80">
         {categories.length > 0 ? (
-          <div>
+          <div className="pb-6">
             <ManageCategoriesClient categories={categories} />
 
             {meta && <Pagination meta={meta} />}
