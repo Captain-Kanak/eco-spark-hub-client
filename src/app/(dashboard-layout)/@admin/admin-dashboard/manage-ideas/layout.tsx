@@ -68,9 +68,9 @@ export default function ManageIdeasLayout({
       icon: Archive,
       active: isArchived,
       activeClass:
-        "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200",
+        "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400",
       iconClass:
-        "bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-300",
+        "bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400",
     },
   ];
 
