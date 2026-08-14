@@ -25,17 +25,9 @@ export default async function CompletedIdeasPage({
     <div className="space-y-6">
       {/* Header */}
       <div
-        className="
-          flex flex-col gap-5 rounded-[2rem]
-          border border-blue-100
-          bg-linear-to-br from-blue-50 via-white to-white
-          p-6
-          dark:border-blue-500/10
-          dark:from-blue-500/5
-          dark:via-slate-950
-          dark:to-slate-950
-          sm:flex-row sm:items-center sm:justify-between
-        "
+        className="flex flex-col gap-5 rounded-[2rem] border border-blue-100 bg-linear-to-br from-blue-50 via-white
+       to-white p-6 dark:border-blue-500/10 dark:from-blue-500/5 dark:via-slate-950 dark:to-slate-950
+        sm:flex-row sm:items-center sm:justify-between"
       >
         <div className="flex items-start gap-4">
           {/* Icon */}

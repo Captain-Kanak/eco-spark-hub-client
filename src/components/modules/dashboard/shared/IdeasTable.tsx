@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Idea } from "@/types";
+import { IdeaStatus } from "@/types/enums";
 import { format } from "date-fns";
 import {
   Archive,
@@ -182,7 +183,7 @@ export default function IdeasTable({
                 )}
 
                 {/* Archive */}
-                {onArchive && (
+                {onArchive && idea.status === IdeaStatus.COMPLETED && (
                   <Button
                     type="button"
                     variant="ghost"
