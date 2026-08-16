@@ -23,7 +23,7 @@ export const MemberRoutes: Route[] = [
       },
       {
         title: "Manage Ideas",
-        url: MEMBER_ROUTE_PATHS.MY_IDEAS,
+        url: MEMBER_ROUTE_PATHS.MANAGE_IDEAS,
         icon: Lightbulb,
       },
       {

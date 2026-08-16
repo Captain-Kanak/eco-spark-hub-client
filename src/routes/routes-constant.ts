@@ -14,7 +14,7 @@ export const ADMIN_ROUTE_PATHS = {
 export const MEMBER_ROUTE_PATHS = {
   OVERVIEW: MEMBER_ROUTE_PREFIX,
   PROFILE: `${MEMBER_ROUTE_PREFIX}/profile`,
-  MY_IDEAS: `${MEMBER_ROUTE_PREFIX}/my-ideas`,
+  MANAGE_IDEAS: `${MEMBER_ROUTE_PREFIX}/manage-ideas`,
   PAYMENTS_HISTORY: `${MEMBER_ROUTE_PREFIX}/payments-history`,
 } as const;
 

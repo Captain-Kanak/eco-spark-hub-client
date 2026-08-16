@@ -3,6 +3,7 @@
 import { ideaService } from "@/services/idea.service";
 import { SearchQueryParams } from "@/types";
 import { IdeaStatus } from "@/types/enums";
+import { getMe } from "./auth";
 
 export const createIdea = async (payload: FormData) => {
   return await ideaService.create(payload);
@@ -11,6 +12,24 @@ export const createIdea = async (payload: FormData) => {
 export const getIdeas = async (params: SearchQueryParams) => {
   return await ideaService.getAll(params);
 };
+
+export async function getMyIdeas(params: SearchQueryParams) {
+  const user = await getMe();
+
+  if (!user.data) {
+    return {
+      success: false,
+      message: "Unauthorized",
+      data: [],
+      meta: undefined,
+    };
+  }
+
+  return getIdeas({
+    ...params,
+    userId: user.data.id,
+  });
+}
 
 export const updateIdeaStatusById = async (id: string, status: IdeaStatus) => {
   return await ideaService.updateStatusById(id, status);
