@@ -83,12 +83,42 @@ export const CreateCategoryModal = ({
     field: any,
   ) => {
     const file = e.target.files?.[0];
-    if (file) {
-      field.handleChange(file);
-      const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result as string);
-      reader.readAsDataURL(file);
+
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only JPG, JPEG, PNG, GIF, and WEBP images are allowed.");
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      return;
     }
+
+    const maxSize = 2 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      toast.error("Image size must be less than 2 MB.");
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      return;
+    }
+
+    field.handleChange(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -214,7 +244,7 @@ export const CreateCategoryModal = ({
                             </p>
 
                             <span className="mt-4 rounded-full bg-white px-4 py-1 text-xs font-semibold shadow dark:bg-slate-800">
-                              PNG • JPG • WEBP
+                              JPG • JPEG • PNG • GIF • WEBP · Max 2 MB
                             </span>
                           </div>
                         </div>

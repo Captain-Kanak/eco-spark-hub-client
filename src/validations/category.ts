@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { ALLOWED_FILE_EXTENSIONS, MAX_FILE_SIZE } from "./file";
+import { ALLOWED_IMAGE_EXTENSIONS, MAX_FILE_SIZE } from "./file";
 
 const nameSchema = z
   .string("Name is required")
@@ -16,7 +16,7 @@ const iconSchema = z
   .refine(
     (file) =>
       !file ||
-      ALLOWED_FILE_EXTENSIONS.includes(
+      ALLOWED_IMAGE_EXTENSIONS.includes(
         `.${file.name.split(".").pop()?.toLowerCase()}`,
       ),
     {

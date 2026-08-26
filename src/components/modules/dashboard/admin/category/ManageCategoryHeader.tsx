@@ -33,7 +33,6 @@ export default function ManageCategoryHeader() {
           shadow-emerald-600/20 cursor-pointer text-white"
         >
           <Plus className="mr-2 h-5 w-5" />
-
           New Category
         </Button>
       </div>
