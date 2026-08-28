@@ -38,17 +38,9 @@ export default async function ActiveIdeasPage({
     <div className="space-y-6">
       {/* ================= HEADER ================= */}
       <div
-        className="
-          relative overflow-hidden rounded-[2rem]
-          border border-emerald-100
-          bg-linear-to-br from-emerald-50 via-white to-white
-          p-6
-          dark:border-emerald-500/10
-          dark:from-emerald-500/5
-          dark:via-slate-950
-          dark:to-slate-950
-          sm:p-8
-        "
+        className="relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-linear-to-br from-emerald-50
+       via-white to-white p-6 dark:border-emerald-500/10 dark:from-emerald-500/5 dark:via-slate-950
+        dark:to-slate-950 sm:p-8"
       >
         {/* Decorative glow */}
         <div

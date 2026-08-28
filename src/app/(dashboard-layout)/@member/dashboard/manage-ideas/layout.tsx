@@ -80,15 +80,15 @@ export default function ManageIdeasLayout({
   return (
     <div className="space-y-6">
       {/* ================= HEADER ================= */}
-      <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-8">
+      <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950 p-5">
         {/* Decorative background */}
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-emerald-500/5 blur-3xl" />
 
         <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           {/* Title */}
-          <div className="flex items-start gap-4">
-            <div className="h-14 w-14 ...">
-              <Lightbulb className="h-6 w-6 ..." />
+          <div className="flex items-center gap-3">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10">
+              <Lightbulb className="h-16 w-16 text-emerald-600 dark:text-emerald-400" />
             </div>
 
             <div>
@@ -110,7 +110,7 @@ export default function ManageIdeasLayout({
             </div>
 
             <div>
-              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-medium text-slate-500">
                 Your Workspace
               </p>
 
