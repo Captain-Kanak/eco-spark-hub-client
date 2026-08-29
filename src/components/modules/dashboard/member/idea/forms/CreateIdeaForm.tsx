@@ -193,10 +193,7 @@ export default function CreateIdeaForm({
 
   return (
     <div className="mx-auto max-w-5xl pb-12">
-      {/* ====================================================== */}
       {/* PAGE HEADER */}
-      {/* ====================================================== */}
-
       <div className="mb-8">
         <div className="relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-linear-to-br from-emerald-50 via-white to-white p-6 shadow-sm dark:border-emerald-500/10 dark:from-emerald-500/5 dark:via-slate-950 dark:to-slate-950 sm:p-8">
           <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
@@ -231,10 +228,7 @@ export default function CreateIdeaForm({
         </div>
       </div>
 
-      {/* ====================================================== */}
       {/* FORM */}
-      {/* ====================================================== */}
-
       <form
         id="create-idea-form"
         onSubmit={(e) => {
@@ -244,10 +238,7 @@ export default function CreateIdeaForm({
         }}
         className="space-y-6"
       >
-        {/* ==================================================== */}
         {/* BASIC INFORMATION */}
-        {/* ==================================================== */}
-
         <Card className="overflow-hidden rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardHeader className="border-b border-slate-100 bg-slate-50/70 p-6 dark:border-slate-800 dark:bg-slate-900/50 sm:p-8">
             <div className="flex items-start gap-4">
@@ -374,10 +365,7 @@ export default function CreateIdeaForm({
           </CardContent>
         </Card>
 
-        {/* ==================================================== */}
         {/* COVER IMAGE */}
-        {/* ==================================================== */}
-
         <Card className="overflow-hidden rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardHeader className="border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
             <div className="flex items-start gap-4">
@@ -467,10 +455,7 @@ export default function CreateIdeaForm({
           </CardContent>
         </Card>
 
-        {/* ==================================================== */}
         {/* PROBLEM & SOLUTION */}
-        {/* ==================================================== */}
-
         <Card className="overflow-hidden rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardHeader className="border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
             <div className="flex items-start gap-4">
@@ -550,10 +535,7 @@ export default function CreateIdeaForm({
           </CardContent>
         </Card>
 
-        {/* ==================================================== */}
         {/* IMPACT */}
-        {/* ==================================================== */}
-
         <Card className="overflow-hidden rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardHeader className="border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
             <div className="flex items-start gap-4">
@@ -652,10 +634,7 @@ export default function CreateIdeaForm({
           </CardContent>
         </Card>
 
-        {/* ==================================================== */}
         {/* LOCATION & FUNDING */}
-        {/* ==================================================== */}
-
         <Card className="overflow-hidden rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardHeader className="border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
             <div className="flex items-start gap-4">
@@ -778,10 +757,7 @@ export default function CreateIdeaForm({
           </CardContent>
         </Card>
 
-        {/* ==================================================== */}
         {/* SUBMISSION NOTICE */}
-        {/* ==================================================== */}
-
         <div className="flex gap-4 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5 dark:border-emerald-500/10 dark:bg-emerald-500/5">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-500/10">
             <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -800,10 +776,7 @@ export default function CreateIdeaForm({
           </div>
         </div>
 
-        {/* ==================================================== */}
         {/* SUBMIT */}
-        {/* ==================================================== */}
-
         <Card className="rounded-[2rem] border-slate-200 shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <CardFooter className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div className="flex items-start gap-3">

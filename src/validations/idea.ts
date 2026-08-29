@@ -60,7 +60,7 @@ const createIdeaSchema = z.object({
   categoryId: idSchema,
 });
 
-const updateIdeaSchema = createIdeaSchema.partial();
+const updateIdeaSchema = createIdeaSchema;
 
 const updateIdeaStatusSchema = z.object({
   status: z.enum(IdeaStatus),
