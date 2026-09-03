@@ -86,6 +86,22 @@ export default function ManageIdeasClient({
     }
   };
 
+  const handleComplete = async (idea: Idea) => {
+    try {
+      const result = await updateIdeaStatusById(idea.id, IdeaStatus.COMPLETED);
+
+      if (result.success) {
+        toast.success("Idea completed successfully");
+        setIsViewModalOpen(false);
+        setIsUpdateModalOpen(false);
+        setIsDeleteModalOpen(false);
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Failed to complete idea");
+    }
+  };
+
   const handleArchive = async (idea: Idea) => {
     try {
       const result = await updateIdeaStatusById(idea.id, IdeaStatus.ARCHIVED);
@@ -124,6 +140,7 @@ export default function ManageIdeasClient({
             idea={selectedIdea}
             onApprove={handleApprove}
             onReject={handleReject}
+            onComplete={handleComplete}
           />
 
           {/* Edit - Member only */}

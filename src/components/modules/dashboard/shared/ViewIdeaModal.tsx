@@ -40,6 +40,7 @@ interface ViewIdeaModalProps {
 
   onApprove?: (idea: Idea) => Promise<void> | void;
   onReject?: (idea: Idea) => Promise<void> | void;
+  onComplete?: (idea: Idea) => Promise<void> | void;
 }
 
 export default function ViewIdeaModal({
@@ -49,8 +50,11 @@ export default function ViewIdeaModal({
   idea,
   onApprove,
   onReject,
+  onComplete,
 }: ViewIdeaModalProps) {
-  const [action, setAction] = useState<"approve" | "reject" | null>(null);
+  const [action, setAction] = useState<
+    "approve" | "reject" | "complete" | null
+  >(null);
 
   const handleApprove = async () => {
     if (!onApprove) return;
@@ -70,6 +74,18 @@ export default function ViewIdeaModal({
     try {
       setAction("reject");
       await onReject(idea);
+      onOpenChange(false);
+    } finally {
+      setAction(null);
+    }
+  };
+
+  const handleComplete = async () => {
+    if (!onComplete) return;
+
+    try {
+      setAction("complete");
+      await onComplete(idea);
       onOpenChange(false);
     } finally {
       setAction(null);
@@ -308,6 +324,28 @@ export default function ViewIdeaModal({
                   )}
                 </Button>
               )}
+
+            {isAdmin && idea.status === IdeaStatus.PUBLISHED && (
+              <Button
+                type="button"
+                onClick={handleComplete}
+                disabled={action !== null}
+                className="h-11 rounded-xl bg-emerald-600 px-6 font-bold text-white shadow-lg shadow-emerald-500/20
+                 hover:bg-emerald-700 cursor-pointer"
+              >
+                {action === "complete" ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Completing...
+                  </>
+                ) : (
+                  <>
+                    <Check className="mr-2 h-4 w-4" />
+                    Completed
+                  </>
+                )}
+              </Button>
+            )}
           </DialogFooter>
         </div>
       </DialogContent>
