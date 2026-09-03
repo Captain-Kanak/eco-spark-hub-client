@@ -5,7 +5,7 @@ import Pagination from "@/components/common/Pagination";
 import ManageIdeasClient from "@/components/modules/dashboard/shared/ManageIdeasClient";
 import { SearchQueryParams } from "@/types";
 import { IdeaStatus, UserRole } from "@/types/enums";
-import { Lightbulb } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import React from "react";
 
 export default async function CompletedIdeasPage({
@@ -65,7 +65,7 @@ export default async function CompletedIdeasPage({
               dark:text-emerald-400
             "
           >
-            <Lightbulb className="h-6 w-6" />
+            <CheckCircle2 className="h-6 w-6" />
           </div>
 
           <div>
@@ -94,16 +94,9 @@ export default async function CompletedIdeasPage({
               </span>
             </div>
 
-            <p
-              className="
-                mt-2 max-w-2xl
-                text-sm leading-6
-                text-slate-500
-                dark:text-slate-400
-              "
-            >
-              Manage your published and ongoing ideas, track their progress, and
-              keep your community projects moving forward.
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+              View your successfully completed ideas and see the impact your
+              community projects have made.
             </p>
           </div>
         </div>
@@ -160,15 +153,15 @@ export default async function CompletedIdeasPage({
               dark:bg-emerald-500/10
             "
           >
-            <Lightbulb className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
+            <CheckCircle2 className="h-6 w-6" />
           </div>
 
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
-            No active ideas yet
+            No completed ideas yet
           </h3>
 
           <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">
-            Ideas that are published or currently in progress will appear here.
+            Ideas that you successfully complete will appear here.
           </p>
         </div>
       )}
