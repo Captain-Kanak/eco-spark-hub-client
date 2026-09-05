@@ -40,9 +40,9 @@ export interface Idea {
   proposedSolution: string;
   expectedImpact: string[];
   location: string;
-  estimatedBudget: string;
-  fundingGoal: string;
-  currentFunding: string;
+  estimatedBudget: number;
+  fundingGoal: number;
+  currentFunding: number;
   status: IdeaStatus;
   views: number;
   userId: string;

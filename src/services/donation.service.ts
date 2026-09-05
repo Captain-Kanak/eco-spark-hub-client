@@ -5,7 +5,7 @@ import { CreatePaymentIntent } from "@/types";
 const API_URL = `${env.API_URL}/api/v1/donations`;
 
 const createPaymentIntent = async (payload: CreatePaymentIntent) => {
-  return api.post<string>(API_URL, payload, {
+  return api.post<string>(`${API_URL}/create-payment-intent`, payload, {
     auth: true,
   });
 };
