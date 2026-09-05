@@ -199,33 +199,37 @@ export default function IdeasTable({
                 )}
 
                 {/* Edit - only rendered when provided */}
-                {onEdit && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => onEdit(idea)}
-                    className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
+                {onEdit &&
+                  idea.status !== IdeaStatus.COMPLETED &&
+                  idea.status !== IdeaStatus.ARCHIVED && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onEdit(idea)}
+                      className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
                      hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 dark:border-slate-700
                       dark:bg-slate-900 dark:hover:border-emerald-800 dark:hover:bg-emerald-950/30 cursor-pointer"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                )}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  )}
 
                 {/* Delete - only rendered when provided */}
-                {onDelete && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => onDelete(idea)}
-                    className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
+                {onDelete &&
+                  idea.status !== IdeaStatus.COMPLETED &&
+                  idea.status !== IdeaStatus.ARCHIVED && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onDelete(idea)}
+                      className="h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-500 transition-all
                      hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-rose-800 dark:hover:bg-rose-950/30 cursor-pointer"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
               </div>
             </TableCell>
           </TableRow>
